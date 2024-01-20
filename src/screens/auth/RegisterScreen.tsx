@@ -7,18 +7,30 @@ import {
     View,
   } from "react-native";
   import React from "react";
-  import Spacing from "../constants/Spacing";
-  import FontSize from "../constants/FontSize";
-  import Colors from "../constants/Colors";
-  import Font from "../constants/Font";
+  import Spacing from "../../constants/Spacing";
+  import FontSize from "../../constants/FontSize";
+  import Colors from "../../constants/Colors";
+  import Font from "../../constants/Font";
   import { Ionicons } from "@expo/vector-icons";
   import { NativeStackScreenProps } from "@react-navigation/native-stack";
-  import { RootStackParamList } from "../types";
-  import AppTextInput from "../components/AppTextInput";
+  import { RootStackParamList } from "../../types";
+  import AppTextInput from "../../components/AppTextInput";
+  import { RegisterUserDTO } from "@api";
   
-  type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+  type Props = NativeStackScreenProps<RootStackParamList, "Register">;
   
-  const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
+  const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
+    const [user, setUser] = React.useState<RegisterUserDTO>({
+      email: "TEST",
+      password: "TEST",
+      confirmPassword: "TEST",
+      firstName: "TEST",
+      lastName: "TEST",
+      gender: 1,
+      registrationSource: 1,
+      pushNotificationToken: true,
+      isLocationAllowed: true,
+    });
     return (
       <SafeAreaView>
         <View
@@ -39,17 +51,17 @@ import {
                 marginVertical: Spacing * 3,
               }}
             >
-              Login here
+              Create account
             </Text>
             <Text
               style={{
-                fontFamily: Font["poppins-semiBold"],
-                fontSize: FontSize.large,
-                maxWidth: "60%",
+                fontFamily: Font["poppins-regular"],
+                fontSize: FontSize.small,
+                maxWidth: "80%",
                 textAlign: "center",
               }}
             >
-              Welcome back you've been missed!
+              Create an account so you can explore all the existing jobs
             </Text>
           </View>
           <View
@@ -57,28 +69,21 @@ import {
               marginVertical: Spacing * 3,
             }}
           >
-            <AppTextInput placeholder="Email" />
-            <AppTextInput placeholder="Password" />
+            <AppTextInput 
+            placeholder="Email" 
+            onChangeText={text => setUser(prevUser => ({ ...prevUser, email: text }))} />
+            <AppTextInput    
+            placeholder="Password" 
+            secureTextEntry={true} 
+            onChangeText={text => user?.password == text}/>
+            <AppTextInput 
+            placeholder="Confirm Password" 
+            secureTextEntry={true} 
+            onChangeText={text => user?.confirmPassword == text}/>
           </View>
   
           <TouchableOpacity
-            onPress={() => navigate("RecoverPassword")}
-            style={{
-            padding: Spacing,
-            }}>
-            <Text
-              style={{
-                fontFamily: Font["poppins-semiBold"],
-                fontSize: FontSize.small,
-                color: Colors.primary,
-                alignSelf: "flex-end",
-              }}
-            >
-              Forgot your password ?
-            </Text>
-          </TouchableOpacity>
-  
-          <TouchableOpacity
+          onPress={() => navigate('PersonalData', {user: user})}
             style={{
               padding: Spacing * 2,
               backgroundColor: Colors.primary,
@@ -101,11 +106,11 @@ import {
                 fontSize: FontSize.large,
               }}
             >
-              Sign in
+              Move on
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigate("Register")}
+            onPress={() => navigate("Login")}
             style={{
               padding: Spacing,
             }}
@@ -118,7 +123,7 @@ import {
                 fontSize: FontSize.small,
               }}
             >
-              Create new account
+              Already have an account
             </Text>
           </TouchableOpacity>
   
@@ -194,6 +199,5 @@ import {
     );
   };
   
-  export default LoginScreen;
+  export default RegisterScreen;
   
-  const styles = StyleSheet.create({});

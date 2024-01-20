@@ -8,12 +8,12 @@ import {
     View,
   } from "react-native";
   import React from "react";
-  import Spacing from "../constants/Spacing";
-  import FontSize from "../constants/FontSize";
-  import Colors from "../constants/Colors";
-  import Font from "../constants/Font";
+  import Spacing from "../../constants/Spacing";
+  import FontSize from "../../constants/FontSize";
+  import Colors from "../../constants/Colors";
+  import Font from "../../constants/Font";
   import { NativeStackScreenProps } from "@react-navigation/native-stack";
-  import { RootStackParamList } from "../types";
+  import { RootStackParamList } from "../../types";
   const { height } = Dimensions.get("window");
   
   type Props = NativeStackScreenProps<RootStackParamList, "Welcome">;
@@ -28,7 +28,7 @@ import {
               marginTop: 50
             }}
             resizeMode="contain"
-            source={require("../assets/images/welcome-img.png")}
+            source={require("../../assets/images/welcome-img.png")}
           />
           <View
             style={{
@@ -64,6 +64,7 @@ import {
               paddingHorizontal: Spacing * 2,
               paddingTop: Spacing * 6,
               flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
             <TouchableOpacity
@@ -97,6 +98,7 @@ import {
             <TouchableOpacity
               onPress={() => navigate("Register")}
               style={{
+                backgroundColor: Colors.primary,
                 paddingVertical: Spacing * 1.5,
                 paddingHorizontal: Spacing * 2,
                 width: "48%",
@@ -106,7 +108,7 @@ import {
               <Text
                 style={{
                   fontFamily: Font["poppins-bold"],
-                  color: Colors.text,
+                  color: Colors.onPrimary,
                   fontSize: FontSize.large,
                   textAlign: "center",
                 }}

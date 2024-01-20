@@ -1,5 +1,5 @@
 export default{
-    "poppins-regular" : "poppins-regular",
-    "poppins-bold" : "poppins-bond",
-    "poppins-semiBold" : "poppins-semiBold",
+    'poppins-regular' : "../assets/fonts/Poppins-Regular.ttf",
+    "poppins-bold" : "../assets/fonts/Poppins-Bold.ttf",
+    "poppins-semiBold" : "../assets/fonts/Poppins-SemiBold.ttf",
 }
