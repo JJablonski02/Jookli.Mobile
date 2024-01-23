@@ -3,31 +3,28 @@ import { StyleSheet, Text, View } from 'react-native';
 import {Navigation} from './src/navigation';
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import fonts from "./src/constants/Font"
-import {useFonts} from 'expo-font'
 import { NativeModules, Platform } from 'react-native';
 import { AuthProvider } from './src/context/AuthContext';
+import * as Font from 'expo-font'
+import React, {useState} from 'react';
+import AppLoading from 'expo-app-loading';
+import { useEffect } from 'react';
+import { useFonts } from 'expo-font';
 
 export default function App() {
-  const [loadedFont] = useFonts(fonts);
-  if(!loadedFont){
-    console.log("Fonts not loaded, your application wont start")
-  }
-  const locale = NativeModules.I18nManager.localeIdentifier; //reads the device language
-  console.log(locale);
-  return(
-    <AuthProvider>
+  const [loaded, error] = useFonts(fonts);
+ 
+useEffect(() => {
+if (error) throw error;
+}, [error]);
+
+  return(loaded && 
+    (<AuthProvider>
       <SafeAreaProvider>
-          <Navigation/>
+        <Navigation/>
       </SafeAreaProvider>
-    </AuthProvider>
+    </AuthProvider>)
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+

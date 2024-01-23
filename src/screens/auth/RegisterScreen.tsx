@@ -47,7 +47,7 @@ import {
               style={{
                 fontSize: FontSize.xLarge,
                 color: Colors.primary,
-                fontFamily: Font["poppins-bold"],
+                fontFamily: "PoppinsBold",
                 marginVertical: Spacing * 3,
               }}
             >
@@ -55,7 +55,7 @@ import {
             </Text>
             <Text
               style={{
-                fontFamily: Font["poppins-regular"],
+                fontFamily: "PoppinsRegular",
                 fontSize: FontSize.small,
                 maxWidth: "80%",
                 textAlign: "center",
@@ -100,7 +100,7 @@ import {
           >
             <Text
               style={{
-                fontFamily: Font["poppins-bold"],
+                fontFamily: "PoppinsBold",
                 color: Colors.onPrimary,
                 textAlign: "center",
                 fontSize: FontSize.large,
@@ -117,7 +117,7 @@ import {
           >
             <Text
               style={{
-                fontFamily: Font["poppins-semiBold"],
+                fontFamily: "PoppinsSemiBold",
                 color: Colors.text,
                 textAlign: "center",
                 fontSize: FontSize.small,
@@ -134,7 +134,7 @@ import {
           >
             <Text
               style={{
-                fontFamily: Font["poppins-semiBold"],
+                fontFamily: "PoppinsSemiBold",
                 color: Colors.primary,
                 textAlign: "center",
                 fontSize: FontSize.small,

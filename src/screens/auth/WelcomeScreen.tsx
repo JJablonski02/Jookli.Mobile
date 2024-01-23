@@ -12,11 +12,15 @@ import {
   import FontSize from "../../constants/FontSize";
   import Colors from "../../constants/Colors";
   import Font from "../../constants/Font";
+  import GoogleButton from "../../components/GoogleButton";
   import { NativeStackScreenProps } from "@react-navigation/native-stack";
   import { RootStackParamList } from "../../types";
   const { height } = Dimensions.get("window");
   
   type Props = NativeStackScreenProps<RootStackParamList, "Welcome">;
+  const signIns = () => {
+
+  };
   
   const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
     return (
@@ -24,7 +28,7 @@ import {
         <View>
           <ImageBackground
             style={{
-              height: height / 2,
+              height: height / 2.5,
               marginTop: 50
             }}
             resizeMode="contain"
@@ -40,7 +44,7 @@ import {
               style={{
                 fontSize: FontSize.xxLarge,
                 color: Colors.primary,
-                fontFamily: Font["poppins-bold"],
+                fontFamily: "PoppinsBold",
                 textAlign: "center",
               }}
             >
@@ -51,7 +55,7 @@ import {
               style={{
                 fontSize: FontSize.small,
                 color: Colors.text,
-                fontFamily: Font["poppins-regular"],
+                fontFamily: "PoppinsRegular",
                 textAlign: "center",
                 marginTop: Spacing * 2,
               }}
@@ -86,7 +90,7 @@ import {
             >
               <Text
                 style={{
-                  fontFamily: Font["poppins-bold"],
+                  fontFamily: "PoppinsBold",
                   color: Colors.onPrimary,
                   fontSize: FontSize.large,
                   textAlign: "center",
@@ -107,7 +111,7 @@ import {
             >
               <Text
                 style={{
-                  fontFamily: Font["poppins-bold"],
+                  fontFamily: "PoppinsBold",
                   color: Colors.onPrimary,
                   fontSize: FontSize.large,
                   textAlign: "center",
@@ -116,6 +120,11 @@ import {
                 Register
               </Text>
             </TouchableOpacity>
+          </View>
+          <View style={{
+            alignItems: "center",
+          }}>
+            <GoogleButton signIn={signIns}/>
           </View>
         </View>
       </SafeAreaView>

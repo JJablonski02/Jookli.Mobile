@@ -87,20 +87,29 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
   ///Login with email and password
   const login = (email: string, password: string) => {
     setIsLoading(true);
-    console.log(`login ${email} ${password}`);
+    //console.log(`login ${email} ${password}`);
+console.log("Before request");
     axios
-      .post(`https://localhost:7133/connect/token`, {
-        client_id: 'ro.client',
-        client_secret: 'secret',
-        scope: 'jookliApi.read jookliApi.write',
-        grant_type: 'password',
-        username: email,
-        password: password,
-      }).then((res) => {
-        console.log(res.data);
-      }).catch((e) => {
-        console.log(`login error ${e}`);
-      });
+    .get(`https://10.0.2.2:7133/api/useraccess/Test`)
+    .then((response) => {
+      console.log(response.data);
+    }).catch((e) => {
+      console.log(`Error: ` + e);
+    });
+    console.log("After request");
+    // axios
+    //   .post(`https://localhost:7133/connect/token`, {
+    //     client_id: 'ro.client',
+    //     client_secret: 'secret',
+    //     scope: 'jookliApi.read jookliApi.write',
+    //     grant_type: 'password',
+    //     username: email,
+    //     password: password,
+    //   }).then((res) => {
+    //     console.log(res.data);
+    //   }).catch((e) => {
+    //     console.log(`login error ${e}`);
+    //   });
       // .then((res) => {
       //   let userInfo = res.data as UserInfo;
       //   console.log(userInfo);

@@ -47,7 +47,7 @@ const PersonalDataScreen: React.FC<Props> = ({ route ,navigation: { navigate } }
         <View>
           <Text
             style={{
-              fontFamily: Font["poppins-bold"],
+              fontFamily: "PoppinsSemiBold",
               fontSize: FontSize.xLarge,
               color: Colors.primary,
               marginVertical: Spacing * 3,
@@ -109,7 +109,7 @@ const PersonalDataScreen: React.FC<Props> = ({ route ,navigation: { navigate } }
           >
             <Text
               style={{
-                fontFamily: Font["poppins-bold"],
+                fontFamily: "PoppinsBold",
                 color: Colors.onPrimary,
                 textAlign: "center",
                 fontSize: FontSize.large,

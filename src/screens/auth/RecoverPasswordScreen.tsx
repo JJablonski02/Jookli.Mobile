@@ -39,7 +39,7 @@ import {
               style={{
                 fontSize: FontSize.xLarge,
                 color: Colors.primary,
-                fontFamily: Font["poppins-bold"],
+                fontFamily: "PoppinsBold",
                 paddingLeft: Spacing * 5,
                 paddingRight: Spacing *5,
                 alignContent: "center",
@@ -51,7 +51,7 @@ import {
             </Text>
             <Text
               style={{
-                fontFamily: Font["poppins-semiBold"],
+                fontFamily: "PoppinsSemiBold",
                 fontSize: FontSize.small,
                 maxWidth: "80%",
                 textAlign: "center",
@@ -87,7 +87,7 @@ import {
           >
             <Text
               style={{
-                fontFamily: Font["poppins-bold"],
+                fontFamily: "PoppinsBold",
                 color: Colors.onPrimary,
                 textAlign: "center",
                 fontSize: FontSize.large,

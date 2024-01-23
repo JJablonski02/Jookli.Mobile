@@ -56,14 +56,9 @@ return (
         }}>
           <Stack.Screen name="Welcome" component={WelcomeScreen}/>
           <Stack.Screen name='Login' component={LoginScreen}/>
-          <Stack.Screen
-            name="Register"
-            component={RegisterScreen}
-          />
-          <Stack.Screen
-          name="RecoverPassword"
-          component={RecoverPasswordScreen}
-          />
+          <Stack.Screen name="Register"component={RegisterScreen}/>
+          <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
+          <Stack.Screen name="PersonalData" component={PersonalDataScreen}/>
         </Stack.Group>
       )}
     </Stack.Navigator>

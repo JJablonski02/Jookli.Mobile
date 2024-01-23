@@ -1,5 +1,5 @@
 export default{
-    'poppins-regular' : "../assets/fonts/Poppins-Regular.ttf",
-    "poppins-bold" : "../assets/fonts/Poppins-Bold.ttf",
-    "poppins-semiBold" : "../assets/fonts/Poppins-SemiBold.ttf",
+    PoppinsRegular : require('../../assets/fonts/Poppins-Regular.ttf'),
+    PoppinsBold : require('../../assets/fonts/Poppins-Bold.ttf'),
+    PoppinsSemiBold : require('../../assets/fonts/Poppins-SemiBold.ttf'),
 }

@@ -5,8 +5,9 @@ import {
     TextInput,
     TouchableOpacity,
     View,
+    KeyboardAvoidingView,
   } from "react-native";
-  import React, {useContext} from 'react';
+  import React, {useContext, useState} from 'react';
   import Spacing from "../../constants/Spacing";
   import FontSize from "../../constants/FontSize";
   import Colors from "../../constants/Colors";
@@ -20,11 +21,34 @@ import {
   type Props = NativeStackScreenProps<RootStackParamList, "Login">;
   
   
+  
   const LoginScreen: React.FC<Props> = ({ navigation: { navigate }
   }) => {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const context = useContext(AuthContext);
+    const [isEmailValid, setEmailValid] = useState(false);
+    const [isFieldEdited, setFieldEdited] = useState(false);
+
+    function validateEmail(email: string){
+      var re = /\S+@\S+\.\S+/;
+     if(re.test(email)){
+      setEmail(email);
+      setEmailValid(true);
+     }
+     else{
+        setEmailValid(false);
+     }
+    }
+    const validate = () => {
+      validateEmail(email);
+    }
+
+    const onChangeTextHandler = (text: string) => {
+      setFieldEdited(true);
+      setEmail(text);
+    };
+
     return (
       <SafeAreaView>
         <View
@@ -39,20 +63,11 @@ import {
           >
             <Text
               style={{
-                fontSize: FontSize.xLarge,
-                color: Colors.primary,
-                fontFamily: Font["poppins-bold"],
-                marginVertical: Spacing * 3,
-              }}
-            >
-              Login here
-            </Text>
-            <Text
-              style={{
-                fontFamily: Font["poppins-semiBold"],
+                fontFamily: "PoppinsBold",
                 fontSize: FontSize.large,
                 maxWidth: "60%",
                 textAlign: "center",
+                marginTop: Spacing * 10,
               }}
             >
               Welcome back you've been missed!
@@ -66,7 +81,9 @@ import {
             <AppTextInput 
             placeholder="Email"
             value={email}
-            onChangeText={text => setEmail(text)}/>
+            onChangeText={text => onChangeTextHandler(text)}
+            onBlur={validate}/>
+            {!isEmailValid && isFieldEdited && <Text style={{color: 'red'}}>Invalid email addres</Text>}
             <AppTextInput 
             placeholder="Password" 
             secureTextEntry={true}
@@ -81,7 +98,7 @@ import {
             }}>
             <Text
               style={{
-                fontFamily: Font["poppins-semiBold"],
+                fontFamily: "PoppinsSemiBold",
                 fontSize: FontSize.small,
                 color: Colors.primary,
                 alignSelf: "flex-end",
@@ -111,7 +128,7 @@ import {
           >
             <Text
               style={{
-                fontFamily: Font["poppins-bold"],
+                fontFamily: "PoppinsBold",
                 color: Colors.onPrimary,
                 textAlign: "center",
                 fontSize: FontSize.large,
@@ -128,7 +145,7 @@ import {
           >
             <Text
               style={{
-                fontFamily: Font["poppins-semiBold"],
+                fontFamily: "PoppinsSemiBold",
                 color: Colors.text,
                 textAlign: "center",
                 fontSize: FontSize.small,
@@ -145,7 +162,7 @@ import {
           >
             <Text
               style={{
-                fontFamily: Font["poppins-semiBold"],
+                fontFamily: "PoppinsBold",
                 color: Colors.primary,
                 textAlign: "center",
                 fontSize: FontSize.small,
