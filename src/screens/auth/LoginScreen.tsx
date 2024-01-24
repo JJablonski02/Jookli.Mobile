@@ -6,6 +6,8 @@ import {
     TouchableOpacity,
     View,
     KeyboardAvoidingView,
+    ImageBackground,
+    Dimensions,
   } from "react-native";
   import React, {useContext, useState} from 'react';
   import Spacing from "../../constants/Spacing";
@@ -17,6 +19,7 @@ import {
   import { RootStackParamList } from "../../types";
   import AppTextInput from "../../components/AppTextInput";
   import { AuthContext } from "../../context/AuthContext";
+  import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
   
   type Props = NativeStackScreenProps<RootStackParamList, "Login">;
   
@@ -29,6 +32,7 @@ import {
     const context = useContext(AuthContext);
     const [isEmailValid, setEmailValid] = useState(false);
     const [isFieldEdited, setFieldEdited] = useState(false);
+    const { height } = Dimensions.get("window");
 
     function validateEmail(email: string){
       var re = /\S+@\S+\.\S+/;
@@ -51,11 +55,48 @@ import {
 
     return (
       <SafeAreaView>
+        <KeyboardAwareScrollView>
         <View
           style={{
             padding: Spacing * 2,
           }}
         >
+          <View style={{
+            marginTop: Spacing * 2,
+            marginBottom: Spacing * 2,
+          }}>
+              <TouchableOpacity style={{
+                position: "absolute",
+                top: Spacing * 2,
+                right: Spacing * 2,
+                zIndex: 1,
+                borderWidth: 1,
+                borderColor: Colors.gray,
+                borderRadius: 3,
+                paddingLeft: 5,
+                paddingRight: 5,
+              }} onPress={() => navigate("Register")}>
+                <Text
+                  style={{
+                    fontFamily: "PoppinsSemiBold",
+                    color: Colors.primary,
+                    textAlign: "center",
+                    fontSize: FontSize.small,
+                  }}
+                >
+                  Register
+                </Text>
+              </TouchableOpacity>
+          </View>
+          <View>
+          <ImageBackground
+            style={{
+              height: height / 5,
+            }}
+            resizeMode="contain"
+            source={require("../../../assets/images/JoyProfits_Register.png")}
+          />
+          </View>
           <View
             style={{
               alignItems: "center",
@@ -67,7 +108,7 @@ import {
                 fontSize: FontSize.large,
                 maxWidth: "60%",
                 textAlign: "center",
-                marginTop: Spacing * 10,
+                marginTop: Spacing * 2,
               }}
             >
               Welcome back you've been missed!
@@ -110,13 +151,17 @@ import {
   
           <TouchableOpacity
           onPress={() => {
-            context?.login(email, password);
+            if(isEmailValid){
+              context?.login(email, password);
+            }else{
+              console.log("Invalid")
+            }
           }}
             style={{
-              padding: Spacing * 2,
+              padding: Spacing,
               backgroundColor: Colors.primary,
               marginVertical: Spacing * 3,
-              borderRadius: Spacing,
+              borderRadius: Spacing * 3,
               shadowColor: Colors.primary,
               shadowOffset: {
                 width: 0,
@@ -137,92 +182,8 @@ import {
               Sign in
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigate("Register")}
-            style={{
-              padding: Spacing,
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: "PoppinsSemiBold",
-                color: Colors.text,
-                textAlign: "center",
-                fontSize: FontSize.small,
-              }}
-            >
-              Create new account
-            </Text>
-          </TouchableOpacity>
-  
-          <View
-            style={{
-              marginVertical: Spacing * 3,
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: "PoppinsBold",
-                color: Colors.primary,
-                textAlign: "center",
-                fontSize: FontSize.small,
-              }}
-            >
-              Or continue with
-            </Text>
-  
-            <View
-              style={{
-                marginTop: Spacing,
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  padding: Spacing,
-                  backgroundColor: Colors.gray,
-                  borderRadius: Spacing / 2,
-                  marginHorizontal: Spacing,
-                }}
-              >
-                <Ionicons
-                  name="logo-google"
-                  color={Colors.text}
-                  size={Spacing * 2}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  padding: Spacing,
-                  backgroundColor: Colors.gray,
-                  borderRadius: Spacing / 2,
-                  marginHorizontal: Spacing,
-                }}
-              >
-                <Ionicons
-                  name="logo-apple"
-                  color={Colors.text}
-                  size={Spacing * 2}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  padding: Spacing,
-                  backgroundColor: Colors.gray,
-                  borderRadius: Spacing / 2,
-                  marginHorizontal: Spacing,
-                }}
-              >
-                <Ionicons
-                  name="logo-facebook"
-                  color={Colors.text}
-                  size={Spacing * 2}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
         </View>
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   };

@@ -1,12 +1,12 @@
 import { TouchableOpacity, View, Image, Text } from "react-native";
-import React from "react";
 import Spacing from "../constants/Spacing";
+import React from "react";
 
 interface Props {
   signIn: () => void;
 }
 
-const GoogleButton: React.FC<Props> = ({ signIn }) => {
+const MicrosoftButton: React.FC<Props> = ({ signIn }) => {
   return (
     <TouchableOpacity
       onPress={signIn}
@@ -18,6 +18,7 @@ const GoogleButton: React.FC<Props> = ({ signIn }) => {
         marginTop: 10,
         width: "100%",
         shadowOpacity: 0.5,
+        maxWidth: 500,
       }}
     >
       <View
@@ -30,8 +31,8 @@ const GoogleButton: React.FC<Props> = ({ signIn }) => {
         }}
       >
         <Image
-          source={require("../../assets/images/googleIcon.png")}
-          style={{ height: 20, width: 20, marginRight:10 }}
+          source={require("../../assets/images/microsoft_logo.png")}
+          style={{ height: 20, width: 20, marginRight:10}}
         />
         <Text
           style={{
@@ -41,11 +42,11 @@ const GoogleButton: React.FC<Props> = ({ signIn }) => {
             fontWeight: "bold",
           }}
         >
-          Sign In with Google
+          Sign In with Microsoft
         </Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default GoogleButton;
+export default MicrosoftButton;

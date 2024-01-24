@@ -1,20 +1,20 @@
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { DefaultTheme, NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import Colors from "../constants/Colors";
 import LoginScreen from "../screens/auth/LoginScreen";
-import Welcome from "../screens/auth/WelcomeScreen";
 import RegisterScreen from "../screens/auth/RegisterScreen";
 import RecoverPasswordScreen from "../screens/auth/RecoverPasswordScreen";
-import HomeScreen from "../screens/auth/HomeScreen";
+import HomeScreen from "../screens/root/HomeScreen";
 import PersonalDataScreen from "../screens/auth/PersonalDataScreen";
-import ConfirmAccountScreen from "../screens/auth/ConfirmAccountScreen";
-import MainPage from "../screens/root/MainPage";
-
 import { RootStackParamList } from "../types";
 import { AuthContext, AuthContextProps } from "../context/AuthContext";
 import MainPageScreen from "../screens/root/MainPage";
 import WelcomeScreen from "../screens/auth/WelcomeScreen";
+import SettingsScreen from "../screens/root/SettingsScreen";
+import EarnScreen from "../screens/root/EarnScreen";
+import AnalyticsScreen from "../screens/root/AnalyticsScreen";
+import PaymentsScreen from "../screens/root/Payments";
 
 const theme = {
   ...DefaultTheme,
@@ -23,14 +23,6 @@ const theme = {
     background: Colors.background,
   },
 };
-
-// export default function Navigation() {
-//   return (
-//     <NavigationContainer theme={theme}>
-//       <RootNavigator />
-//     </NavigationContainer>
-//   );
-// }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -49,7 +41,15 @@ return (
           options={{headerShown: false}}
         />
       ) : contextValue?.userInfo.access_token ? (
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Group screenOptions={{
+          headerShown: true
+        }}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Earn" component={EarnScreen} />
+            <Stack.Screen name="Analytics" component={AnalyticsScreen} />
+            <Stack.Screen name="Payments" component={PaymentsScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+        </Stack.Group>
       ) : (
         <Stack.Group screenOptions={{
           headerShown: false

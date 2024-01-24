@@ -15,6 +15,9 @@ import {
   import GoogleButton from "../../components/GoogleButton";
   import { NativeStackScreenProps } from "@react-navigation/native-stack";
   import { RootStackParamList } from "../../types";
+  import AppleButton from "../../components/AppleButton.android";
+import MicrosoftButton from "../../components/MicrosoftButton.android";
+
   const { height } = Dimensions.get("window");
   
   type Props = NativeStackScreenProps<RootStackParamList, "Welcome">;
@@ -25,19 +28,21 @@ import {
   const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
     return (
       <SafeAreaView>
-        <View>
+        <View style = {{
+          padding: Spacing * 2,
+        }}>
           <ImageBackground
             style={{
-              height: height / 2.5,
+              height: height / 3,
               marginTop: 50
             }}
             resizeMode="contain"
-            source={require("../../assets/images/welcome-img.png")}
+            source={require("../../../assets/images/JoyProfits_Welcome.png")}
           />
           <View
             style={{
               paddingHorizontal: Spacing * 4,
-              paddingTop: Spacing * 4,
+              paddingTop: Spacing * 2,
             }}
           >
             <Text
@@ -60,13 +65,12 @@ import {
                 marginTop: Spacing * 2,
               }}
             >
-              Register or login if your account extists.
+              Register or sign in if your account exists.
             </Text>
           </View>
           <View
             style={{
-              paddingHorizontal: Spacing * 2,
-              paddingTop: Spacing * 6,
+              paddingTop: Spacing,
               flexDirection: "row",
               justifyContent: "space-between",
             }}
@@ -78,7 +82,7 @@ import {
                 paddingVertical: Spacing * 1.5,
                 paddingHorizontal: Spacing * 2,
                 width: "48%",
-                borderRadius: Spacing,
+                borderRadius: Spacing * 3,
                 shadowColor: Colors.primary,
                 shadowOffset: {
                   width: 0,
@@ -96,7 +100,7 @@ import {
                   textAlign: "center",
                 }}
               >
-                Login
+                Sign in
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -106,7 +110,7 @@ import {
                 paddingVertical: Spacing * 1.5,
                 paddingHorizontal: Spacing * 2,
                 width: "48%",
-                borderRadius: Spacing,
+                borderRadius: Spacing * 3,
               }}
             >
               <Text
@@ -123,8 +127,19 @@ import {
           </View>
           <View style={{
             alignItems: "center",
+            paddingTop: Spacing,
           }}>
             <GoogleButton signIn={signIns}/>
+          </View>
+          <View style={{
+            alignItems: "center",
+          }}>
+            <AppleButton signIn={signIns}/>
+          </View>
+          <View style={{
+            alignItems: "center",
+          }}>
+            <MicrosoftButton signIn={signIns}/>
           </View>
         </View>
       </SafeAreaView>

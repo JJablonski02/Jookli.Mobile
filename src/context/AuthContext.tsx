@@ -87,16 +87,14 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
   ///Login with email and password
   const login = (email: string, password: string) => {
     setIsLoading(true);
+    setUserInfo({
+      access_token: "TEST",
+      expires_in: 1,
+      token_type: "TEST",
+      scope: "TEST",
+    } as UserInfo);
+    console.log(userInfo);
     //console.log(`login ${email} ${password}`);
-console.log("Before request");
-    axios
-    .get(`https://10.0.2.2:7133/api/useraccess/Test`)
-    .then((response) => {
-      console.log(response.data);
-    }).catch((e) => {
-      console.log(`Error: ` + e);
-    });
-    console.log("After request");
     // axios
     //   .post(`https://localhost:7133/connect/token`, {
     //     client_id: 'ro.client',

@@ -72,10 +72,10 @@ import {
 
           <TouchableOpacity
             style={{
-              padding: Spacing * 2,
+              padding: Spacing,
               backgroundColor: Colors.primary,
               marginVertical: Spacing * 3,
-              borderRadius: Spacing,
+              borderRadius: Spacing * 3,
               shadowColor: Colors.primary,
               shadowOffset: {
                 width: 0,

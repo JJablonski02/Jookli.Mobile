@@ -24,8 +24,12 @@ import {
             fontSize: FontSize.small,
             padding: Spacing,
             backgroundColor: Colors.lightPrimary,
-            borderRadius: Spacing,
-            width: 150
+            borderRadius: Spacing * 3,
+            width: 150,
+            borderColor: Colors.active,
+            borderWidth: 1,
+            paddingLeft: Spacing * 2,
+            paddingRight: Spacing * 2,
           },
           focused && {
             borderWidth: 3,

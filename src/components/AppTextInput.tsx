@@ -23,10 +23,14 @@ const AppTextInput: React.FC<TextInputProps> = ({ ...otherProps }) => {
         {
           fontFamily: "PoppinsRegular",
           fontSize: FontSize.medium,
-          padding: Spacing * 2,
-          backgroundColor: Colors.lightPrimary,
-          borderRadius: Spacing,
+          padding: Spacing,
+          backgroundColor: Colors.background,
+          borderRadius: Spacing * 3,
           marginVertical: Spacing,
+          borderColor: Colors.active,
+          borderWidth: 1,
+          paddingLeft: Spacing * 2,
+          paddingRight: Spacing * 2,
         },
         focused && {
           borderWidth: 3,

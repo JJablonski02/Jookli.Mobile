@@ -6,7 +6,7 @@ interface Props {
   signIn: () => void;
 }
 
-const GoogleButton: React.FC<Props> = ({ signIn }) => {
+const AppleButton: React.FC<Props> = ({ signIn }) => {
   return (
     <TouchableOpacity
       onPress={signIn}
@@ -18,6 +18,7 @@ const GoogleButton: React.FC<Props> = ({ signIn }) => {
         marginTop: 10,
         width: "100%",
         shadowOpacity: 0.5,
+        maxWidth: 500,
       }}
     >
       <View
@@ -30,8 +31,8 @@ const GoogleButton: React.FC<Props> = ({ signIn }) => {
         }}
       >
         <Image
-          source={require("../../assets/images/googleIcon.png")}
-          style={{ height: 20, width: 20, marginRight:10 }}
+          source={require("../../assets/images/apple_logo_black.png")}
+          style={{ height: 20, width: 20, marginRight:10}}
         />
         <Text
           style={{
@@ -41,11 +42,11 @@ const GoogleButton: React.FC<Props> = ({ signIn }) => {
             fontWeight: "bold",
           }}
         >
-          Sign In with Google
+          Sign In with Apple
         </Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default GoogleButton;
+export default AppleButton;
