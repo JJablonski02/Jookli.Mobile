@@ -13,6 +13,7 @@ import Spacing from "../constants/Spacing";
 
 const AppTextInput: React.FC<TextInputProps> = ({ ...otherProps }) => {
   const [focused, setFocused] = useState<boolean>(false);
+  const [email ,setEmail] = useState(null);
   return (
     <TextInput
       onFocus={() => setFocused(true)}
@@ -20,12 +21,16 @@ const AppTextInput: React.FC<TextInputProps> = ({ ...otherProps }) => {
       placeholderTextColor={Colors.darkText}
       style={[
         {
-          fontFamily: Font["poppins-regular"],
-          fontSize: FontSize.small,
-          padding: Spacing * 2,
-          backgroundColor: Colors.lightPrimary,
-          borderRadius: Spacing,
+          fontFamily: "PoppinsRegular",
+          fontSize: FontSize.medium,
+          padding: Spacing,
+          backgroundColor: Colors.background,
+          borderRadius: Spacing * 3,
           marginVertical: Spacing,
+          borderColor: Colors.active,
+          borderWidth: 1,
+          paddingLeft: Spacing * 2,
+          paddingRight: Spacing * 2,
         },
         focused && {
           borderWidth: 3,
