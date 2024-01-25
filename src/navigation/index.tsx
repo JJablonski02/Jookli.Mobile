@@ -15,22 +15,24 @@ import SettingsScreen from "../screens/root/SettingsScreen";
 import EarnScreen from "../screens/root/EarnScreen";
 import AnalyticsScreen from "../screens/root/AnalyticsScreen";
 import PaymentsScreen from "../screens/root/Payments";
+import { TouchableOpacity, } from "react-native";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import CustomDrawer from "../components/CustomDrawer";
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: Colors.background,
-  },
-};
 
+const Drawer = createDrawerNavigator<RootStackParamList>(); 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+export interface NavigationProps {
 
+};
 export const Navigation = () => {
   const contextValue: AuthContextProps | undefined = React.useContext(AuthContext)
   if(contextValue == undefined){
     console.log("Undefinied context value from index.tsx");
-  }
+  } 
+
 return (
   <NavigationContainer>
     <Stack.Navigator>
@@ -42,13 +44,9 @@ return (
         />
       ) : contextValue?.userInfo.access_token ? (
         <Stack.Group screenOptions={{
-          headerShown: true
+          headerShown: false
         }}>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Earn" component={EarnScreen} />
-            <Stack.Screen name="Analytics" component={AnalyticsScreen} />
-            <Stack.Screen name="Payments" component={PaymentsScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="Navigate" component={InnerNavigation}/>
         </Stack.Group>
       ) : (
         <Stack.Group screenOptions={{
@@ -66,46 +64,55 @@ return (
 );
 };
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/docs/modal
- */
-// const AuthStack = createNativeStackNavigator<RootStackParamList>();
-// function RootNavigator() {
-//   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-//   const handleLoginSuccess = () => {
-//     setIsAuthenticated(true);
-//   }
-//   return (
-//     <NavigationContainer></NavigationContainer>
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         {isAuthenticated ? (
-//           //Logged users
-//           <Stack.Group
-//             screenOptions={{
-//               headerShown: true,
-//             }}
-//           >
-//             <Stack.Screen name="MainPage" component={MainPage} />
-//           </Stack.Group>
-//         ) : (
-//            //Auth screens
-//           <Stack.Group
-//             screenOptions={{
-//               headerShown: false,
-//             }}
-//           >
-//             <Stack.Screen name="Welcome" component={Welcome}/>
-//             <Stack.Screen name="Login" component={LoginScreen}/>
-//             <Stack.Screen name="Register" component={RegisterScreen} />
-//             <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen} />
-//             <Stack.Screen name="Home" component={HomeScreen} />
-//             <Stack.Screen name="PersonalData" component={PersonalDataScreen} />
-//             <Stack.Screen name="ConfirmAccount" component={ConfirmAccountScreen} />
-//           </Stack.Group>
-//         )}
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
+
+const InnerNavigation = () => {
+  return (
+    <Drawer.Navigator
+    drawerContent={(props) => <CustomDrawer {...props} handleSignOut={() => {
+      console.log("Sign out");
+    }}/>}
+     screenOptions={{
+      headerShown: true,
+      drawerLabelStyle: {
+        fontSize: 20,
+        fontWeight: "bold",
+      },
+      drawerActiveBackgroundColor: Colors.primary,
+      drawerActiveTintColor: Colors.onPrimary,
+      drawerInactiveTintColor: Colors.primary,
+    }}>
+      <Drawer.Screen name="Home" component={HomeScreen} 
+      options={{
+        drawerIcon: ({color}) => (
+          <Ionicons name="home-outline" size={24} color={color}/>
+        ),
+      }}/>
+      <Drawer.Screen name="Earn" component={EarnScreen} 
+      options={{
+        drawerIcon: ({color}) => (
+          <Ionicons name="cash-outline" size={24} color={color}/>
+        ),
+      }}/>
+      <Drawer.Screen name="Analytics" component={AnalyticsScreen}
+      options ={{
+        drawerIcon: ({color}) => (
+          <Ionicons name="analytics-outline" size={24} color={color}/>
+        ),
+      }} />
+      <Drawer.Screen name="Payments" component={PaymentsScreen} 
+      options={{
+        drawerIcon: ({color}) => (
+          <Ionicons name="wallet-outline" size={24} color={color}/>
+        ),
+      }}/>
+      <Drawer.Screen name="Settings" component={SettingsScreen} 
+      options={{
+        drawerIcon: ({color}) => (
+          <Ionicons name="settings-outline" size={24} color={color}/>
+        )
+      }}/>
+    </Drawer.Navigator>
+  )
+}
+
+
