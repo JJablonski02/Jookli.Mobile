@@ -14,6 +14,7 @@ export type RootStackParamList = {
     PersonalData: {user: RegisterUserDTO};
     RecoverPassword: undefined;
     Home: undefined;
+    Navigate: undefined;
     ConfirmAccount: undefined;
     MainPage: undefined;
     Earn: undefined;
