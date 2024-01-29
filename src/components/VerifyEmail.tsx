@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
       paddingTop: Spacing,
   },
   sectionContainer:{
-    fontSize: FontSize.large,
+    fontSize: FontSize.medium,
     fontFamily: 'PoppinsRegular',
   },
   namesContainer:{
