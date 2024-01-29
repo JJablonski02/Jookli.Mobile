@@ -19,6 +19,7 @@ import {
   import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import VerifyEmail from "../../components/VerifyEmail";
+import SelfAdditionalInformations from "../../components/SelfAdditionalInformations";
 
 type AuthProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -120,6 +121,7 @@ const HomeScreen: React.FC = () => {
       </Text>
     </View>
     <VerifyEmail/>
+    <SelfAdditionalInformations/>
     </ScrollView>
     </SafeAreaView>
   );
