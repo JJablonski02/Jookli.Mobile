@@ -5,11 +5,13 @@ const darkGreen = "#1F2E2B";
 const green = "#2b6d46";
 const gray = "#a6a6a6";
 const lightBlue = "#f1f4ff";
+const lightGreen = "#a5c9b5";
 
 export default{
-    darkText: dark,
+    darkText: dark, 
     text: black,
     background: white,
+    backgroundGreen: lightGreen,
     primary: green,
     onPrimary: white,
     active: gray,
