@@ -86,30 +86,35 @@ const InnerNavigation = () => {
         drawerIcon: ({color}) => (
           <Ionicons name="home-outline" size={24} color={color}/>
         ),
+        title: 'Main Page'
       }}/>
       <Drawer.Screen name="Earn" component={EarnScreen} 
       options={{
         drawerIcon: ({color}) => (
           <Ionicons name="cash-outline" size={24} color={color}/>
         ),
+        title: 'Earn'
       }}/>
       <Drawer.Screen name="Analytics" component={AnalyticsScreen}
       options ={{
         drawerIcon: ({color}) => (
           <Ionicons name="analytics-outline" size={24} color={color}/>
         ),
+        title: 'Analytics'
       }} />
       <Drawer.Screen name="Payments" component={PaymentsScreen} 
       options={{
         drawerIcon: ({color}) => (
           <Ionicons name="wallet-outline" size={24} color={color}/>
         ),
+        title: 'Payments'
       }}/>
       <Drawer.Screen name="Settings" component={SettingsScreen} 
       options={{
         drawerIcon: ({color}) => (
           <Ionicons name="settings-outline" size={24} color={color}/>
-        )
+        ),
+        title: 'Settings'
       }}/>
     </Drawer.Navigator>
   )
