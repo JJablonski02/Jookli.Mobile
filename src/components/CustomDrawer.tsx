@@ -54,8 +54,8 @@ const descriptors = props.descriptors;
         </ImageBackground>
         <View style={{flex: 1, backgroundColor: '#fff', paddingTop: 10}}>
         </View>
-      </DrawerContentScrollView>
-      <DrawerItemList {...{state,navigation,descriptors}} />
+        <DrawerItemList {...{state,navigation,descriptors}} />
+        </DrawerContentScrollView>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
         <TouchableOpacity onPress={() => {}} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
