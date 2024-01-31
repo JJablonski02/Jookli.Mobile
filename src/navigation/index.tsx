@@ -24,15 +24,20 @@ import CustomDrawer from "../components/CustomDrawer";
 
 const Drawer = createDrawerNavigator<RootStackParamList>(); 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-export interface NavigationProps {
-
+interface InnerNavigationProps {
+  handleSignOut: () => void;
 };
+
 export const Navigation = () => {
-  const contextValue: AuthContextProps | undefined = React.useContext(AuthContext)
+  const contextValue: AuthContextProps | undefined = React.useContext(AuthContext);
+  
   if(contextValue == undefined){
     console.log("Undefinied context value from index.tsx");
   } 
-
+  const handleSignOut = () => {
+    contextValue?.logout();
+    contextValue.userInfo.access_token = '';
+  }
 return (
   <NavigationContainer>
     <Stack.Navigator>
@@ -46,7 +51,10 @@ return (
         <Stack.Group screenOptions={{
           headerShown: false
         }}>
-          <Stack.Screen name="Navigate" component={InnerNavigation}/>
+          <Stack.Screen name="Navigate"
+          options={{title: "InnerNavigation"}}>
+            {() => <InnerNavigation handleSignOut={handleSignOut} />}
+          </Stack.Screen>
         </Stack.Group>
       ) : (
         <Stack.Group screenOptions={{
@@ -65,12 +73,14 @@ return (
 };
 
 
-const InnerNavigation = () => {
+const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
+  const navigation = useNavigation();
+  const navigateToLogin = () => {
+    navigation.navigate('Navigate');
+  };
   return (
     <Drawer.Navigator
-    drawerContent={(props) => <CustomDrawer {...props} handleSignOut={() => {
-      console.log("Sign out");
-    }}/>}
+    drawerContent={(props) => <CustomDrawer {...props} handleSignOut={handleSignOut}/> }
      screenOptions={{
       headerShown: true,
       drawerLabelStyle: {
