@@ -3,8 +3,10 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Spacing from "../constants/Spacing";
 import FontSize from "../constants/FontSize";
 import Colors from "../constants/Colors";
+import { useNavigation } from "@react-navigation/native";
 
 const VerifyEmail = () => {
+  const navigation = useNavigation();
     return (
         <View style = {styles.viewContainer}>
             <Text style = {styles.sectionContainer}>
@@ -20,7 +22,8 @@ const VerifyEmail = () => {
                     height: 150,
                     marginHorizontal: -Spacing,
                 }}/>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('Settings')}>
                 <Text style={styles.settingsContainer}>
                     Go to settings
                 </Text>
