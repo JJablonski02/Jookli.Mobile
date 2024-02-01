@@ -3,8 +3,11 @@ import FontSize from '../constants/FontSize';
 import Font from '../constants/Font';
 import Spacing from '../constants/Spacing';
 import Colors from '../constants/Colors';
+import { useNavigation } from '@react-navigation/native';
 
 const SelfAdditionalInformations = () => {
+  const navigation = useNavigation();
+
     return(
         <View style = {styles.viewContainer}>
             <Text style = {styles.sectionContainer}>
@@ -20,7 +23,8 @@ const SelfAdditionalInformations = () => {
                     height: 150,
                     marginHorizontal: -Spacing,          
                 }}/>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('Settings')}>
                 <Text style={styles.settingsContainer}>
                     Go to settings
                 </Text>
