@@ -30,7 +30,6 @@ export interface AuthContextProps {
   logout: () => void;
 }
 
-
 export const AuthContext = createContext<AuthContextProps>({
   userInfo: {} as UserInfo,
   isLoading: false,
