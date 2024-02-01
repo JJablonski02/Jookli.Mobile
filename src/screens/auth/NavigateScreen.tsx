@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import { SafeAreaView, Text, View } from "react-native";
+import { useEffect } from "react";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Navigate">;
 
