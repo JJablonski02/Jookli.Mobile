@@ -23,8 +23,6 @@ import {
   
   type Props = NativeStackScreenProps<RootStackParamList, "Login">;
   
-  
-  
   const LoginScreen: React.FC<Props> = ({ navigation: { navigate }
   }) => {
     const [email, setEmail] = useState('');
@@ -124,7 +122,7 @@ import {
             value={email}
             onChangeText={text => onChangeTextHandler(text)}
             onBlur={validate}/>
-            {!isEmailValid && isFieldEdited && <Text style={{color: 'red'}}>Invalid email addres</Text>}
+            {!isEmailValid && isFieldEdited && <Text style={{color: 'red'}}>Invalid email address</Text>}
             <AppTextInput 
             placeholder="Password" 
             secureTextEntry={true}
