@@ -20,6 +20,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import VerifyEmail from "../../components/VerifyEmail";
 import SelfAdditionalInformations from "../../components/SelfAdditionalInformations";
+import { useNavigation } from "@react-navigation/native";
 
 type AuthProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -59,7 +60,6 @@ const HomeScreen: React.FC = () => {
       <Text style={styles.sectionContainer}>
         Estimated Earnings
       </Text>
-      
       <Text style={styles.namesContainer}>
         Today:
       </Text>
