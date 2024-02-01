@@ -74,15 +74,18 @@ return (
 
 
 const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
-  const navigation = useNavigation();
-  const navigateToLogin = () => {
-    navigation.navigate('Navigate');
-  };
   return (
     <Drawer.Navigator
     drawerContent={(props) => <CustomDrawer {...props} handleSignOut={handleSignOut}/> }
      screenOptions={{
       headerShown: true,
+      headerStyle:{
+        borderRadius: 20,
+      },
+      drawerStyle:{
+        borderTopRightRadius: 50,
+        borderBottomRightRadius: 20,
+      },
       drawerLabelStyle: {
         fontSize: 20,
         fontWeight: "bold",
@@ -96,7 +99,7 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
         drawerIcon: ({color}) => (
           <Ionicons name="home-outline" size={24} color={color}/>
         ),
-        title: 'Main Page'
+        title: 'Main Page',
       }}/>
       <Drawer.Screen name="Earn" component={EarnScreen} 
       options={{
