@@ -65,6 +65,8 @@ const SectionComponent: React.FC<Propss> = ({label}) => {
   switch(label){
     case 'Preferences':
       return <SettingsPreferencesComponent/>
+      default:
+        return null;
   }
 };
 
@@ -114,8 +116,8 @@ const SettingsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
               );
             })}
           </View>
-
-          {items.map(({ label, type, value }, index) => {
+          {SectionComponent({label: tabs[value].name})}
+          {/* {items.map(({ label, type, value }, index) => {
             return (
               <View
                 key={label}
@@ -147,12 +149,13 @@ const SettingsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
                 </TouchableOpacity>
               </View>
             );
-          })}
+          })} */}
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
 export default SettingsScreen;
 
 const styles = StyleSheet.create({
