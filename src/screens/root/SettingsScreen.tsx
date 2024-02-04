@@ -17,6 +17,7 @@ import Spacing from "../../constants/Spacing";
 import SettingsProfileComponent from "../../components/settings/SettingsProfileComponent";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import SettingsPreferencesComponent from "../../components/settings/SettingsPreferencesComponent";
+import SettingsPaymentsComponent from "../../components/settings/SettingsPaymentsComponent";
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Settings'>;
@@ -33,6 +34,9 @@ const SECTIONS = [
       { label: 'Show collaborators', value: true, type: 'boolean' },
       { label: 'Accessibility mode', value: false, type: 'boolean' },
     ],
+  },
+  {
+    header: 'Payments',
   },
   {
     header: 'Help',
@@ -64,7 +68,9 @@ interface Propss{
 const SectionComponent: React.FC<Propss> = ({label}) => {
   switch(label){
     case 'Preferences':
-      return <SettingsPreferencesComponent/>
+        return <SettingsPreferencesComponent/>
+      case 'Payments':
+        return <SettingsPaymentsComponent/>
       default:
         return null;
   }
@@ -117,39 +123,6 @@ const SettingsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             })}
           </View>
           {SectionComponent({label: tabs[value].name})}
-          {/* {items.map(({ label, type, value }, index) => {
-            return (
-              <View
-                key={label}
-                style={[
-                  styles.rowWrapper,
-                  index === 0 && { borderTopWidth: 0 },
-                ]}>
-                  <TouchableOpacity
-                  onPress={() => {
-                  }}>
-                  <View style={styles.row}>
-                    <Text style={styles.rowLabel}>{label}</Text>
-
-                    <View style={styles.rowSpacer} />
-
-                    {type === 'input' && (
-                      <Text style={styles.rowValue}>{value}</Text>
-                    )}
-
-                    {type === 'boolean' && (
-                      <Switch 
-                      trackColor={{ true: Colors.backgroundGreen }}
-                      thumbColor={Colors.primary} 
-                      value/>
-                    )}
-
-                    {(type === 'input' || type === 'link')  }
-                  </View>
-                </TouchableOpacity>
-              </View>
-            );
-          })} */}
         </View>
       </ScrollView>
     </SafeAreaView>
