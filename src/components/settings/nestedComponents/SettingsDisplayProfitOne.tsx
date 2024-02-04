@@ -4,34 +4,28 @@ import Spacing from "../../../constants/Spacing";
 import Colors from "../../../constants/Colors";
 
 const SettingsDisplayProfitOne : React.FC = () => {
-    const [focused, setState] = useState(Boolean);
+    const [checked, setChecked] = useState('first');
     return(
     <View>
         <TouchableOpacity
-        onPress={() => setState}
-        style={
-            [styles.button,
-            focused && {
-                borderColor: Colors.primary,
-            }
-            ]
-        }>
+        onPress={() => setChecked('first')}
+        style={[
+            styles.button,
+            checked === 'first' ? styles.buttonSelected : null,
+        ]}>
             <Text style={styles.buttonText}>
                 0.00
             </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-        onPress={() => setState}
-        style={
-            [styles.button,
-            focused && {
-                borderColor: Colors.primary,
-            }
-            ]
-        }>
+        onPress={() => setChecked('second')}
+        style={[
+            styles.button,
+            checked === 'second' ? styles.buttonSelected : null,
+        ]}>
             <Text style={styles.buttonText}>
-                0.00
+                0.000
             </Text>
         </TouchableOpacity>
     </View>
@@ -45,7 +39,7 @@ const styles = StyleSheet.create({
         width: '50%',
         height: 50,
         borderRadius: Spacing,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: 'grey',
         alignSelf: 'center',
         marginTop: Spacing * 2,
@@ -53,5 +47,8 @@ const styles = StyleSheet.create({
     buttonText:{
         textAlign: 'center',
         marginTop: 15,
-    }
+    },
+    buttonSelected:{
+        borderColor: Colors.primary,
+    },
 });
