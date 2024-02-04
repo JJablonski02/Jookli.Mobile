@@ -10,6 +10,8 @@ import React, {useState} from 'react';
 import AppLoading from 'expo-app-loading';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
+import { NotifierWrapper } from 'react-native-notifier';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   const [loaded, error] = useFonts(fonts);
@@ -21,7 +23,7 @@ if (error) throw error;
   return(loaded && 
     (<AuthProvider>
       <SafeAreaProvider>
-        <Navigation/>
+                <Navigation/>
       </SafeAreaProvider>
     </AuthProvider>)
   );
