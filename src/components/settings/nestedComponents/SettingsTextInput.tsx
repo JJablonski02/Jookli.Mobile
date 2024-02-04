@@ -3,14 +3,39 @@ import { View, TextInput, StyleSheet } from "react-native";
 import Colors from "../../../constants/Colors";
 import Spacing from "../../../constants/Spacing";
 
-const SettingsTextInput : React.FC = () => {
+interface SettingsTextInputProps {
+    placeholder: string;
+    variant: Variant;
+    required?: boolean;
+    isEmail?: boolean;
+    isOnlyDigits?: boolean;
+    maxLength?: number;
+    onTextChange?: (text: string) => void;
+};
+
+export enum Variant {
+    Email,
+    FirstName,
+    LastName,
+    Street,
+    HouseNumber,
+    ZipCode,
+    City,
+    StateRegion,
+};
+
+
+const SettingsTextInput : React.FC<SettingsTextInputProps> = (props) => {
     const [focused, setFocused] = useState<boolean>(false);
+    const [text, setText] = useState<string>('');
     return(
         <View>
             <TextInput 
             onFocus= {() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder="Email address"
+            placeholder={props.placeholder}
+            onChangeText={props.onTextChange}
+            maxLength={props.maxLength}
             style={[
                 {
                     borderBottomWidth: 1,
