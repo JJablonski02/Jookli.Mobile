@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Switch, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Switch, StyleSheet, TouchableOpacity, Easing } from "react-native";
 import Spacing from "../../../constants/Spacing";
 import Colors from "../../../constants/Colors";
 import FontSize from "../../../constants/FontSize";
@@ -19,11 +19,13 @@ const SettingsButtonSave : React.FC<Props> = ({onPress}) => {
                     title: "Error",
                     description: message,
                     Component: NotifierComponents.Alert,
+                    showEasing: Easing.bounce,
                     componentProps:{
                         alertType: "error",
                     },
-                    duration: 0,
+                    duration: 4000,
                     showAnimationDuration: 800,
+                    translucentStatusBar: true,
                 });
             }
         }
