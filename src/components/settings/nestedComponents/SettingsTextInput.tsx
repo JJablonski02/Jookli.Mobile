@@ -22,6 +22,7 @@ export enum Variant {
     ZipCode,
     City,
     StateRegion,
+    PhoneNumber,
 };
 
 
