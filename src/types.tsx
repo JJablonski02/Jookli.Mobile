@@ -24,6 +24,18 @@ export type RootStackParamList = {
     Settings: undefined;
 };
 
+export type EarnStackParamList = {
+    Games: undefined;
+    Surveys: undefined;
+    Movies: undefined;
+    Shopping: undefined;
+    MicroTasks: undefined;
+};
+
+export type EarnStackScreenProps<Screen extends keyof EarnStackParamList> =
+    NativeStackScreenProps<EarnStackParamList, Screen>;
+
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
     NativeStackScreenProps<RootStackParamList, Screen>;
+    
 
