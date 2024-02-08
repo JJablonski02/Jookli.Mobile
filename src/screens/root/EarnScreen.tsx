@@ -1,14 +1,23 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../types";
+import { RootStackParamList, EarnStackParamList } from "../../types";
 import { SafeAreaView, ScrollView, Text, View, StyleSheet, Image } from "react-native";
 import Spacing from "../../constants/Spacing";
 import FontSize from "../../constants/FontSize";
 import EarnButton from "../../components/EarnButton";
 import Colors from "../../constants/Colors";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import GamesScreen from "../earn/GamesScreen";
+import HomeScreen from "./HomeScreen";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Earn">;
+type Props = NativeStackScreenProps<EarnStackParamList, "Earn">;
+interface EarnScreenProps {
+  navigation: Props["navigation"];
+  route: Props["route"];
+  handleMove?: () => void;
+};
 
-const EarnScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
+const EarnScreen: React.FC<EarnScreenProps> = ({ navigation, route, handleMove }) => {
+  
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView>
@@ -21,35 +30,35 @@ const EarnScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/PlayGames.jpg')}/>
           <Text style={styles.taskLabelContainer}>Play games</Text>
-          <EarnButton navigate={navigate}/>
+          <EarnButton navigation={navigation} route={route}/>
         </View>
         <View style={styles.taskContainer}>
           <Image 
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/WatchMovie.jpg')}/>
           <Text style={styles.taskLabelContainer}>Watch movies</Text>
-          <EarnButton navigate={navigate}/>
+          <EarnButton navigation={navigation} route={route}/>
         </View>
         <View style={styles.taskContainer}>
           <Image 
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/CompleteSurvey.jpg')}/>
           <Text style={styles.taskLabelContainer}>Complete the survey</Text>
-          <EarnButton navigate={navigate}/>
+          <EarnButton navigation={navigation} route={route}/>
         </View>
         <View style={styles.taskContainer}>
           <Image 
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/OnlineShopping.jpg')}/>
           <Text style={styles.taskLabelContainer}>Online shopping</Text>
-          <EarnButton navigate={navigate}/>
+          <EarnButton navigation={navigation} route={route}/>
         </View>
         <View style={styles.taskContainer}>
           <Image 
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/MicroTasks.jpg')}/>
           <Text style={styles.taskLabelContainer}>Microtasks</Text>
-          <EarnButton navigate={navigate}/>
+          <EarnButton navigation={navigation} route={route}/>
         </View>
       </ScrollView>
     </SafeAreaView>
