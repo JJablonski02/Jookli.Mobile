@@ -26,7 +26,7 @@ export default function App() {
     loaded && (
       <SafeAreaProvider>
         <GestureHandlerRootView style={styles.gesture}>
-          <NotifierWrapper translucentStatusBar={true}> 
+          <NotifierWrapper> 
             <AuthProvider>
               <Navigation />
             </AuthProvider>
