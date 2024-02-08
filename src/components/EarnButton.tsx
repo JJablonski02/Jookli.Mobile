@@ -3,14 +3,14 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 import Spacing from '../constants/Spacing';
 import FontSize from '../constants/FontSize';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { EarnStackParamList } from '../types';
 
-interface Props {
-    navigate: () => void;
-  }
+type Props = NativeStackScreenProps<EarnStackParamList, "Earn">;
 
-const EarnButton: React.FC<Props> = ({navigate}) => {
+const EarnButton: React.FC<Props> = (navigate) => {
     return(
-        <TouchableOpacity style={styles.buttonContainer} onPress={navigate}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate.navigation.navigate('Games')}>
         <Text style={styles.textContainer}>
             Earn
         </Text>
