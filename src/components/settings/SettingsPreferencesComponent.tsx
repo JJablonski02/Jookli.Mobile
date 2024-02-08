@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import SettingsVerifyEmail from "./nestedComponents/SettingsVerifyEmail";
-import SettingsTextInput, { Variant } from "./nestedComponents/SettingsTextInput";
 import Spacing from "../../constants/Spacing";
 import Colors from "../../constants/Colors";
 import FontSize from "../../constants/FontSize";
@@ -14,14 +13,15 @@ import SettingsDropdown from "./nestedComponents/SettingsDropdown";
 import SettingsDisplayProfitOne from "./nestedComponents/SettingsDisplayProfitOne";
 import SettingsDarkMode from "./nestedComponents/SettingsDarkMode";
 import SettingsAccountIdentifier from "./nestedComponents/SettingsAccountIdentifier";
-import { NotifierRoot } from "react-native-notifier";
+import SettingsTextInput from "./nestedComponents/SettingsTextInput";
 
 const SettingsPreferencesComponent: React.FC = () => {
+  const [Email, setEmail] = React.useState<string>("");
   return (
     <View style={styles.container}>
       <SettingsVerifyEmail />
       <Text style={styles.title}>Change email address</Text>
-      <SettingsTextInput placeholder="Email address" variant={Variant.Email}/>
+      <SettingsTextInput placeholder="Email" onChangeText={setEmail} />
       <TouchableOpacity style={styles.buttonContainer}>
         <Text style={styles.textContainer}>Save</Text>
       </TouchableOpacity>

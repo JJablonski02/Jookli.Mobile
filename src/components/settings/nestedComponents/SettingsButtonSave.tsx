@@ -1,35 +1,27 @@
 import React from "react";
-import { View, Text, Switch, StyleSheet, TouchableOpacity, Easing } from "react-native";
+import { View, Text, Switch, StyleSheet, TouchableOpacity, Easing, SafeAreaView } from "react-native";
 import Spacing from "../../../constants/Spacing";
 import Colors from "../../../constants/Colors";
 import FontSize from "../../../constants/FontSize";
-import { NotifierRoot, Notifier, NotifierComponents } from "react-native-notifier";
-
+import {NotifyError} from "../../notifications/Notify";
 interface Props {
     onPress?: () => string | null;
 };
 
 const SettingsButtonSave : React.FC<Props> = ({onPress}) => {
-    const [message, setMessage] = React.useState<string | null>(null);
-    const handleOnPress = () => {
+    const [message, setMessage] = React.useState<string | null>();
+
+    const handleOnPress = async () => {
         if(onPress){
-            setMessage(onPress());
-            if(message  != null){
-                Notifier.showNotification({
-                    title: "Error",
-                    description: message,
-                    Component: NotifierComponents.Alert,
-                    showEasing: Easing.bounce,
-                    componentProps:{
-                        alertType: "error",
-                    },
-                    duration: 4000,
-                    showAnimationDuration: 800,
-                    translucentStatusBar: true,
-                });
+            const result = onPress();
+            setMessage(result);
+            
+            if(result !== null){
+                NotifyError("Error", result);
             }
         }
     };
+
     return (
     <View style={styles.container}>
         <TouchableOpacity 

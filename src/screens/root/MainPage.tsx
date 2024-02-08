@@ -7,7 +7,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'MainPage'>;
 const MainPageScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
     return (
         <SafeAreaView>
-
+            
         </SafeAreaView>
     );
 }

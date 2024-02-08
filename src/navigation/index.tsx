@@ -7,23 +7,26 @@ import RegisterScreen from "../screens/auth/RegisterScreen";
 import RecoverPasswordScreen from "../screens/auth/RecoverPasswordScreen";
 import HomeScreen from "../screens/root/HomeScreen";
 import PersonalDataScreen from "../screens/auth/PersonalDataScreen";
-import { RootStackParamList } from "../types";
+import { EarnStackParamList, RootStackParamList } from "../types";
 import { AuthContext, AuthContextProps } from "../context/AuthContext";
 import MainPageScreen from "../screens/root/MainPage";
 import WelcomeScreen from "../screens/auth/WelcomeScreen";
 import SettingsScreen from "../screens/root/SettingsScreen";
 import EarnScreen from "../screens/root/EarnScreen";
 import AnalyticsScreen from "../screens/root/AnalyticsScreen";
-import PaymentsScreen from "../screens/root/Payments";
+import PaymentsScreen from "../screens/root/PaymentsScreen";
 import { TouchableOpacity, } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import CustomDrawer from "../components/CustomDrawer";
+import GamesScreen from "../screens/earn/GamesScreen";
 
 
 const Drawer = createDrawerNavigator<RootStackParamList>(); 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const EarnStack = createNativeStackNavigator<EarnStackParamList>();
+
 interface InnerNavigationProps {
   handleSignOut: () => void;
 };
@@ -74,6 +77,10 @@ return (
 
 
 const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
+  const handleHeader = () => {
+
+  };
+
   return (
     <Drawer.Navigator
     drawerContent={(props) => <CustomDrawer {...props} handleSignOut={handleSignOut}/> }
@@ -101,12 +108,12 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
         ),
         title: 'Main Page',
       }}/>
-      <Drawer.Screen name="Earn" component={EarnScreen} 
+      <Drawer.Screen name="Earn" component={EarnScreen}
       options={{
         drawerIcon: ({color}) => (
           <Ionicons name="cash-outline" size={24} color={color}/>
         ),
-        title: 'Earn'
+        title: 'Earn',
       }}/>
       <Drawer.Screen name="Analytics" component={AnalyticsScreen}
       options ={{
@@ -131,6 +138,18 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
       }}/>
     </Drawer.Navigator>
   )
-}
+};
+
+const EarnNavigator : React.FC = () => {
+  return(
+      <EarnStack.Navigator screenOptions={{headerShown: false}}>
+        <EarnStack.Screen name="Games" component={GamesScreen}/>
+        <EarnStack.Screen name="Surveys" component={HomeScreen}/>
+        <EarnStack.Screen name="Movies" component={HomeScreen}/>
+        <EarnStack.Screen name="Shopping" component={HomeScreen}/>
+        <EarnStack.Screen name="MicroTasks" component={HomeScreen}/>
+      </EarnStack.Navigator>
+  )
+};
 
 

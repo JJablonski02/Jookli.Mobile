@@ -20,7 +20,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import SettingsPreferencesComponent from "../../components/settings/SettingsPreferencesComponent";
 import SettingsPaymentsComponent from "../../components/settings/SettingsPaymentsComponent";
 import { NotifierWrapper } from "react-native-notifier";
-import SettingsHelpComponent from "../../components/settings/SettingsHelpComponent";
+import SettingsPrivacyComponent from "../../components/settings/SettingsPrivacyComponent";
 import SettingsInfoComponent from "../../components/settings/SettingsInfoComponent";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Settings">;
@@ -28,7 +28,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Settings">;
 const SECTIONS = [
   { header: "Preferences", component: <SettingsPreferencesComponent /> },
   { header: "Payments", component: <SettingsPaymentsComponent /> },
-  { header: "Help", component: <SettingsHelpComponent /> },
+  { header: "Privacy", component: <SettingsPrivacyComponent /> },
   { header: "Informations", component: <SettingsInfoComponent /> },
 ];
 
