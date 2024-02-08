@@ -1,73 +1,187 @@
-import React, { useState } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
-import Colors from "../../../constants/Colors";
-import Spacing from "../../../constants/Spacing";
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, StyleSheet, Text, TextInput, TouchableOpacity, View, StyleProp, ViewStyle, TextInputProps } from 'react-native';
 
-interface SettingsTextInputProps {
-    placeholder: string;
-    variant: Variant;
-    required?: boolean;
-    isEmail?: boolean;
-    isOnlyDigits?: boolean;
-    maxLength?: number;
-    onTextChange?: (text: string) => void;
-};
+interface SettingsTextInputVProps extends TextInputProps {
+  containerStyle?: StyleProp<ViewStyle>;
+  placeholder: string;
+  onChangeText: (text: string) => void;
+  error?: boolean;
+}
 
-export enum Variant {
-    Email,
-    FirstName,
-    LastName,
-    Street,
-    HouseNumber,
-    ZipCode,
-    City,
-    StateRegion,
-    PhoneNumber,
-};
-
-
-const SettingsTextInput : React.FC<SettingsTextInputProps> = (props) => {
-    const [focused, setFocused] = useState<boolean>(false);
+const SettingsTextInput : React.FC<SettingsTextInputVProps> = ({ containerStyle, placeholder, onChangeText, error, ...props }) => {
+    const [isFocued, setIsFocused] = useState(false);
     const [text, setText] = useState<string>('');
+    const [showPassword, setShowPassword] = useState(props.secureTextEntry);
+    const labelPosition = useRef(new Animated.Value(text ? 1 : 0)).current;
+    
+    const handleFocus = () => {
+        setIsFocused(true);
+        animatedLabel(1);
+    };
+
+    const handleBlur = () => {
+        setIsFocused(false);
+        if(!text){
+            animatedLabel(0);
+        }
+    };
+
+    const handleOnChangeText = (text: string) => {
+        setText(text);
+        if(onChangeText){
+            onChangeText(text);
+        }else{
+            animatedLabel(isFocued ? 1 : 0);
+        }
+    };
+
+    const animatedLabel = (toValue : number) => {
+        Animated.timing(labelPosition, {
+            toValue,
+            duration: 400,
+            useNativeDriver: false,
+        }).start();
+    }
+
+    const labelStyle = {
+        left: 5,
+        top: labelPosition.interpolate({
+            inputRange: [0, 1],
+            outputRange: [18, 0],
+        }),
+        fontSize: labelPosition.interpolate({
+            inputRange: [0, 1],
+            outputRange: [14, 10],
+        }),
+        color: labelPosition.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['gray', '#888'],
+        })
+    };
+
+
     return(
-        <View>
-            <TextInput 
-            onFocus= {() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder={props.placeholder}
-            onChangeText={props.onTextChange}
-            maxLength={props.maxLength}
-            style={[
-                {
-                    borderBottomWidth: 1,
-                    borderBottomColor: '#E0E0E0',
-                    paddingVertical: 10,
-                    paddingBottom: 0,
-                    fontSize: 12,
-                    fontFamily: 'PoppinsRegular',
-                    marginBottom: Spacing,
-                },
-                focused && {
-                    borderBottomColor: Colors.primary,
-                }
-            ]}/>
+        <View style={containerStyle}>
+        <View style={[styles.innerContainer, error && { borderColor: 'red' }]}>
+          <Animated.Text style={[styles.label, labelStyle]}>{placeholder}</Animated.Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+            {...props}
+            style={styles.input}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onChangeText={handleOnChangeText}
+            value={text}
+            textAlignVertical='center'
+            textContentType={props.secureTextEntry ? 'newPassword' : 'none'}
+            secureTextEntry={showPassword}
+            />
+            {props.secureTextEntry && !!text && (
+              <View>
+                <TouchableOpacity
+                  style={{ width: 24 }}
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  {!showPassword ? (
+                    <Text>Hide</Text>
+                  ) : (
+                    <Text>Show</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
         </View>
+        {error && <Text style={styles.errorText}>{error}</Text>}
+      </View>
     );
 };
 
+const styles = StyleSheet.create({
+    innerContainer: {
+      borderBottomWidth: 1,
+      borderBottomColor: '#E0E0E0',
+      justifyContent: 'center',
+      marginTop: 4,
+    },
+    label: {
+      position: 'absolute',
+      color: 'black',
+      fontSize: 12,
+      fontFamily: 'PoppinsRegular',
+    },
+    inputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingRight: 10,
+    },
+    input: {
+      flex: 1,
+      marginTop: 12,
+      paddingLeft: 5,
+      fontFamily: 'PoppinsRegular'
+    },
+    errorText: {
+      marginTop: 12,
+      fontSize: 12,
+      color: 'red',
+    },
+  });
+  
+
 export default SettingsTextInput;
 
-const styles = StyleSheet.create({
-    container: {
-        marginTop: 20,
-        marginHorizontal: 30,
-    },
-    title: {
-        fontSize: 14,
-        fontFamily: 'PoppinsBold',
-    },
-    section: {
-        marginTop: 10,
-
-    },
-});
+// const SettingsTextInputV: React.FC<SettingsTextInputVProps> = ({ containerStyle, placeHolder, onChangeText, error, ...props }) => {
+//     const [focused, setFocused] = useState(false);
+//     const labelAnimation = useRef(new Animated.Value(0)).current;
+//     const labelAnimationInterpolate = labelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [0, -20],
+//     });
+  
+//     const onFocus = () => {
+//       setFocused(true);
+//       Animated.timing(labelAnimation, {
+//         toValue: 1,
+//         duration: 400,
+//         useNativeDriver: false,
+//       }).start();
+//     };
+  
+//     const onBlur = () => {
+      
+//         setFocused(false);
+//         Animated.timing(labelAnimation, {
+//           toValue: 0,
+//           duration: 400,
+//           useNativeDriver: false,
+//         }).start();
+      
+//     };
+  
+//     return (
+//       <View style={containerStyle}>
+//         <Animated.Text style={{
+//           position: 'absolute',
+//           left: 10,
+//           top: labelAnimationInterpolate,
+//           fontSize: 12,
+//           color: error ? 'red' : 'black',
+//         }}>{placeHolder}</Animated.Text>
+//         <TextInput
+//           style={styles.input}
+//           onFocus={onFocus}
+//           onBlur={onBlur}
+//           onChangeText={onChangeText}
+//           {...props}
+//         />
+//       </View>
+//     );
+//   };
+  
+//   const styles = StyleSheet.create({
+//     input: {
+//       borderBottomColor: 'black',
+//       borderBottomWidth: 1,
+//     },
+//   });
