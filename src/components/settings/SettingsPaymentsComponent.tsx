@@ -3,13 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import SettingsPaymentDetails from "./nestedComponents/SettingsPaymentDetails";
 import Spacing from "../../constants/Spacing";
 import { TextInput } from "react-native-paper";
-import SettingsTextInput, {
-  Variant,
-} from "./nestedComponents/SettingsTextInput";
 import SettingsDropdown from "./nestedComponents/SettingsDropdown";
 import SettingsButtonSave from "./nestedComponents/SettingsButtonSave";
 import Colors from "../../constants/Colors";
 import FontSize from "../../constants/FontSize";
+import SettingsTextInput from "./nestedComponents/SettingsTextInput";
 
 interface paymentDetails {
   FirstName: string;
@@ -63,7 +61,6 @@ const SettingsPaymentsComponent: React.FC = () => {
 
   const isFirstNameValid = () => {
     const firstName = paymentDetails.FirstName;
-
     if (firstName.length === 0) {
       return false;
     }
@@ -159,54 +156,33 @@ const SettingsPaymentsComponent: React.FC = () => {
         Add your billing details to receive payments
       </Text>
       <SettingsTextInput
-        placeholder="First Name"
-        variant={Variant.FirstName}
-        required={true}
-        maxLength={50}
-        onTextChange={onFirstNameHandle}
-      />
+      placeholder="First Name"
+      maxLength={50}
+      onChangeText={onFirstNameHandle}/>
       <SettingsTextInput
-        placeholder="Last Name"
-        variant={Variant.LastName}
-        required={true}
-        maxLength={50}
-        onTextChange={onLastNameHandle}
-      />
+      placeholder="Last Name"
+      maxLength={50}
+      onChangeText={onLastNameHandle}/>
       <SettingsTextInput
-        placeholder="Street"
-        variant={Variant.Street}
-        required={true}
-        maxLength={50}
-        onTextChange={onStreetHandle}
-      />
+      placeholder="Street"
+      maxLength={50}
+      onChangeText={onStreetHandle}/>
       <SettingsTextInput
-        placeholder="House Number"
-        variant={Variant.HouseNumber}
-        required={true}
-        maxLength={10}
-        onTextChange={onHouseNumberHandle}
-      />
+      placeholder="House number"
+      maxLength={50}
+      onChangeText={onHouseNumberHandle}/>
       <SettingsTextInput
-        placeholder="Zip code"
-        variant={Variant.ZipCode}
-        required={true}
-        maxLength={16}
-        onTextChange={onZipCodeHandle}
-      />
+      placeholder="Zip Code"
+      maxLength={16}
+      onChangeText={onZipCodeHandle}/>
       <SettingsTextInput
-        placeholder="City"
-        variant={Variant.City}
-        required={true}
-        maxLength={50}
-        onTextChange={onCityHandle}
-      />
+      placeholder="City"
+      maxLength={50}
+      onChangeText={onCityHandle}/>
       <SettingsTextInput
-        placeholder="State or region"
-        variant={Variant.StateRegion}
-        required={true}
-        maxLength={50}
-        onTextChange={onStateRegionHandle}
-      />
+      placeholder="State or region"
+      maxLength={50}
+      onChangeText={onStateRegionHandle}/>
       <SettingsDropdown />
       <SettingsDropdown />
       <SettingsButtonSave onPress={() => ValidateHandlers()} />
