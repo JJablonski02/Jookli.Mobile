@@ -7,7 +7,6 @@ import {
   Settings,
 } from "react-native";
 import SettingsVerifyEmail from "./nestedComponents/SettingsVerifyEmail";
-import SettingsTextInput, { Variant } from "./nestedComponents/SettingsTextInput";
 import Spacing from "../../constants/Spacing";
 import Colors from "../../constants/Colors";
 import FontSize from "../../constants/FontSize";
@@ -18,29 +17,52 @@ import SettingsAccountIdentifier from "./nestedComponents/SettingsAccountIdentif
 import { NotifierRoot } from "react-native-notifier";
 import SettingsButtonSave from "./nestedComponents/SettingsButtonSave";
 
-const SettingsInfoComponent : React.FC = () => {
-    return (
-        <View style={styles.container}>
-                <Text>Empty</Text>
-        </View>
-    )
+const SettingsInfoComponent: React.FC = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Basic informations</Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <SettingsDropdown />
+        <SettingsDropdown />
+      </View>
+      <View
+        style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <SettingsDropdown/>
+          <SettingsDropdown/>
+          <SettingsDropdown/>
+      </View>
+      <SettingsButtonSave/>
+      <View style={{marginTop: Spacing * 2}}>
+        <Text style={styles.title}>Experience</Text>
+        <SettingsDropdown/>
+        <SettingsDropdown/>
+        <SettingsButtonSave/>
+      </View>
+      <View style={{marginVertical: Spacing * 2}}>
+        <Text style={styles.title}>Subcategories</Text>
+        <SettingsDropdown/>
+        <SettingsDropdown/>
+        <SettingsButtonSave/>
+      </View>
+    </View>
+  );
 };
 
 export default SettingsInfoComponent;
 
 const styles = StyleSheet.create({
-    container: {
-      marginTop: Spacing * 2,
-      marginHorizontal: Spacing * 3,
-      marginBottom: Spacing * 2,
-    },
-    title: {
-        fontSize: 14,
-        fontFamily: "PoppinsBold",
-      },
-      description: {
-        fontSize: 12,
-        fontFamily: "PoppinsRegular",
-        marginTop: Spacing,
-      },
+  container: {
+    marginTop: Spacing * 2,
+    marginHorizontal: Spacing * 3,
+    marginBottom: Spacing * 2,
+  },
+  title: {
+    fontSize: 14,
+    fontFamily: "PoppinsBold",
+  },
+  description: {
+    fontSize: 12,
+    fontFamily: "PoppinsRegular",
+    marginTop: Spacing,
+  },
 });
