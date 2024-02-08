@@ -25,6 +25,7 @@ export type RootStackParamList = {
 };
 
 export type EarnStackParamList = {
+    Earn: undefined;
     Games: undefined;
     Surveys: undefined;
     Movies: undefined;
