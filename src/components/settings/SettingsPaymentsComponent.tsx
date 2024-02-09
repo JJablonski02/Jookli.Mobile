@@ -183,8 +183,8 @@ const SettingsPaymentsComponent: React.FC = () => {
       placeholder="State or region"
       maxLength={50}
       onChangeText={onStateRegionHandle}/>
-      <SettingsDropdown />
-      <SettingsDropdown />
+      <SettingsDropdown placeholder="Select country" label="Country"/>
+      <SettingsDropdown placeholder="Select currency" label="Currency"/>
       <SettingsButtonSave onPress={() => ValidateHandlers()} />
     </View>
   );
