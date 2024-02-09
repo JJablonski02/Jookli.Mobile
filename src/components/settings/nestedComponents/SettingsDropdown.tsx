@@ -1,31 +1,72 @@
 import React, { useState } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-const SettingsDropdown : React.FC = () => {
-    const [selectedValue, setSelectedValue] = useState(null);
+type DataSource = { label: string, value: string};
 
-    const placeholder = {
-        label: 'Select time zone...',
-        value: null,
-    };
-    const options =  [
-        { label: 'Eastern', value: 'eastern' },
-        { label: 'Central', value: 'central' },
-        { label: 'Mountain', value: 'mountain' },
-        { label: 'Pacific', value: 'pacific' },
-    ];
+interface Props {
+    placeholder?: string;
+    label?: string;
+    dataSource?: DataSource[];
+}
+
+const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource}) => {
+    const [selectedValue, setSelectedValue] = useState('');
+
+    ///Make get request to get the options
     
     return (
         <View>
-            <Text>Select an option:</Text>
+            <Text style={labelStyles.labelStyle}>{label}</Text>
             <RNPickerSelect
-                onValueChange={(value) => setSelectedValue(value)}
-                items={options}
-                placeholder={placeholder}
-                value={selectedValue}/>
+                placeholder={{label: placeholder, value: null}}
+                onValueChange={(value : string) => setSelectedValue(value)}
+                items={dataSource ? dataSource : []}
+                value={selectedValue}
+                style={{
+                    ...pickerSelectStyles,
+                    iconContainer: {top: 10, right: 15},
+                }}
+                useNativeAndroidPickerStyle={false}
+                Icon={() => {
+                    return <Ionicons name="chevron-down" size={24} />;
+                }}
+                />
+                
         </View>
     );
 };
+
+const labelStyles = StyleSheet.create({
+    labelStyle:{
+        fontSize: 14,
+        fontFamily: "PoppinsRegular",
+        marginBottom: 5,
+        marginTop:20,    
+    },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: '#E0E0E0',
+        borderRadius: 4,
+        color: 'black',
+        paddingRight: 30,
+    },
+    inputAndroid: {
+        fontSize: 14,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: '#E0E0E0',
+        borderRadius: 30,
+        color: 'black',
+        paddingRight: 30,
+        height: 40,
+    },
+});
 
 export default SettingsDropdown;
