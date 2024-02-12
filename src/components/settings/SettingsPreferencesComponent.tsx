@@ -26,8 +26,8 @@ const SettingsPreferencesComponent: React.FC = () => {
         <Text style={styles.textContainer}>Save</Text>
       </TouchableOpacity>
       <Text style={styles.title}>Language and time zone</Text>
-      <SettingsDropdown/>
-      <SettingsDropdown/>
+      <SettingsDropdown label="Language" placeholder="Select language..." dataSource={[]}/>
+      <SettingsDropdown label="Time zone" placeholder="Select time zone..." dataSource={[]}/>
       <TouchableOpacity style={styles.buttonContainer}>
         <Text style={styles.textContainer}>Save</Text>
       </TouchableOpacity>
