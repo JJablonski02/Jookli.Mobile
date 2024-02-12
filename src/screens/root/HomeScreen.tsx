@@ -46,7 +46,7 @@ const HomeScreen: React.FC = () => {
         });
         setApiResponse(response.data);
       } catch (error) {
-        console.error('Błąd pobierania danych z API', error);
+        //console.error('Błąd pobierania danych z API', error);
       }
     };
     
