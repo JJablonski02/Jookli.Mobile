@@ -12,23 +12,36 @@ import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { NotifierWrapper } from "react-native-notifier";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Colors from "./src/constants/Colors";
+import { SetDefaultAppLanguage } from "./services/i18nextDetector";
+import CustomSafeAreaView from "./src/components/SafeViewAndroid";
+import { Provider } from "react-redux";
+import { store } from "./src/redux/store/store";
 
 export default function App() {
   const [loaded, error] = useFonts(fonts);
-
+  
   useEffect(() => {
+    const setDefaultLanguage = async () => {
+      try{
+        await SetDefaultAppLanguage(); //Detects and sets the language of the app
+      }catch(e){
+        console.log("Tak" + e);
+      }
+    };
+    setDefaultLanguage();
+
     if (error) throw error;
   }, [error]);
 
-/* translucentStatusBar is a parameter only for android*/
   return (
     loaded && (
       <SafeAreaProvider>
         <GestureHandlerRootView style={styles.gesture}>
           <NotifierWrapper> 
             <AuthProvider>
+              <Provider store={store}>
               <Navigation />
+              </Provider>
             </AuthProvider>
           </NotifierWrapper>
         </GestureHandlerRootView>
