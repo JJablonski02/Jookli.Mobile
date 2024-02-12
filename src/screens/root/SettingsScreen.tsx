@@ -10,16 +10,11 @@ import {
   Image,
   Switch,
 } from "react-native";
-import { SceneMap, TabView } from "react-native-tab-view";
 import React from "react";
 import Colors from "../../constants/Colors";
-import ionicons from "@expo/vector-icons/Ionicons";
-import Spacing from "../../constants/Spacing";
 import SettingsProfileComponent from "../../components/settings/SettingsProfileComponent";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import SettingsPreferencesComponent from "../../components/settings/SettingsPreferencesComponent";
 import SettingsPaymentsComponent from "../../components/settings/SettingsPaymentsComponent";
-import { NotifierWrapper } from "react-native-notifier";
 import SettingsPrivacyComponent from "../../components/settings/SettingsPrivacyComponent";
 import SettingsInfoComponent from "../../components/settings/SettingsInfoComponent";
 
