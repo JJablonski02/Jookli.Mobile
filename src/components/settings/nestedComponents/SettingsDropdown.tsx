@@ -9,21 +9,19 @@ interface Props {
     placeholder?: string;
     label?: string;
     dataSource?: DataSource[];
+    selectedValue?: (text: string) => void;
 }
 
-const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource}) => {
-    const [selectedValue, setSelectedValue] = useState('');
-
+const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource, selectedValue}) => {
     ///Make get request to get the options
     
     return (
         <View>
             <Text style={labelStyles.labelStyle}>{label}</Text>
             <RNPickerSelect
-                placeholder={{label: placeholder, value: null}}
-                onValueChange={(value : string) => setSelectedValue(value)}
+                placeholder={{label: placeholder ? placeholder : null, value: null}}
+                onValueChange={(value : string) => selectedValue && selectedValue(value)}
                 items={dataSource ? dataSource : []}
-                value={selectedValue}
                 style={{
                     ...pickerSelectStyles,
                     iconContainer: {top: 10, right: 15},
