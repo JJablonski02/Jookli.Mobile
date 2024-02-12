@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import SettingsPaymentDetails from "./nestedComponents/SettingsPaymentDetails";
 import Spacing from "../../constants/Spacing";
@@ -8,7 +8,14 @@ import SettingsButtonSave from "./nestedComponents/SettingsButtonSave";
 import Colors from "../../constants/Colors";
 import FontSize from "../../constants/FontSize";
 import SettingsTextInput from "./nestedComponents/SettingsTextInput";
+import CountryPhoneCodes from "../../../locales/options/countryPhoneCodes.json";
+import CommonCurrencies from "../../../locales/options/commonCurrencies.json";
+import { ValidatePaymentsComponent } from "../../common/FieldValidatorProvider";
 
+interface CommonData {
+  label: string;
+  value: string;
+};
 interface paymentDetails {
   FirstName: string;
   LastName: string;
@@ -21,9 +28,40 @@ interface paymentDetails {
   Country: string;
 }
 
-//Handlers
+//Fetching data from json file
+const fetchCountryData = () => {
+  const data: CommonData[] = CountryPhoneCodes.map((item: any) => {
+    return {
+      label: item.country,
+      value: item.country,
+    }
+  });
+  return data;
+};
+
+const fetchCurrencyData = () => {
+  const currencyNames: CommonData[] = Object.values(CommonCurrencies).map((item: any) => {
+    return{
+      label: item.name,
+      value: item.name,
+    }
+  });
+  return currencyNames;
+};
+  
+
 
 const SettingsPaymentsComponent: React.FC = () => {
+const [countryData, setCountryData] = React.useState<CommonData[]>([]);
+const [currencyData, setCurrencyData] = React.useState<CommonData[]>([]);
+
+  useEffect(() => {
+    const data = fetchCountryData();
+    setCountryData(data);
+    const currency = fetchCurrencyData();
+    setCurrencyData(currency);
+  }, []);
+
   const [paymentDetails, setPaymentDetails] = React.useState<paymentDetails>({
     FirstName: "",
     LastName: "",
@@ -36,119 +74,6 @@ const SettingsPaymentsComponent: React.FC = () => {
     Country: "",
   });
 
-  const onFirstNameHandle = (text: string) => {
-    setPaymentDetails({ ...paymentDetails, FirstName: text });
-  };
-
-  const onLastNameHandle = (text: string) => {
-    setPaymentDetails({ ...paymentDetails, LastName: text });
-  };
-  const onStreetHandle = (text: string) => {
-    setPaymentDetails({ ...paymentDetails, Street: text });
-  };
-  const onHouseNumberHandle = (text: string) => {
-    setPaymentDetails({ ...paymentDetails, HouseNumber: text });
-  };
-  const onZipCodeHandle = (text: string) => {
-    setPaymentDetails({ ...paymentDetails, ZipCode: text });
-  };
-  const onCityHandle = (text: string) => {
-    setPaymentDetails({ ...paymentDetails, City: text });
-  };
-  const onStateRegionHandle = (text: string) => {
-    setPaymentDetails({ ...paymentDetails, StateRegion: text });
-  };
-
-  const isFirstNameValid = () => {
-    const firstName = paymentDetails.FirstName;
-    if (firstName.length === 0) {
-      return false;
-    }
-    const onlyLetters = /^[A-Za-z]+$/;
-    return onlyLetters.test(firstName);
-  };
-
-  const isLastNameValid = () => {
-    const lastName = paymentDetails.LastName;
-
-    if (lastName.length === 0) {
-      return false;
-    }
-    const onlyLetters = /^[A-Za-z]+$/;
-    return onlyLetters.test(lastName);
-  };
-
-  const isStreetValid = () => {
-    const street = paymentDetails.Street;
-
-    if (street.length === 0) {
-      return false;
-    }
-    const onlyLetters = /^[A-Za-z]+$/;
-    return onlyLetters.test(street);
-  };
-
-  const isHouseNumberValid = () => {
-    const houseNumber = paymentDetails.HouseNumber;
-
-    if (houseNumber.length === 0) {
-      return false;
-    }
-    const onlyLetters = /^[0-9A-Za-z/]+$/;
-    return onlyLetters.test(houseNumber);
-  };
-
-  const isZipCodeValid = () => {
-    const zipCode = paymentDetails.ZipCode;
-
-    if (zipCode.length === 0) {
-      return false;
-    }
-    const onlyLetters = /^[0-9-]+$/;
-    return onlyLetters.test(zipCode);
-  };
-
-  const isCityValid = () => {
-    const city = paymentDetails.City;
-
-    if (city.length === 0) {
-      return false;
-    }
-    const onlyLetters = /^[A-Za-z]+$/;
-    return onlyLetters.test(city);
-  };
-
-  const isStateRegionValid = () => {
-    const stateRegion = paymentDetails.StateRegion;
-
-    if (stateRegion.length === 0) {
-      return false;
-    }
-    const onlyLetters = /^[A-Za-z]+$/;
-    return onlyLetters.test(stateRegion);
-  };
-
-  const ValidateHandlers = (): string | null => {
-    switch (true) {
-      case !isFirstNameValid():
-        return "First name is not valid";
-      case !isLastNameValid():
-        return "Last name is not valid";
-      case !isStreetValid():
-        return "Street is not valid";
-      case !isHouseNumberValid():
-        return "House number is not valid";
-      case !isZipCodeValid():
-        return "Zip code is not valid";
-      case !isCityValid():
-        return "City is not valid";
-      case !isStateRegionValid():
-        return "State or region is not valid";
-      default:
-        return null;
-    }
-  };
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Payment receiver</Text>
@@ -158,34 +83,34 @@ const SettingsPaymentsComponent: React.FC = () => {
       <SettingsTextInput
       placeholder="First Name"
       maxLength={50}
-      onChangeText={onFirstNameHandle}/>
+      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, FirstName: text})}/>
       <SettingsTextInput
       placeholder="Last Name"
       maxLength={50}
-      onChangeText={onLastNameHandle}/>
+      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, LastName: text})}/>
       <SettingsTextInput
       placeholder="Street"
       maxLength={50}
-      onChangeText={onStreetHandle}/>
+      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, Street: text})}/>
       <SettingsTextInput
       placeholder="House number"
       maxLength={50}
-      onChangeText={onHouseNumberHandle}/>
+      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, HouseNumber: text})}/>
       <SettingsTextInput
       placeholder="Zip Code"
       maxLength={16}
-      onChangeText={onZipCodeHandle}/>
+      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, ZipCode: text})}/>
       <SettingsTextInput
       placeholder="City"
       maxLength={50}
-      onChangeText={onCityHandle}/>
+      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, City: text})}/>
       <SettingsTextInput
       placeholder="State or region"
       maxLength={50}
-      onChangeText={onStateRegionHandle}/>
-      <SettingsDropdown placeholder="Select country" label="Country"/>
-      <SettingsDropdown placeholder="Select currency" label="Currency"/>
-      <SettingsButtonSave onPress={() => ValidateHandlers()} />
+      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, StateRegion: text})}/>
+      <SettingsDropdown placeholder="Select country" label="Country" dataSource={countryData}/>
+      <SettingsDropdown placeholder="Select currency" label="Currency" dataSource={currencyData}/>
+      <SettingsButtonSave onPress={() => ValidatePaymentsComponent(paymentDetails)} />
     </View>
   );
 };
