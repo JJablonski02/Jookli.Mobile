@@ -1,6 +1,6 @@
 import { DefaultTheme, NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as React from "react";
+import react, {useEffect, useContext} from "react";
 import Colors from "../constants/Colors";
 import LoginScreen from "../screens/auth/LoginScreen";
 import RegisterScreen from "../screens/auth/RegisterScreen";
@@ -9,18 +9,16 @@ import HomeScreen from "../screens/root/HomeScreen";
 import PersonalDataScreen from "../screens/auth/PersonalDataScreen";
 import { EarnStackParamList, RootStackParamList } from "../types";
 import { AuthContext, AuthContextProps } from "../context/AuthContext";
-import MainPageScreen from "../screens/root/MainPage";
 import WelcomeScreen from "../screens/auth/WelcomeScreen";
 import SettingsScreen from "../screens/root/SettingsScreen";
 import EarnScreen from "../screens/root/EarnScreen";
 import AnalyticsScreen from "../screens/root/AnalyticsScreen";
 import PaymentsScreen from "../screens/root/PaymentsScreen";
-import { TouchableOpacity, } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import CustomDrawer from "../components/CustomDrawer";
 import GamesScreen from "../screens/earn/GamesScreen";
+import SplashLoadingScreen from "../screens/root/SplashLoadingScreen";
 
 
 const Drawer = createDrawerNavigator<RootStackParamList>(); 
@@ -32,22 +30,23 @@ interface InnerNavigationProps {
 };
 
 export const Navigation = () => {
-  const contextValue: AuthContextProps | undefined = React.useContext(AuthContext);
+  const contextValue: AuthContextProps | undefined = useContext(AuthContext);
   
   if(contextValue == undefined){
     console.log("Undefinied context value from index.tsx");
   } 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     contextValue?.logout();
     contextValue.userInfo.access_token = '';
   }
+
 return (
   <NavigationContainer>
     <Stack.Navigator>
       {contextValue?.splashLoading ? (
           <Stack.Screen
-          name='MainPage'
-          component={MainPageScreen}
+          name='SplashLoading'
+          component={SplashLoadingScreen}
           options={{headerShown: false}}
         />
       ) : contextValue?.userInfo.access_token ? (
