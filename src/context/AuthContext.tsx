@@ -84,14 +84,17 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
   };
 
   ///Login with email and password
-  const login = (email: string, password: string) => {
+  const login = async (email: string, password: string) => {
     setIsLoading(true);
+    setSplashLoading(true);
+    await new Promise((resole) => setTimeout(resole, 3000));
     setUserInfo({
       access_token: "TEST",
       expires_in: 1,
       token_type: "TEST",
       scope: "TEST",
     } as UserInfo);
+    setSplashLoading(false);
     console.log(userInfo);
     //console.log(`login ${email} ${password}`);
     // axios
