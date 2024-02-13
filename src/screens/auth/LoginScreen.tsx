@@ -8,6 +8,7 @@ import {
     KeyboardAvoidingView,
     ImageBackground,
     Dimensions,
+    Platform,
   } from "react-native";
   import React, {useContext, useState} from 'react';
   import Spacing from "../../constants/Spacing";
@@ -20,6 +21,7 @@ import {
   import AppTextInput from "../../components/AppTextInput";
   import { AuthContext } from "../../context/AuthContext";
   import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { ScrollView } from "react-native-gesture-handler";
   
   type Props = NativeStackScreenProps<RootStackParamList, "Login">;
   
@@ -52,8 +54,8 @@ import {
     };
 
     return (
-      <SafeAreaView>
-        <KeyboardAwareScrollView>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+          <ScrollView>
         <View
           style={{
             padding: Spacing * 2,
@@ -181,11 +183,13 @@ import {
             </Text>
           </TouchableOpacity>
         </View>
-        </KeyboardAwareScrollView>
-      </SafeAreaView>
+        </ScrollView>
+        </KeyboardAvoidingView>
     );
   };
   
   export default LoginScreen;
   
-  const styles = StyleSheet.create({});
+  const styles = StyleSheet.create({
+
+  });

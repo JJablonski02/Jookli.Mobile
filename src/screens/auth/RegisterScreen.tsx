@@ -8,6 +8,7 @@ import {
     ImageBackground,
     Dimensions,
     KeyboardAvoidingView,
+    Platform,
   } from "react-native";
   import React from "react";
   import Spacing from "../../constants/Spacing";
@@ -45,7 +46,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
     });
     
     return (
-      <SafeAreaView>
         <KeyboardAwareScrollView>
         <View
           style={{
@@ -114,6 +114,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
             >
               Register through another service
             </Text>
+          </View>
+          <View style={{gap: 5, borderBottomColor: Colors.gray, borderBottomWidth: 1, paddingBottom: 20, marginBottom: 10}}>
             <GoogleButton signIn={signIns}/>
             <AppleButton signIn={signIns}/>
             <MicrosoftButton signIn={signIns}/>
@@ -156,7 +158,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
           </TouchableOpacity>
         </View>
         </KeyboardAwareScrollView>
-      </SafeAreaView>
     );
   };
   

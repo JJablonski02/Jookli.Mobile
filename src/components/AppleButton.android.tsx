@@ -33,13 +33,13 @@ const AppleButton: React.FC<Props> = ({ signIn }) => {
         <Image
           source={require("../../assets/images/apple_logo_black.png")}
           style={{ height: 20, width: 20, marginRight:10}}
+          resizeMode="contain"
         />
         <Text
           style={{
             textAlign: "center",
             color: "gray",
-            fontSize: 18,
-            fontWeight: "bold",
+            fontSize: 12,
           }}
         >
           Sign In with Apple
