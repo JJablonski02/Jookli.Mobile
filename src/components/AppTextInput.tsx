@@ -31,6 +31,7 @@ const AppTextInput: React.FC<TextInputProps> = ({ ...otherProps }) => {
           borderWidth: 1,
           paddingLeft: Spacing * 2,
           paddingRight: Spacing * 2,
+          width: "100%"
         },
         focused && {
           borderWidth: 3,
