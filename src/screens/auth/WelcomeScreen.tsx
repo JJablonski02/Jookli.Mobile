@@ -17,6 +17,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import AppleButton from "../../components/AppleButton.android";
 import MicrosoftButton from "../../components/MicrosoftButton.android";
+import {
+  RegularButtonBig,
+  RegularButtonSmall,
+} from "../../components/RegularButton";
+import { SafeView } from "../../components/SafeView";
 
 const { height } = Dimensions.get("window");
 
@@ -25,7 +30,7 @@ const signIns = () => {};
 
 const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
   return (
-    <View style={styles.container}>
+    <SafeView>
       <ImageBackground
         style={styles.image}
         resizeMode="contain"
@@ -33,64 +38,33 @@ const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
       />
       <View style={styles.headerContainer}>
         <Text style={styles.headerBigLabel}>Make profits having fun</Text>
-        <Text style={styles.headerSmallLabel}>Register or sign in if your account exists.</Text>
       </View>
-      <View style={styles.twoButtonsContainer}>
-        <TouchableOpacity
-          onPress={() => navigate("Login")}
-          style={styles.buttonStyle}
-        >
-          <Text style={styles.buttonTextStyle}>Sign in</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigate("Register")}
-          style={styles.buttonStyle}
-        >
-          <Text style={styles.buttonTextStyle}>Register</Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          alignItems: "center",
-          paddingTop: Spacing,
-        }}
-      >
-        <GoogleButton signIn={signIns} />
-      </View>
-      <View
-        style={{
-          alignItems: "center",
-        }}
-      >
-        <AppleButton signIn={signIns} />
-      </View>
-      <View
-        style={{
-          alignItems: "center",
-        }}
-      >
-        <MicrosoftButton signIn={signIns} />
-      </View>
-    </View>
+      <View style={{flex: 1, justifyContent: 'flex-end'}}>
+        <View style={styles.twoButtonsContainer}>
+          <RegularButtonBig label="Sign In" onPress={() => navigate("Login")} />
+          <Text>Do not have an account ?</Text>
+          <RegularButtonBig
+            label="Register"
+            onPress={() => navigate("Register")}
+          />
+        </View>
+        </View>
+    </SafeView>
   );
 };
 
 export default WelcomeScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    padding: Spacing * 2,
-  },
   image: {
-    height: height / 3,
+    height: height / 2,
     marginTop: 50,
   },
   headerContainer: {
-    paddingHorizontal: Spacing * 4,
-    paddingTop: Spacing * 2,
+    paddingHorizontal: Spacing * 3,
   },
   headerBigLabel: {
-    fontSize: FontSize.xxLarge,
+    fontSize: FontSize.xLarge,
     color: Colors.primary,
     fontFamily: "PoppinsBold",
     textAlign: "center",
@@ -104,27 +78,9 @@ const styles = StyleSheet.create({
   },
   twoButtonsContainer: {
     paddingTop: Spacing,
-    flexDirection: "row",
+    alignItems: 'center',
     justifyContent: "space-between",
-  },
-  buttonStyle: {
-    backgroundColor: Colors.primary,
-    paddingVertical: Spacing,
-    paddingHorizontal: Spacing * 2,
-    width: "48%",
-    borderRadius: Spacing * 3,
-    shadowColor: Colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: Spacing,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: Spacing,
-  },
-  buttonTextStyle: {
-    fontFamily: "PoppinsBold",
-    color: Colors.onPrimary,
-    fontSize: FontSize.large,
-    textAlign: "center",
+    width: "100%",
+    gap: 10,
   },
 });

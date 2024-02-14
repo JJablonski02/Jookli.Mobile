@@ -1,30 +1,34 @@
 import {
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-  } from "react-native";
-  import React from "react";
-  import Spacing from "../../constants/Spacing";
-  import FontSize from "../../constants/FontSize";
-  import Colors from "../../constants/Colors";
-  import Font from "../../constants/Font";
-  import { Ionicons } from "@expo/vector-icons";
-  import { NativeStackScreenProps } from "@react-navigation/native-stack";
-  import { RootStackParamList } from "../../types";
-  import AppTextInput from "../../components/AppTextInput";
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React from "react";
+import Spacing from "../../constants/Spacing";
+import FontSize from "../../constants/FontSize";
+import Colors from "../../constants/Colors";
+import Font from "../../constants/Font";
+import { Ionicons } from "@expo/vector-icons";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../types";
+import AppTextInput from "../../components/AppTextInput";
+import { SafeView } from "../../components/SafeView";
+import { RegularButtonBig } from "../../components/RegularButton";
 
-  type Props = NativeStackScreenProps<RootStackParamList, "RecoverPassword">;
+type Props = NativeStackScreenProps<RootStackParamList, "RecoverPassword">;
 
-  const RecoverPasswordScreen: React.FC<Props> = ({navigation: {navigate}}) => {
-    return(
-    <SafeAreaView style={{
-        flex: 1,
-        justifyContent: 'center'
-    }}
-    >
+const RecoverPasswordScreen: React.FC<Props> = ({
+  navigation: { navigate },
+}) => {
+
+  const [email, sendEmail] = React.useState("");
+
+  return (
+    <View style={{justifyContent: 'center', flex: 1}}>
+    <SafeView>
         <View
           style={{
             padding: Spacing * 2,
@@ -39,9 +43,7 @@ import {
               style={{
                 fontSize: FontSize.xLarge,
                 color: Colors.primary,
-                fontFamily: "PoppinsBold",
-                paddingLeft: Spacing * 5,
-                paddingRight: Spacing *5,
+                fontFamily: "PoppinsRegular",
                 alignContent: "center",
                 textAlign: "center",
                 marginVertical: Spacing * 3,
@@ -53,54 +55,29 @@ import {
               style={{
                 fontFamily: "PoppinsSemiBold",
                 fontSize: FontSize.small,
-                maxWidth: "80%",
                 textAlign: "center",
-                color: Colors.darkText
+                color: Colors.darkText,
               }}
             >
-              Provide additional information to help with the account recovery process.
+              Provide additional information to help with the account recovery
+              process.
             </Text>
           </View>
-          <View style= {{
-            marginTop: 30,
-          }}
-          >
-          <AppTextInput placeholder="Enter your e-mail address">
-            
-            </AppTextInput>
-          </View>
-
-          <TouchableOpacity
+          <View
             style={{
-              padding: Spacing,
-              backgroundColor: Colors.primary,
-              marginVertical: Spacing * 3,
-              borderRadius: Spacing * 3,
-              shadowColor: Colors.primary,
-              shadowOffset: {
-                width: 0,
-                height: Spacing,
-              },
-              shadowOpacity: 0.3,
-              shadowRadius: Spacing,
+              marginTop: 30,
+              gap: Spacing * 2,
             }}
           >
-            <Text
-              style={{
-                fontFamily: "PoppinsBold",
-                color: Colors.onPrimary,
-                textAlign: "center",
-                fontSize: FontSize.large,
-              }}
-            >
-              Send
-            </Text>
-          </TouchableOpacity>
+            <AppTextInput placeholder="Enter your e-mail address"></AppTextInput>
+            <RegularButtonBig label="Send" onPress={() => sendEmail('')}/>
+          </View>
         </View>
-    </SafeAreaView>
-    );
-  }
+    </SafeView>
+    </View>
+  );
+};
 
-  export default RecoverPasswordScreen;
+export default RecoverPasswordScreen;
 
-  const styles = StyleSheet.create({});
+const styles = StyleSheet.create({});

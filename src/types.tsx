@@ -16,7 +16,7 @@ export type RootStackParamList = {
     Home: undefined;
     Navigate: undefined;
     ConfirmAccount: undefined;
-    MainPage: undefined;
+    SplashLoading: undefined;
     Earn: undefined;
     Analytics: undefined;
     Payments: undefined;

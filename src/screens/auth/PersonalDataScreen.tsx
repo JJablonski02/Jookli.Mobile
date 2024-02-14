@@ -15,8 +15,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import AppTextInputHorizontal from "../../components/AppTextInputHorizontal";
 import RadioButtonSex from "../../components/RadioButtonSex";
-import { TextInput } from "react-native-paper";
-import { RegisterUserDTO } from "@api";
+import { SafeView } from "../../components/SafeView";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type Props = NativeStackScreenProps<RootStackParamList, "PersonalData">;
@@ -27,113 +26,115 @@ const PersonalDataScreen: React.FC<Props> = ({
 }) => {
   console.log(route.params.user);
   return (
-    <SafeAreaView style={{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}>
-        <View style={{
-          padding: Spacing * 2,
-        }}>
-          <View style={{ position: 'absolute', top: 60}}>
+    <SafeView>
+    <View
+      style={{
+        padding: Spacing * 2,
+      }}
+    >
+      <View style={{ position: "absolute", top: 60 }}>
         <Ionicons
           name="arrow-back"
           size={42}
           color="black"
-          onPress={() => navigate('Register')}
+          onPress={() => navigate("Register")}
         />
       </View>
-      <KeyboardAwareScrollView contentContainerStyle={{
-        flexGrow: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-          <View>
-            <View style={{
-              alignItems: 'center'
-            }}>
-              <Text
-                style={{
-                  fontFamily: "PoppinsSemiBold",
-                  fontSize: FontSize.xLarge,
-                  color: Colors.primary,
-                  marginVertical: Spacing * 3,
-                }}
-              >
-                Who are you?
-              </Text>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <View>
+          <View
+            style={{
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "PoppinsSemiBold",
+                fontSize: FontSize.xLarge,
+                color: Colors.primary,
+                marginVertical: Spacing * 3,
+              }}
+            >
+              Who are you?
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <View
+              style={{
+                marginRight: Spacing,
+              }}
+            >
+              <AppTextInputHorizontal placeholder="First Name" />
             </View>
             <View
               style={{
-                flexDirection: "row",
+                marginLeft: Spacing,
               }}
             >
-              <View
-                style={{
-                  marginRight: Spacing,
-                }}
-              >
-                <AppTextInputHorizontal placeholder="First Name" />
-              </View>
-              <View
-                style={{
-                  marginLeft: Spacing,
-                }}
-              >
-                <AppTextInputHorizontal placeholder="Last Name"></AppTextInputHorizontal>
-              </View>
-            </View>
-            <View
-              style={{
-                marginTop: Spacing * 2,
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: FontSize.medium,
-                  color: Colors.primary,
-                }}
-              >
-                Select gender
-              </Text>
-            </View>
-            <View style={{alignItems: "center"}}>
-              <RadioButtonSex />
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={() => navigate("ConfirmAccount")}
-                style={{
-                  padding: Spacing,
-                  backgroundColor: Colors.primary,
-                  marginVertical: Spacing * 3,
-                  borderRadius: Spacing * 3,
-                  shadowColor: Colors.primary,
-                  shadowOffset: {
-                    width: 0,
-                    height: Spacing,
-                  },
-                  shadowOpacity: 0.3,
-                  shadowRadius: Spacing,
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: "PoppinsBold",
-                    color: Colors.onPrimary,
-                    textAlign: "center",
-                    fontSize: FontSize.large,
-                  }}
-                >
-                  Sign up
-                </Text>
-              </TouchableOpacity>
+              <AppTextInputHorizontal placeholder="Last Name"></AppTextInputHorizontal>
             </View>
           </View>
-          </KeyboardAwareScrollView>
+          <View
+            style={{
+              marginTop: Spacing * 2,
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: FontSize.medium,
+                color: Colors.primary,
+              }}
+            >
+              Select gender
+            </Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <RadioButtonSex />
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigate("ConfirmAccount")}
+              style={{
+                padding: Spacing,
+                backgroundColor: Colors.primary,
+                marginVertical: Spacing * 3,
+                borderRadius: Spacing * 3,
+                shadowColor: Colors.primary,
+                shadowOffset: {
+                  width: 0,
+                  height: Spacing,
+                },
+                shadowOpacity: 0.3,
+                shadowRadius: Spacing,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "PoppinsBold",
+                  color: Colors.onPrimary,
+                  textAlign: "center",
+                  fontSize: FontSize.large,
+                }}
+              >
+                Sign up
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-    </SafeAreaView>
+      </KeyboardAwareScrollView>
+    </View>
+    </SafeView>
   );
 };
 
