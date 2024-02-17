@@ -1,14 +1,15 @@
 import React from "react";
-import { View, Text, Switch, StyleSheet } from "react-native";
+import { View, Switch, StyleSheet } from "react-native";
 import Spacing from "../../../constants/Spacing";
 import Colors from "../../../constants/Colors";
+import TextV from "../../global/Text";
 
 const SettingsDarkMode : React.FC = () => {
     const [isEnabled, setEnabled] = React.useState(false);
     const toggleSwitch = () => setEnabled(previousState => !previousState);
     return (
     <View style={styles.container}>
-        <Text style={styles.description}>The dark theme darkens the light surfaces of the page, creating an impression perfect for the night</Text>
+        <TextV style={styles.description}>The dark theme darkens the light surfaces of the page, creating an impression perfect for the night</TextV>
         <Switch 
         style={styles.switch} 
         value={isEnabled}
