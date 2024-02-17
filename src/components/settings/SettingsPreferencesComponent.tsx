@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet } from "react-native";
 import SettingsVerifyEmail from "./nestedComponents/SettingsVerifyEmail";
 import Spacing from "../../constants/Spacing";
 import Colors from "../../constants/Colors";
@@ -14,33 +9,51 @@ import SettingsDisplayProfitOne from "./nestedComponents/SettingsDisplayProfitOn
 import SettingsDarkMode from "./nestedComponents/SettingsDarkMode";
 import SettingsAccountIdentifier from "./nestedComponents/SettingsAccountIdentifier";
 import SettingsTextInput from "./nestedComponents/SettingsTextInput";
+import SettingsButtonSave from "./nestedComponents/SettingsButtonSave";
+import { moderateScale } from "../../constants/FontSize";
+import TextV from "../global/Text";
+import { SettingsSafeView } from "./nestedComponents/SettingsSafeView";
 
 const SettingsPreferencesComponent: React.FC = () => {
   const [Email, setEmail] = React.useState<string>("");
   return (
-    <View style={styles.container}>
-      <SettingsVerifyEmail />
-      <Text style={styles.title}>Change email address</Text>
-      <SettingsTextInput placeholder="Email" onChangeText={setEmail} />
-      <TouchableOpacity style={styles.buttonContainer}>
-        <Text style={styles.textContainer}>Save</Text>
-      </TouchableOpacity>
-      <Text style={styles.title}>Language and time zone</Text>
-      <SettingsDropdown label="Language" placeholder="Select language..." dataSource={[]}/>
-      <SettingsDropdown label="Time zone" placeholder="Select time zone..." dataSource={[]}/>
-      <TouchableOpacity style={styles.buttonContainer}>
-        <Text style={styles.textContainer}>Save</Text>
-      </TouchableOpacity>
-      <Text style={styles.title}>Display profit as</Text>
-      <SettingsDisplayProfitOne/>
-      <TouchableOpacity style={styles.buttonContainer}>
-        <Text style={styles.textContainer}>Save</Text>
-      </TouchableOpacity>
-      <Text style={styles.title}>Dark mode</Text>
-      <SettingsDarkMode/>
-      <Text style={styles.title}>Account Identifier</Text>
-      <SettingsAccountIdentifier/>
-    </View>
+    <SettingsSafeView>
+      <View style={styles.container}>
+        <SettingsVerifyEmail />
+        <View>
+          <TextV style={styles.title}>Change email address</TextV>
+          <SettingsTextInput placeholder="Email" onChangeText={setEmail} />
+          <SettingsButtonSave onPress={() => "Email has been changed"} />
+        </View>
+        <View>
+          <TextV style={styles.title}>Language and time zone</TextV>
+          <SettingsDropdown
+            label="Language"
+            placeholder="Select language..."
+            dataSource={[]}
+          />
+          <SettingsDropdown
+            label="Time zone"
+            placeholder="Select time zone..."
+            dataSource={[]}
+          />
+          <SettingsButtonSave onPress={() => "Email has been changed"} />
+        </View>
+        <View>
+          <TextV style={styles.title}>Display profit as</TextV>
+          <SettingsDisplayProfitOne />
+          <SettingsButtonSave onPress={() => "Email has been changed"} />
+        </View>
+        <View>
+          <TextV style={styles.title}>Dark mode</TextV>
+          <SettingsDarkMode />
+        </View>
+        <View>
+          <TextV style={styles.title}>Account Identifier</TextV>
+          <SettingsAccountIdentifier />
+        </View>
+      </View>
+    </SettingsSafeView>
   );
 };
 
@@ -48,13 +61,11 @@ export default SettingsPreferencesComponent;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Spacing * 2,
-    marginHorizontal: Spacing * 3,
+    gap: Spacing * 2,
   },
   title: {
-    fontSize: 14,
-    fontFamily: "PoppinsBold",
-    marginTop: Spacing * 2,
+    fontSize: moderateScale(16),
+    fontFamily: "PoppinsSemiBold",
   },
   buttonContainer: {
     elevation: 5,
@@ -65,11 +76,5 @@ const styles = StyleSheet.create({
     width: 200,
     shadowOpacity: 0.5,
     alignSelf: "center",
-  },
-  textContainer: {
-    textAlign: "center",
-    color: Colors.background,
-    fontSize: FontSize.medium,
-    fontWeight: "bold",
   },
 });
