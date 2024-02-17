@@ -1,13 +1,13 @@
 import React from 'react';
 import { 
     View, 
-    Text, 
     StyleSheet, 
     Image,
     TouchableOpacity 
 } from 'react-native';
 import Colors from '../../constants/Colors';
 import Spacing from '../../constants/Spacing';
+import TextV from '../global/Text';
 
 
 const SettingsProfileComponent : React.FC = () => {
@@ -21,9 +21,9 @@ const SettingsProfileComponent : React.FC = () => {
               resizeMode="contain" />
 
             <View>
-              <Text style={styles.profileName}>John Doe</Text>
+              <TextV style={styles.profileName}>John Doe</TextV>
 
-              <Text style={styles.profileHandle}>@john.doe</Text>
+              <TextV style={styles.profileHandle}>@john.doe</TextV>
             </View>
           </View>
 
@@ -32,7 +32,7 @@ const SettingsProfileComponent : React.FC = () => {
               // handle onPress
             }}>
             <View style={styles.profileAction}>
-              <Text style={styles.profileActionText}>Edit Profile</Text>
+              <TextV style={styles.profileActionText}>Edit Profile</TextV>
             </View>
           </TouchableOpacity>
         </View>
