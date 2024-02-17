@@ -60,7 +60,7 @@ return (
         </Stack.Group>
       ) : (
         <Stack.Group screenOptions={{
-          headerShown: false
+          headerShown: false,
         }}>
           <Stack.Screen name="Welcome" component={WelcomeScreen}/>
           <Stack.Screen name='Login' component={LoginScreen}/>
@@ -99,6 +99,7 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
       drawerActiveBackgroundColor: Colors.primary,
       drawerActiveTintColor: Colors.onPrimary,
       drawerInactiveTintColor: Colors.primary,
+      drawerAllowFontScaling: false,
     }}>
       <Drawer.Screen name="Home" component={HomeScreen} 
       options={{
