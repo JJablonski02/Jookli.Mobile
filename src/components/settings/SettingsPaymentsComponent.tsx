@@ -6,11 +6,13 @@ import { TextInput } from "react-native-paper";
 import SettingsDropdown from "./nestedComponents/SettingsDropdown";
 import SettingsButtonSave from "./nestedComponents/SettingsButtonSave";
 import Colors from "../../constants/Colors";
-import FontSize from "../../constants/FontSize";
+import FontSize, { moderateScale, scale } from "../../constants/FontSize";
 import SettingsTextInput from "./nestedComponents/SettingsTextInput";
 import CountryPhoneCodes from "../../../locales/options/countryPhoneCodes.json";
 import CommonCurrencies from "../../../locales/options/commonCurrencies.json";
 import { ValidatePaymentsComponent } from "../../common/FieldValidatorProvider";
+import TextV from "../global/Text";
+import { SettingsSafeView } from "./nestedComponents/SettingsSafeView";
 
 interface CommonData {
   label: string;
@@ -75,11 +77,12 @@ const [currencyData, setCurrencyData] = React.useState<CommonData[]>([]);
   });
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Payment receiver</Text>
-      <Text style={styles.description}>
+    <SettingsSafeView>
+      <View style={styles.container}>
+      <TextV style={styles.title}>Payment receiver</TextV>
+      <TextV style={styles.description}>
         Add your billing details to receive payments
-      </Text>
+      </TextV>
       <SettingsTextInput
       placeholder="First Name"
       maxLength={50}
@@ -111,22 +114,21 @@ const [currencyData, setCurrencyData] = React.useState<CommonData[]>([]);
       <SettingsDropdown placeholder="Select country" label="Country" dataSource={countryData}/>
       <SettingsDropdown placeholder="Select currency" label="Currency" dataSource={currencyData}/>
       <SettingsButtonSave onPress={() => ValidatePaymentsComponent(paymentDetails)} />
-    </View>
+      </View>
+    </SettingsSafeView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Spacing * 2,
-    marginHorizontal: Spacing * 3,
-    marginBottom: Spacing * 2,
+    gap: Spacing,
   },
   title: {
-    fontSize: 14,
-    fontFamily: "PoppinsBold",
+    fontSize: moderateScale(16),
+    fontFamily: "PoppinsSemiBold",
   },
   description: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     fontFamily: "PoppinsRegular",
     marginTop: Spacing,
   },
