@@ -15,7 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import AppTextInput from "../../components/AppTextInput";
-import { SafeView } from "../../components/SafeView";
+import { SafeView } from "../../components/global/SafeView";
 import { RegularButtonBig } from "../../components/RegularButton";
 
 type Props = NativeStackScreenProps<RootStackParamList, "RecoverPassword">;
