@@ -1,6 +1,7 @@
 import { TouchableOpacity, View, Image, Text } from "react-native";
 import Spacing from "../constants/Spacing";
 import React from "react";
+import TextV from "./global/Text";
 
 interface Props {
   signIn: () => void;
@@ -35,7 +36,7 @@ const MicrosoftButton: React.FC<Props> = ({ signIn }) => {
           style={{ height: 20, width: 20, marginRight:10}}
           resizeMode="contain"
         />
-        <Text
+        <TextV
           style={{
             textAlign: "center",
             color: "gray",
@@ -43,7 +44,7 @@ const MicrosoftButton: React.FC<Props> = ({ signIn }) => {
             }}
         >
           Sign In with Microsoft
-        </Text>
+        </TextV>
       </View>
     </TouchableOpacity>
   );
