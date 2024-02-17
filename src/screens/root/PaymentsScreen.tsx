@@ -2,7 +2,6 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import {
   SafeAreaView,
-  Text,
   View,
   ScrollView,
   StyleSheet,
@@ -14,6 +13,7 @@ import Font from "../../constants/Font";
 import Spacing from "../../constants/Spacing";
 import { ProgressBar } from "react-native-paper";
 import Paymentsbutton from "../../components/payments/PaymentsButton";
+import TextV from "../../components/global/Text";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Payments">;
 
@@ -22,44 +22,44 @@ const PaymentsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
     <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.headerStyleContainer}>Your earnings</Text>
-          <Text style={styles.subHeaderContainer}>$0.00</Text>
+          <TextV style={styles.headerStyleContainer}>Your earnings</TextV>
+          <TextV style={styles.subHeaderContainer}>$0.00</TextV>
           <ProgressBar
             color={Colors.active}
             progress={1}
             theme={{ colors: { primary: "blue" } }}
           />
-          <Text>You've reached 0% of payment threshold</Text>
-          <Text>Payment threshold: $10.00</Text>
+          <TextV>You've reached 0% of payment threshold</TextV>
+          <TextV>Payment threshold: $10.00</TextV>
         </View>
         <View style={styles.container}>
-          <Text style={styles.taskLabelContainer}>Transactions</Text>
-          <Text style={styles.taskDescriptionContainer}>
+          <TextV style={styles.taskLabelContainer}>Transactions</TextV>
+          <TextV style={styles.taskDescriptionContainer}>
             You haven't received any payments yet to view your transaction
             history
-          </Text>
+          </TextV>
           <Paymentsbutton label="View transactions"/>
         </View>
         <View style={styles.container}>
-          <Text style={styles.taskLabelContainer}>How you get payment</Text>
+          <TextV style={styles.taskLabelContainer}>How you get payment</TextV>
           <View style={styles.horizontalContainer}>
             <Image
               style={styles.paymentImageContainer}
               source={require("../../../assets/images/Payment.jpg")}
             />
-            <Text
+            <TextV
               style={styles.paymentDescriptionContainer}>
               You don't need to add a payment method until you reach your
               payment threshold
-            </Text>
+            </TextV>
           </View>
           <Paymentsbutton label="Add payment method"/>
         </View>
         <View style={styles.container}>
-          <Text style={styles.taskLabelContainer}>Payment settings</Text>
-          <Text style={styles.taskDescriptionContainer}>
+          <TextV style={styles.taskLabelContainer}>Payment settings</TextV>
+          <TextV style={styles.taskDescriptionContainer}>
             You have not added any personal data to transfers. Add them to get correct transfers.
-          </Text>
+          </TextV>
           <Paymentsbutton label="Manage payment settings"/>
         </View>
       </ScrollView>
