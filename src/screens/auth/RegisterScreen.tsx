@@ -27,8 +27,8 @@ import MicrosoftButton from "../../components/MicrosoftButton.android";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { RegularButtonBig } from "../../components/RegularButton";
 import SmallCornerButton from "../../components/SmallCornerButton";
-import { SafeView } from "../../components/SafeView";
-import KeyBoardAwareScrollViewOnVisible from "../../components/KeyboardAwareScrollViewOnVisible";
+import { SafeView } from "../../components/global/SafeView";
+import KeyBoardAwareScrollViewOnVisible from "../../components/KeyboardScrollView";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
@@ -54,6 +54,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           style={{
             marginTop: Spacing * 2,
             marginBottom: Spacing * 2,
+            flex: 1,
           }}
         >
           <SmallCornerButton
@@ -101,16 +102,15 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             gap: 2,
             borderBottomColor: Colors.gray,
             borderBottomWidth: 1,
-            paddingBottom: 20,
-            marginBottom: 10,
             alignItems: "center",
+            flex: 1,
           }}
         >
           <GoogleButton signIn={signIns} />
           <AppleButton signIn={signIns} />
           <MicrosoftButton signIn={signIns} />
         </View>
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "center", flex: 1, justifyContent: 'flex-end'}}>
           <AppTextInput
             placeholder="Email"
             onChangeText={(text) =>
