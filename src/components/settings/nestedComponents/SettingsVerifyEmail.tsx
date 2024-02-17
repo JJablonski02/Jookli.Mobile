@@ -1,26 +1,29 @@
 import React from "react";
-import { View, Touchable, Text, Switch, StyleSheet, TouchableOpacity} from "react-native";
+import { View, Touchable, Text, Switch, StyleSheet, TouchableOpacity, Platform} from "react-native";
 import Spacing from "../../../constants/Spacing";
 import { TextInput } from "react-native-paper";
 import AppTextInput from "../../AppTextInput";
 import SettingsTextInput from "./SettingsTextInput";
 import EarnButton from "../../EarnButton";
 import Colors from "../../../constants/Colors";
-import FontSize from "../../../constants/FontSize";
+import FontSize, { moderateScale } from "../../../constants/FontSize";
+import TextV from "../../global/Text";
+
 
 const SettingsVerifyEmail = () => {
     return(
         <View>
-            <Text style={styles.title}>
+            <TextV style={styles.title}>
                 Verify your email address
-            </Text>
-            <Text style={styles.section}>
+            </TextV>
+            <TextV style={styles.section}>
                 Move to your email inbox and click on the link we sent you to verify your email address.
-            </Text>
-            <TouchableOpacity style={styles.buttonContainer}>
-                <Text style={styles.textContainer}>
+                If you have not received any messages from us, please click the button below.
+            </TextV>
+            <TouchableOpacity style={Platform.OS === 'ios' ? styles.buttonIos : styles.buttonAndroid }>
+                <TextV style={styles.textContainer}>
                     Send verification email
-                </Text>
+                </TextV>
             </TouchableOpacity>
         </View>
     );
@@ -34,12 +37,14 @@ const styles = StyleSheet.create({
         marginHorizontal: Spacing * 3,
     },
     title: {
-        fontSize: 14,
-        fontFamily: 'PoppinsBold',
+        fontSize: moderateScale(16),
+        fontFamily: 'PoppinsSemiBold',
     },
     section: {
         marginTop: Spacing,
-
+        fontFamily: 'PoppinsRegular',
+        fontSize: moderateScale(13),
+        textAlign: 'justify'
     },
     buttonContainer: {
         elevation: 5,
@@ -54,7 +59,28 @@ const styles = StyleSheet.create({
     textContainer:{
         textAlign: "center",
         color: Colors.background,
-        fontSize: FontSize.medium,
-        fontWeight: "bold",
-    }
+        fontSize: moderateScale(FontSize.small),
+        fontFamily: "PoppinsRegular",
+    },
+    buttonIos: {
+        elevation: 5,
+        padding: 6,
+        borderRadius: Spacing * 5,
+        backgroundColor: Colors.primary,
+        marginTop: Spacing * 2,
+        width: "60%",
+        shadowOpacity: 0.3,
+        alignSelf: "center",
+      },
+      buttonAndroid: {
+        elevation: 5,
+        padding: 6,
+        borderRadius: Spacing * 5,
+        backgroundColor: Colors.primary,
+        marginTop: Spacing * 2,
+        width: "60%",
+        shadowOpacity: 0.3,
+        alignSelf: "center",
+      },
+
 });
