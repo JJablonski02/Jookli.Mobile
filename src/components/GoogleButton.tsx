@@ -1,6 +1,7 @@
 import { TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
 import React from "react";
 import Spacing from "../constants/Spacing";
+import TextV from "./global/Text";
 
 interface Props {
   signIn: () => void;
@@ -18,9 +19,9 @@ const GoogleButton: React.FC<Props> = ({ signIn }) => {
           style={{ height: 20, width: 20, marginRight:10 }}
           resizeMode="contain"
         />
-        <Text style={styles.buttonTextStyle}>
+        <TextV style={styles.buttonTextStyle}>
           Sign In with Google
-        </Text>
+        </TextV>
       </View>
     </TouchableOpacity>
   );
