@@ -1,45 +1,34 @@
 import React from "react";
 import {
   View,
-  Text,
   StyleSheet,
-  TouchableOpacity,
-  Settings,
 } from "react-native";
-import SettingsVerifyEmail from "./nestedComponents/SettingsVerifyEmail";
 import Spacing from "../../constants/Spacing";
-import Colors from "../../constants/Colors";
-import FontSize from "../../constants/FontSize";
 import SettingsDropdown from "./nestedComponents/SettingsDropdown";
-import SettingsDisplayProfitOne from "./nestedComponents/SettingsDisplayProfitOne";
-import SettingsDarkMode from "./nestedComponents/SettingsDarkMode";
-import SettingsAccountIdentifier from "./nestedComponents/SettingsAccountIdentifier";
-import { NotifierRoot } from "react-native-notifier";
 import SettingsButtonSave from "./nestedComponents/SettingsButtonSave";
+import TextV from "../global/Text";
+import  SettingsDatePicker  from "./nestedComponents/SettingsDatePicker";
 
 const SettingsInfoComponent: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Basic informations</Text>
+      <TextV style={styles.title}>Basic informations</TextV>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <SettingsDropdown />
-        <SettingsDropdown />
+        <SettingsDropdown label="Gender" />
+        <SettingsDropdown label="Country"/>
       </View>
       <View
         style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <SettingsDropdown/>
-          <SettingsDropdown/>
-          <SettingsDropdown/>
       </View>
       <SettingsButtonSave/>
       <View style={{marginTop: Spacing * 2}}>
-        <Text style={styles.title}>Experience</Text>
+        <TextV style={styles.title}>Experience</TextV>
         <SettingsDropdown/>
         <SettingsDropdown/>
         <SettingsButtonSave/>
       </View>
       <View style={{marginVertical: Spacing * 2}}>
-        <Text style={styles.title}>Subcategories</Text>
+        <TextV style={styles.title}>Subcategories</TextV>
         <SettingsDropdown/>
         <SettingsDropdown/>
         <SettingsButtonSave/>
