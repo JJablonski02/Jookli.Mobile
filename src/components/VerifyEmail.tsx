@@ -1,20 +1,21 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import Spacing from "../constants/Spacing";
 import FontSize from "../constants/FontSize";
 import Colors from "../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
+import TextV from "./global/Text";
 
 const VerifyEmail = () => {
   const navigation = useNavigation();
     return (
         <View style = {styles.viewContainer}>
-            <Text style = {styles.sectionContainer}>
+            <TextV style = {styles.sectionContainer}>
                 Verify Email
-            </Text>
-            <Text style={styles.compareContainer}>
+            </TextV>
+            <TextV style={styles.compareContainer}>
                 Refresh your inbox and click on the link we sent you to verify your email address.
-            </Text>
+            </TextV>
             <Image
                 source={require('../../assets/images/sendEmail.png')}
                 style={{
@@ -24,9 +25,9 @@ const VerifyEmail = () => {
                 }}/>
             <TouchableOpacity
             onPress={() => navigation.navigate('Settings')}>
-                <Text style={styles.settingsContainer}>
+                <TextV style={styles.settingsContainer}>
                     Go to settings
-                </Text>
+                </TextV>
             </TouchableOpacity>
         </View>
     );
