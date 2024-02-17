@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, Switch, StyleSheet, TouchableOpacity, Easing, SafeAreaView } from "react-native";
+import { View, Text, Switch, StyleSheet, TouchableOpacity, Easing, SafeAreaView, Platform } from "react-native";
 import Spacing from "../../../constants/Spacing";
 import Colors from "../../../constants/Colors";
 import FontSize from "../../../constants/FontSize";
 import {NotifyError} from "../../notifications/Notify";
+import TextV from "../../global/Text";
 interface Props {
     onPress?: () => string | null;
 };
@@ -25,9 +26,9 @@ const SettingsButtonSave : React.FC<Props> = ({onPress}) => {
     return (
     <View style={styles.container}>
         <TouchableOpacity 
-        style={styles.buttonContainer}
+        style={Platform.OS === "ios" ? styles.buttonIos : styles.buttonAndroid}
         onPress={handleOnPress}>
-            <Text style={styles.textContainer}>Save</Text>
+            <TextV style={styles.textContainer}>Save</TextV>
         </TouchableOpacity>
     </View>
     );
@@ -43,20 +44,30 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontFamily: "PoppinsRegular",
     },
-    buttonContainer: {
+    buttonIos: {
         elevation: 5,
-        padding: 3,
-        borderRadius: Spacing * 2,
+        padding: 6,
+        borderRadius: Spacing * 5,
         backgroundColor: Colors.primary,
         marginTop: Spacing * 2,
-        width: 200,
-        shadowOpacity: 0.5,
+        width: "50%",
+        shadowOpacity: 0.3,
+        alignSelf: "center",
+      },
+      buttonAndroid: {
+        elevation: 5,
+        padding: 6,
+        borderRadius: Spacing * 5,
+        backgroundColor: Colors.primary,
+        marginTop: Spacing * 2,
+        width: "50%",
+        shadowOpacity: 0.3,
         alignSelf: "center",
       },
       textContainer: {
         textAlign: "center",
         color: Colors.background,
         fontSize: FontSize.medium,
-        fontWeight: "bold",
+        fontFamily: "PoppinsRegular",
       },
 });
