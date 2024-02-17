@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, StyleSheet, Text, TextInput, TouchableOpacity, View, StyleProp, ViewStyle, TextInputProps } from 'react-native';
+import { Animated, StyleSheet, Text, TextInput, TouchableOpacity, View, StyleProp, ViewStyle, TextInputProps, Platform } from 'react-native';
+import TextV from '../../global/Text';
+import { moderateScale } from '../../../constants/FontSize';
 
 interface SettingsTextInputVProps extends TextInputProps {
   containerStyle?: StyleProp<ViewStyle>;
@@ -45,13 +47,16 @@ const SettingsTextInput : React.FC<SettingsTextInputVProps> = ({ containerStyle,
 
     const labelStyle = {
         left: 5,
-        top: labelPosition.interpolate({
+        top: labelPosition.interpolate(Platform.OS === 'ios' ? {
             inputRange: [0, 1],
-            outputRange: [18, 0],
+            outputRange: [10, moderateScale(-6)],
+        } : {
+          inputRange: [0, 1],
+          outputRange: [moderateScale(14), moderateScale(-4)],
         }),
         fontSize: labelPosition.interpolate({
             inputRange: [0, 1],
-            outputRange: [14, 10],
+            outputRange: [moderateScale(14), moderateScale(12)],
         }),
         color: labelPosition.interpolate({
             inputRange: [0, 1],
@@ -63,7 +68,7 @@ const SettingsTextInput : React.FC<SettingsTextInputVProps> = ({ containerStyle,
     return(
         <View style={containerStyle}>
         <View style={[styles.innerContainer, error && { borderColor: 'red' }]}>
-          <Animated.Text style={[styles.label, labelStyle]}>{placeholder}</Animated.Text>
+          <Animated.Text style={[styles.label, labelStyle]} allowFontScaling={false}>{placeholder}</Animated.Text>
           <View style={styles.inputContainer}>
             <TextInput
             {...props}
@@ -75,6 +80,7 @@ const SettingsTextInput : React.FC<SettingsTextInputVProps> = ({ containerStyle,
             textAlignVertical='center'
             textContentType={props.secureTextEntry ? 'newPassword' : 'none'}
             secureTextEntry={showPassword}
+            allowFontScaling={false}
             />
             {props.secureTextEntry && !!text && (
               <View>
@@ -92,7 +98,7 @@ const SettingsTextInput : React.FC<SettingsTextInputVProps> = ({ containerStyle,
             )}
           </View>
         </View>
-        {error && <Text style={styles.errorText}>{error}</Text>}
+        {error && <TextV style={styles.errorText}>{error}</TextV>}
       </View>
     );
 };
@@ -107,7 +113,7 @@ const styles = StyleSheet.create({
     label: {
       position: 'absolute',
       color: 'black',
-      fontSize: 12,
+      fontSize: moderateScale(14),
       fontFamily: 'PoppinsRegular',
     },
     inputContainer: {
@@ -123,7 +129,7 @@ const styles = StyleSheet.create({
     },
     errorText: {
       marginTop: 12,
-      fontSize: 12,
+      fontSize: moderateScale(12),
       color: 'red',
     },
   });
