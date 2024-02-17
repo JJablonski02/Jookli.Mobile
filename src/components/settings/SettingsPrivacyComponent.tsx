@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   Settings,
@@ -9,7 +8,7 @@ import {
 import SettingsVerifyEmail from "./nestedComponents/SettingsVerifyEmail";
 import Spacing from "../../constants/Spacing";
 import Colors from "../../constants/Colors";
-import FontSize from "../../constants/FontSize";
+import FontSize, { moderateScale } from "../../constants/FontSize";
 import SettingsDropdown from "./nestedComponents/SettingsDropdown";
 import { NotifierRoot } from "react-native-notifier";
 import SettingsButtonSave from "./nestedComponents/SettingsButtonSave";
@@ -22,6 +21,8 @@ import {
   ValidatePrivacyNotificationsComponent
 } from "../../common/FieldValidatorProvider";
 import { isEnabled } from "react-native/Libraries/Performance/Systrace";
+import TextV from "../global/Text";
+import { SettingsSafeView } from "./nestedComponents/SettingsSafeView";
 
 
 interface CountryData{
@@ -93,17 +94,20 @@ const SettingsPrivacyComponent: React.FC = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Contact data</Text>
-      <SettingsTextInput placeholder="First Name" onChangeText={(text: string) => setContactProps({...contactProps, FirstName: text})}/>
+    <SettingsSafeView>
+      <View style={styles.sectionContainer}>
+      <View style={{gap:Spacing}}>
+      <TextV style={styles.title}>Contact data</TextV>
+      <SettingsTextInput placeholder="First Name" onChangeText={(text: string) => setContactProps({...contactProps, FirstName: text})} />
       <SettingsTextInput placeholder="Last Name" onChangeText={(text: string) => setContactProps({...contactProps, LastName: text})}/>
       <SettingsDropdown placeholder="Select area code..." label="Area code" dataSource={data} selectedValue={(text: string) => setContactProps({...contactProps, AreaCode: text})}/>
-      <SettingsTextInput placeholder="Phone number" maxLength={15} onChangeText={(text: string) => setContactProps({...contactProps, PhoneNumber: text})} />
+      <SettingsTextInput placeholder="Phone number" maxLength={15} onChangeText={(text: string) => setContactProps({...contactProps, PhoneNumber: text})} keyboardType="number-pad" />
       <SettingsButtonSave onPress={() => ValidatePrivacyContactComponent(contactProps)}/>
-      <View style={{ marginTop: 20 }}>
-        <Text style={styles.title}>
+      </View>
+      <View style={{gap: Spacing}}>
+        <TextV style={styles.title}>
           Receiving notifications from the application                   
-        </Text>
+        </TextV>
         <SettingsSwitchComponent label="When the task is completed" isSwitchEnabled={(isEnabled: boolean) => {{setNotificationProps({...notificationProps, TaskCompleted: isEnabled})}}}/>
         <SettingsSwitchComponent label="Confirmation that we have sent the transfer to your payment method" isSwitchEnabled={(isEnabled: boolean) => setNotificationProps({...notificationProps, TransferConfirmation: isEnabled})}/>
         <SettingsSwitchComponent label="New registration from your referral link" isSwitchEnabled={(isEnabled: boolean) => setNotificationProps({...notificationProps, NewRegistration: isEnabled})}/>
@@ -112,14 +116,15 @@ const SettingsPrivacyComponent: React.FC = () => {
         <SettingsButtonSave onPress={() => ValidatePrivacyNotificationsComponent(notificationProps)}/>
       </View>
       <View style={{marginTop: 20}}>
-        <Text style={styles.title}>Receiving messages</Text>
+        <TextV style={styles.title}>Receiving messages</TextV>
         <SettingsSwitchComponent label="Personalized help and performance suggestions" isSwitchEnabled={(isEnabled: boolean) => setReceivingMessagesProps({...receivingMessagesProps, PersonalizedHelp: isEnabled})}/>
         <SettingsSwitchComponent label="Periodic newsletters with tips and best practices" isSwitchEnabled={(isEnabled: boolean) => setReceivingMessagesProps({...receivingMessagesProps, PeriodicNewsletters: isEnabled})}/>
         <SettingsSwitchComponent label="Occasional surveys to help JoyProfits improve the app" isSwitchEnabled={(isEnabled: boolean) => setReceivingMessagesProps({...receivingMessagesProps, OccasionalSurveys: isEnabled})}/>
         <SettingsSwitchComponent label="special offers - promotions, discount codes" isSwitchEnabled={(isEnabled: boolean) => setReceivingMessagesProps({...receivingMessagesProps, SpecialOffers: isEnabled})}/>
         <SettingsButtonSave onPress={() => ValidatePrivacyMessagesComponent(receivingMessagesProps)}/>
         </View>
-    </View>
+        </View>
+    </SettingsSafeView>
   );
 };
 
@@ -130,14 +135,13 @@ const styles = StyleSheet.create({
     marginTop: Spacing * 2,
     marginHorizontal: Spacing * 3,
     marginBottom: Spacing * 2,
+    gap: Spacing * 3,
+  },
+  sectionContainer:{
+    gap: Spacing *2,
   },
   title: {
-    fontSize: 14,
-    fontFamily: "PoppinsBold",
-  },
-  description: {
-    fontSize: 12,
-    fontFamily: "PoppinsRegular",
-    marginTop: Spacing,
+    fontSize: moderateScale(16),
+    fontFamily: 'PoppinsSemiBold',
   },
 });
