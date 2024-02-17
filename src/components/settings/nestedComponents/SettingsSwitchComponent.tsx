@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, Switch, StyleSheet } from "react-native";
 import Spacing from "../../../constants/Spacing";
 import Colors from "../../../constants/Colors";
+import TextV from "../../global/Text";
+import { moderateScale } from "../../../constants/FontSize";
 
 interface Props{
     label?: string;
@@ -20,7 +22,7 @@ const SettingsSwitchComponent : React.FC<Props> = (props) => {
 
     return (
     <View style={styles.container}>
-        {props.label && <Text style={styles.description}>{props.label}</Text>}
+        {props.label && <TextV style={styles.description}>{props.label}</TextV>}
         <Switch 
         style={styles.switch} 
         value={isEnabled}
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     description:{
-        fontSize: 14,
+        fontSize: moderateScale(14),
         fontFamily: "PoppinsRegular",
         flex: 1,
         marginRight: Spacing * 2,
