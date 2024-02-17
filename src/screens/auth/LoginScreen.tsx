@@ -16,25 +16,33 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import AppTextInput from "../../components/AppTextInput";
 import { AuthContext } from "../../context/AuthContext";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 import SmallCornerButton from "../../components/SmallCornerButton";
-import { RegularButtonBig } from "../../components/RegularButton";
-import { SafeView } from "../../components/SafeView";
+import { RegularButtonBig, RegularLabelButton } from "../../components/RegularButton";
+import { SafeView } from "../../components/global/SafeView";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import KeyBoardAwareScrollViewOnVisible from "../../components/KeyboardAwareScrollViewOnVisible";
+import KeyBoardAwareScrollViewOnVisible from "../../components/KeyboardScrollView";
 import GoogleButton from "../../components/GoogleButton";
 import AppleButton from "../../components/AppleButton.android";
 import MicrosoftButton from "../../components/MicrosoftButton.android";
+import { NotifyError } from "../../components/notifications/Notify";
+import { ValidateLoginScreen } from "../../common/FieldValidatorProvider";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+interface ILoginScreenProps {
+  username: string;
+  password: string;
+};
 
-const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
+const { height } = Dimensions.get("window");
+
+const LoginScreen: React.FC<Props> = ({ navigation: { navigate }}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const context = useContext(AuthContext);
   const [isEmailValid, setEmailValid] = useState(false);
   const [isFieldEdited, setFieldEdited] = useState(false);
-  const { height } = Dimensions.get("window");
+  const [loginProps, setLoginProps] = useState<ILoginScreenProps>({ username: "", password: "" });
 
   function validateEmail(email: string) {
     var re = /\S+@\S+\.\S+/;
@@ -59,22 +67,12 @@ const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
   return (
     <KeyBoardAwareScrollViewOnVisible>
       <SafeView>
-        <View
-          style={{
-            marginTop: Spacing * 2,
-            marginBottom: Spacing * 2,
-          }}
-        >
-          <SmallCornerButton
-            navigation={() => navigate("Register")}
-            label="Register"
-          />
+        <View style={styles.mostTopContainer}>
+          <SmallCornerButton navigation={() => navigate("Register")} label="Register"/>
         </View>
         <View>
           <ImageBackground
-            style={{
-              height: height / 5,
-            }}
+            style={styles.image}
             resizeMode="contain"
             source={require("../../../assets/images/JoyProfits_Register.png")}
           />
@@ -95,61 +93,41 @@ const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             paddingBottom: Spacing * 3,
             borderBottomColor: Colors.gray,
             borderBottomWidth: 1,
+            flex: 1,
           }}
         >
           <AppTextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => onChangeTextHandler(text)}
-            onBlur={validate}
-          />
-          {!isEmailValid && isFieldEdited && (
-            <Text style={{ color: "red" }}>Invalid email address</Text>
-          )}
+          placeholder="Email"
+          onChangeText={(username: string) => setLoginProps({...loginProps, username})}/>
+          
           <AppTextInput
             placeholder="Password"
             secureTextEntry={true}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={(password: string) => setLoginProps({...loginProps, password})}
           />
 
-          <TouchableOpacity
-            onPress={() => navigate("RecoverPassword")}
-            style={{
-              padding: Spacing,
-              alignSelf: "flex-end",
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: "PoppinsSemiBold",
-                fontSize: FontSize.small,
-                color: Colors.primary,
-                alignSelf: "flex-end",
-              }}
-            >
-              Forgot your password ?
-            </Text>
-          </TouchableOpacity>
+          <RegularLabelButton onPress={() => (navigate('RecoverPassword'))} label="Forgot your password ?"/>
 
           <RegularButtonBig
             label="Sign in"
             onPress={() => {
-              if (isEmailValid) {
+              const message = ValidateLoginScreen(loginProps);
+              if (!message) 
+              {
                 context?.login(email, password);
               } else {
-                console.log("Invalid");
+                NotifyError("Sign in error occured", message);
               }
             }}
           />
         </View>
-        <View style={{flex: 1, justifyContent:'flex-end'}}>
-          <View style={{width:'100%', gap: 4, flex: 1}}>
-            <GoogleButton signIn={signIns} />
-            <AppleButton signIn={signIns} />
-            <MicrosoftButton signIn={signIns} />
-            </View>
-          </View>
+        <View
+          style={{ width: "100%", gap: 4, flex: 1, justifyContent: "flex-end" }}
+        >
+          <GoogleButton signIn={signIns} />
+          <AppleButton signIn={signIns} />
+          <MicrosoftButton signIn={signIns} />
+        </View>
       </SafeView>
     </KeyBoardAwareScrollViewOnVisible>
   );
@@ -158,9 +136,14 @@ const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+  mostTopContainer: {
+    marginTop: Spacing * 2,
+    marginBottom: Spacing * 2,
+    flex: 1,
+  },
   image: {
-    height: 100,
-    marginTop: 50,
+    height: height / 5,
+    flex: 1,
   },
   headerContainer: {
     paddingHorizontal: Spacing * 3,
