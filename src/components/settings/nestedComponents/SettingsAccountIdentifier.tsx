@@ -1,14 +1,15 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Spacing from "../../../constants/Spacing";
 import Colors from "../../../constants/Colors";
 import { ALERT_TYPE, AlertNotificationRoot, Dialog } from "react-native-alert-notification";
+import TextV from "../../global/Text";
 
 const SettingsAccountIdentifier : React.FC = () => {
     return (
     <View style={styles.container}>
-        <Text style={styles.description}>this will help you quickly contact our support team.</Text>
-        <Text style={styles.accountNumber}>1065-569-800</Text>
+        <TextV style={styles.description}>this will help you quickly contact our support team.</TextV>
+        <TextV style={styles.accountNumber}>1065-569-800</TextV>
         <AlertNotificationRoot>
         <TouchableOpacity style={{
             marginTop: Spacing,
@@ -24,7 +25,7 @@ const SettingsAccountIdentifier : React.FC = () => {
                 //handle onPress make request to server => delete account
             }})
         }}>
-            <Text style={styles.deleteAccount}>Delete Account</Text>
+            <TextV style={styles.deleteAccount}>Delete Account</TextV>
         </TouchableOpacity>
         </AlertNotificationRoot>
     </View>
@@ -47,6 +48,5 @@ const styles = StyleSheet.create({
     deleteAccount:{
         color: Colors.red,
         alignSelf: 'flex-end',
-        marginBottom: Spacing * 4,
     }
 });
