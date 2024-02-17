@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
+import TextV from './global/Text';
 
 const RadioButtonSex = () => {
   const [checked, setChecked] = React.useState('first');
@@ -13,7 +14,7 @@ const RadioButtonSex = () => {
           status={checked === 'first' ? 'checked' : 'unchecked'}
           onPress={() => setChecked('first')}
         />
-        <Text>Male</Text>
+        <TextV>Male</TextV>
       </View>
 
       <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 60}}>
@@ -22,7 +23,7 @@ const RadioButtonSex = () => {
           status={checked === 'second' ? 'checked' : 'unchecked'}
           onPress={() => setChecked('second')}
         />
-        <Text>Female</Text>
+        <TextV>Female</TextV>
       </View>
     </View>
   );
