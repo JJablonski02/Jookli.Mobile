@@ -2,11 +2,13 @@ import React from "react";
 import { View, Text, Switch, StyleSheet } from "react-native";
 import Spacing from "../../../constants/Spacing";
 import Colors from "../../../constants/Colors";
+import { moderateScale } from "../../../constants/FontSize";
+import TextV from "../../global/Text";
 
 const SettingsPaymentDetails : React.FC = () => {
     return (
     <View style={styles.container}>
-        <Text style={styles.description}>Add your billing details to receive payments</Text>
+        <TextV style={styles.description}>Add your billing details to receive payments</TextV>
     </View>
     );
 };
@@ -18,7 +20,7 @@ const styles = StyleSheet.create({
         marginTop: Spacing,
     },
     description:{
-        fontSize: 12,
+        fontSize: moderateScale(14),
         fontFamily: "PoppinsRegular",
     },
     switch:{
