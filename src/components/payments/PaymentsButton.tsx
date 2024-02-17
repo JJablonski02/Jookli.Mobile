@@ -1,8 +1,5 @@
 import {
   StyleSheet,
-  Text,
-  TextInput,
-  TextInputProps,
   View,
 } from "react-native";
 import React, { useState } from "react";
@@ -11,6 +8,7 @@ import Font from "../../constants/Font";
 import FontSize from "../../constants/FontSize";
 import Spacing from "../../constants/Spacing";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import TextV from "../global/Text";
 
 interface Props{
   label?: string;
@@ -23,7 +21,7 @@ const PaymentsButton: React.FC<Props> = (props) => {
     <View style={styles.container}>
       <TouchableOpacity style={{alignSelf: "flex-end"}}>
         <View style={styles.button}>
-          <Text style={styles.buttonText}>{props.label}</Text>
+          <TextV style={styles.buttonText}>{props.label}</TextV>
         </View>
       </TouchableOpacity>
     </View>
