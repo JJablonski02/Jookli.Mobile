@@ -86,6 +86,28 @@ const isFirstNameValid = (text: string) => {
     return onlyLetters.test(phoneNumber);
   };
 
+  const isUserNameValid = (text: string) => {
+    const userName = text;
+
+    if(!userName){
+      return false;
+    }
+
+    const emailFormat = /\S+@\S+\.\S+/;
+    return emailFormat.test(userName);
+  };
+
+  const isPasswordValid = (text: string) => {
+    const password = text;
+
+    if(!password){
+      return false;
+    }
+
+    const passwordFormat = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordFormat.test(password);
+  };
+
   
 interface PaymentDetails {
     FirstName: string;
@@ -166,3 +188,20 @@ interface PaymentDetails {
     console.log(receivingMessagesProps);
     return null;
   };
+
+  interface LoginProps{
+    username: string;
+    password: string;
+  };
+
+  export const ValidateLoginScreen: (loginProps : LoginProps) => string | null = (loginProps) =>{
+    switch(true){
+      case !isUserNameValid(loginProps.username):
+        return "Email is not valid";
+      case !isPasswordValid(loginProps.password):
+        return "Password is not valid";
+      default:
+        return null;
+    }
+  }
+  
