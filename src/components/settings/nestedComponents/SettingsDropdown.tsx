@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import TextV from '../../global/Text';
+import { moderateScale } from '../../../constants/FontSize';
+import Picker from 'react-native-picker-select';
 
 type DataSource = { label: string, value: string};
 
@@ -12,14 +15,12 @@ interface Props {
     selectedValue?: (text: string) => void;
 }
 
-const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource, selectedValue}) => {
-    ///Make get request to get the options
-    
+const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource, selectedValue}) => {    
     return (
         <View>
-            <Text style={labelStyles.labelStyle}>{label}</Text>
+            <TextV style={labelStyles.labelStyle}>{label}</TextV>
             <RNPickerSelect
-                placeholder={{label: placeholder ? placeholder : null, value: null}}
+                placeholder={{label: placeholder ? placeholder : null, value: null, textStyle: {allowFontScaling: false}}}
                 onValueChange={(value : string) => selectedValue && selectedValue(value)}
                 items={dataSource ? dataSource : []}
                 style={{
@@ -31,14 +32,20 @@ const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource, sel
                     return <Ionicons name="chevron-down" size={24} />;
                 }}
                 />
-                
         </View>
     );
 };
 
+const styles = StyleSheet.create({
+    container:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+});
+
 const labelStyles = StyleSheet.create({
     labelStyle:{
-        fontSize: 14,
+        fontSize: moderateScale(14),
         fontFamily: "PoppinsRegular",
         marginBottom: 5,
         marginTop:20,    
@@ -47,16 +54,18 @@ const labelStyles = StyleSheet.create({
 
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-        fontSize: 16,
-        paddingHorizontal: 10,
+        fontSize: moderateScale(14),
         borderWidth: 1,
         borderColor: '#E0E0E0',
         borderRadius: 4,
         color: 'black',
         paddingRight: 30,
+        height: 40,
+        paddingLeft: 10,
+        fontFamily: "PoppinsRegular",
     },
     inputAndroid: {
-        fontSize: 14,
+        fontSize: moderateScale(14),
         paddingHorizontal: 10,
         borderWidth: 1,
         borderColor: '#E0E0E0',
@@ -64,6 +73,12 @@ const pickerSelectStyles = StyleSheet.create({
         color: 'black',
         paddingRight: 30,
         height: 40,
+        fontFamily: "PoppinsRegular",
+    },
+    placeholder:{
+        fontSize: moderateScale(14),
+        fontFamily: "PoppinsRegular",
+        paddingLeft: 10,
     },
 });
 
