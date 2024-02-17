@@ -15,7 +15,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import AppTextInputHorizontal from "../../components/AppTextInputHorizontal";
 import RadioButtonSex from "../../components/RadioButtonSex";
-import { SafeView } from "../../components/SafeView";
+import { SafeView } from "../../components/global/SafeView";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type Props = NativeStackScreenProps<RootStackParamList, "PersonalData">;
