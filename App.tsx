@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { AppRegistry, StyleSheet, Text, View } from "react-native";
 import { Navigation } from "./src/navigation";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import fonts from "./src/constants/Font";
@@ -11,15 +11,15 @@ import AppLoading from "expo-app-loading";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { NotifierWrapper } from "react-native-notifier";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
 import { SetDefaultAppLanguage } from "./services/i18nextDetector";
 import CustomSafeAreaView from "./src/components/SafeViewAndroid";
 import { Provider } from "react-redux";
 import { store } from "./src/redux/store/store";
 
 export default function App() {
-  const [loaded, error] = useFonts(fonts);
   
+  const [loaded, error] = useFonts(fonts);
   useEffect(() => {
     const setDefaultLanguage = async () => {
       try{
