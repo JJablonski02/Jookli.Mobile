@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import {View, StyleSheet, TouchableOpacity} from "react-native";
 import Spacing from "../../../constants/Spacing";
 import Colors from "../../../constants/Colors";
+import TextV from "../../global/Text";
 
 const SettingsDisplayProfitOne : React.FC = () => {
     const [checked, setChecked] = useState('first');
@@ -13,9 +14,9 @@ const SettingsDisplayProfitOne : React.FC = () => {
             styles.button,
             checked === 'first' ? styles.buttonSelected : null,
         ]}>
-            <Text style={styles.buttonText}>
+            <TextV style={styles.buttonText}>
                 0.00
-            </Text>
+            </TextV>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -24,9 +25,9 @@ const SettingsDisplayProfitOne : React.FC = () => {
             styles.button,
             checked === 'second' ? styles.buttonSelected : null,
         ]}>
-            <Text style={styles.buttonText}>
+            <TextV style={styles.buttonText}>
                 0.000
-            </Text>
+            </TextV>
         </TouchableOpacity>
     </View>
     );
