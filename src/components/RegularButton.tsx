@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, TouchableOpacityProps } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, TouchableOpacityProps } from 'react-native'
 import Colors from '../constants/Colors'
 import Spacing from '../constants/Spacing'
 import FontSize from '../constants/FontSize'
+import TextV from './global/Text'
 
 interface Props extends TouchableOpacityProps{
     label: string
@@ -12,7 +13,7 @@ interface Props extends TouchableOpacityProps{
 export const RegularButtonSmall: React.FC<Props> = ({label, onPress, ...otherProps}) => {
     return (
         <TouchableOpacity onPress={onPress} style={styles.buttonStyleSmall} {...otherProps}>
-            <Text style={styles.buttonTextStyle}>{label}</Text>
+            <TextV style={styles.buttonTextStyle}>{label}</TextV>
         </TouchableOpacity>
         
     )
@@ -21,10 +22,20 @@ export const RegularButtonSmall: React.FC<Props> = ({label, onPress, ...otherPro
 export const RegularButtonBig: React.FC<Props> = ({label, onPress, ...otherProps}) => {
     return (
         <TouchableOpacity onPress={onPress} style={styles.buttonStyleBig} {...otherProps}>
-            <Text style={styles.buttonTextStyle}>{label}</Text>
+            <TextV style={styles.buttonTextStyle}>{label}</TextV>
         </TouchableOpacity>
         
     )
+}
+
+export const RegularLabelButton: React.FC<Props> = ({label, onPress, ...otherProps}) => {
+    return (
+        <TouchableOpacity onPress={onPress} style={styles.labelStyle} {...otherProps}>
+            <TextV style={styles.labelTextStyle}>{label}</TextV>
+        </TouchableOpacity>
+        
+    )
+
 }
 
 
@@ -64,4 +75,14 @@ const styles = StyleSheet.create({
         fontSize: FontSize.small,
         textAlign: "center",
       },
+      labelStyle:{
+        padding: Spacing,
+        alignSelf: "flex-end",
+      },
+      labelTextStyle:{
+        fontFamily: "PoppinsSemiBold",
+        fontSize: FontSize.small,
+        color: Colors.primary,
+        alignSelf: "flex-end",
+      }
 });
