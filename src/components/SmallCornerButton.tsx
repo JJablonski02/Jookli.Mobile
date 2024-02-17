@@ -10,6 +10,7 @@ import { RootStackParamList } from "../types";
 import Colors from "../constants/Colors";
 import FontSize from "../constants/FontSize";
 import Spacing from "../constants/Spacing";
+import TextV from "./global/Text";
 
 interface Props extends TouchableOpacityProps {
     label: string;
@@ -19,7 +20,7 @@ interface Props extends TouchableOpacityProps {
 const SmallCornerButton: React.FC<Props> = ({ navigation, label }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={navigation}>
-      <Text style={styles.textStyle}>{label}</Text>
+      <TextV style={styles.textStyle}>{label}</TextV>
     </TouchableOpacity>
   );
 };
