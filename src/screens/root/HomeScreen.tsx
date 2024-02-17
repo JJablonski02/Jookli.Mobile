@@ -1,7 +1,6 @@
 import {
     SafeAreaView,
     StyleSheet,
-    Text,
     TextInput,
     TouchableOpacity,
     View,
@@ -21,6 +20,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import VerifyEmail from "../../components/VerifyEmail";
 import SelfAdditionalInformations from "../../components/SelfAdditionalInformations";
 import { useNavigation } from "@react-navigation/native";
+import TextV from "../../components/global/Text";
 
 type AuthProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -57,68 +57,68 @@ const HomeScreen: React.FC = () => {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView>
     <View style={styles.viewContainer}>
-      <Text style={styles.sectionContainer}>
+      <TextV style={styles.sectionContainer}>
         Estimated Earnings
-      </Text>
-      <Text style={styles.namesContainer}>
+      </TextV>
+      <TextV style={styles.namesContainer}>
         Today:
-      </Text>
-      <Text style={styles.valuesContainer}>
+      </TextV>
+      <TextV style={styles.valuesContainer}>
           $0.00
-      </Text>
-      <Text style={styles.namesContainer}>
+      </TextV>
+      <TextV style={styles.namesContainer}>
         Yesterday: 
-      </Text>
-      <Text style={styles.valuesContainer}>
+      </TextV>
+      <TextV style={styles.valuesContainer}>
           $0.00
-      </Text>
-      <Text style={styles.compareContainer}>
+      </TextV>
+      <TextV style={styles.compareContainer}>
         <Ionicons name='caret-forward' size={10} color="black" />
         $0.00 (+0.00%)
-      </Text>
-      <Text style={styles.compareContainer}>
+      </TextV>
+      <TextV style={styles.compareContainer}>
         and the same day last week
-      </Text>
-      <Text style={styles.namesContainer}>
+      </TextV>
+      <TextV style={styles.namesContainer}>
         Last 7 days: 
-      </Text>
-      <Text style={styles.valuesContainer}>
+      </TextV>
+      <TextV style={styles.valuesContainer}>
           $0.00
-      </Text>
-      <Text style={styles.compareContainer}>
+      </TextV>
+      <TextV style={styles.compareContainer}>
         <Ionicons name='caret-forward' size={10} color="black" />
         $0.00 (+0.00%)
-      </Text>
-      <Text style={styles.compareContainer}>
+      </TextV>
+      <TextV style={styles.compareContainer}>
           compared to the previous 7 days
-      </Text>
-      <Text style={styles.namesContainer}>
+      </TextV>
+      <TextV style={styles.namesContainer}>
         This month: 
-      </Text>
-      <Text style={styles.valuesContainer}>
+      </TextV>
+      <TextV style={styles.valuesContainer}>
           $0.00
-      </Text>
-      <Text style={styles.compareContainer}>
+      </TextV>
+      <TextV style={styles.compareContainer}>
         <Ionicons name='caret-forward' size={10} color="black" />
         $0.00 (+0.00%)
-      </Text>
-      <Text style={styles.compareContainer}>
+      </TextV>
+      <TextV style={styles.compareContainer}>
           compared to the same period last year
-      </Text>
+      </TextV>
     </View>
     <View style={styles.viewContainer}>
-      <Text style={styles.sectionContainer}>
+      <TextV style={styles.sectionContainer}>
         Balance
-      </Text>
-      <Text style={styles.valuesContainer}>
+      </TextV>
+      <TextV style={styles.valuesContainer}>
         $0.00
-      </Text>
-      <Text style={styles.compareContainer}>
+      </TextV>
+      <TextV style={styles.compareContainer}>
         Last payment
-      </Text>
-      <Text style={styles.compareContainer}>
+      </TextV>
+      <TextV style={styles.compareContainer}>
         $0.00
-      </Text>
+      </TextV>
     </View>
     <VerifyEmail/>
     <SelfAdditionalInformations/>
