@@ -1,21 +1,22 @@
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import FontSize from '../constants/FontSize';
 import Font from '../constants/Font';
 import Spacing from '../constants/Spacing';
 import Colors from '../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
+import TextV from './global/Text';
 
 const SelfAdditionalInformations = () => {
   const navigation = useNavigation();
 
     return(
         <View style = {styles.viewContainer}>
-            <Text style = {styles.sectionContainer}>
+            <TextV style = {styles.sectionContainer}>
                 Add basic information about yourself
-            </Text>
-            <Text style={styles.compareContainer}>
+            </TextV>
+            <TextV style={styles.compareContainer}>
                 Display better paying ads to earn money
-            </Text>
+            </TextV>
             <Image
                 source={require('../../assets/images/BasicInfo.jpg')}
                 style={{
@@ -25,9 +26,9 @@ const SelfAdditionalInformations = () => {
                 }}/>
             <TouchableOpacity
             onPress={() => navigation.navigate('Settings')}>
-                <Text style={styles.settingsContainer}>
+                <TextV style={styles.settingsContainer}>
                     Go to settings
-                </Text>
+                </TextV>
             </TouchableOpacity>
         </View>
     );
