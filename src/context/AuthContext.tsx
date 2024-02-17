@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 //import { REACT_APP_API_URL } from '@env';
 import {RegisterUserDTO} from '@api'
+import { ValidateLoginScreen } from '../common/FieldValidatorProvider';
 const REACT_APP_API_URL = "https://localhost:7133/api";
 
 interface UserInfo {
@@ -94,8 +95,11 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
       token_type: "TEST",
       scope: "TEST",
     } as UserInfo);
+    
+    await axios.post(`https://localhost:7133/api/useraccess/test`)
+    .then((res) => console.log(res.data))
+    .catch((e) => console.log(`login error ${e}`));
     setSplashLoading(false);
-    console.log(userInfo);
     //console.log(`login ${email} ${password}`);
     // axios
     //   .post(`https://localhost:7133/connect/token`, {
