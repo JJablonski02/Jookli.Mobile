@@ -18,6 +18,7 @@ import {
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         placeholderTextColor={Colors.darkText}
+        allowFontScaling={false}
         style={[
           {
             fontFamily: "PoppinsRegular",
