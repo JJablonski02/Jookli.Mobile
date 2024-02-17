@@ -9,6 +9,7 @@ import {
   Text,
   Image,
   Switch,
+  KeyboardAvoidingView,
 } from "react-native";
 import React from "react";
 import Colors from "../../constants/Colors";
@@ -17,6 +18,8 @@ import SettingsPreferencesComponent from "../../components/settings/SettingsPref
 import SettingsPaymentsComponent from "../../components/settings/SettingsPaymentsComponent";
 import SettingsPrivacyComponent from "../../components/settings/SettingsPrivacyComponent";
 import SettingsInfoComponent from "../../components/settings/SettingsInfoComponent";
+import { KeyBoardAwareScrollViewSettings } from "../../components/KeyboardScrollView";
+import TextV from "../../components/global/Text";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Settings">;
 
@@ -40,8 +43,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
   const [value, setValue] = React.useState(0);
 
   return (
-    <SafeAreaView style={{ backgroundColor: "#f8f8f8", flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.container}>
+    <KeyBoardAwareScrollViewSettings>
         <SettingsProfileComponent />
         <View style={styles.content}>
           <View style={styles.tabs}>
@@ -55,14 +57,15 @@ const SettingsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
               >
                 <TouchableOpacity onPress={() => setValue(index)}>
                   <View style={styles.tab}>
-                    <Text
+                    <TextV
                       style={[
                         styles.tabText,
                         index === value && { color: Colors.primary },
                       ]}
+                      allowFontScaling={false}
                     >
                       {header}
-                    </Text>
+                    </TextV>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -70,8 +73,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           </View>
           {SectionComponent({ label: SECTIONS[value].header })}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </KeyBoardAwareScrollViewSettings>
   );
 };
 
