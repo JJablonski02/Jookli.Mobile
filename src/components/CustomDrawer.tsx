@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ImageBackground, Image, Dimensions } from "react-native";
+import { View, TouchableOpacity, ImageBackground, Image, Dimensions } from "react-native";
 import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from "../constants/Colors";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
+import TextV from "./global/Text";
 
 interface CustomDrawerProps {
     navigation: DrawerContentComponentProps["navigation"];
@@ -32,7 +33,7 @@ const descriptors = props.descriptors;
             style={{height: 80, width: 80, borderRadius: 40, marginBottom: 10}}
             resizeMode="contain"
           />
-          <Text
+          <TextV
             style={{
               color: '#000',
               fontSize: 18,
@@ -40,16 +41,16 @@ const descriptors = props.descriptors;
               marginBottom: 5,
             }}>
             John Doe
-          </Text>
+          </TextV>
           <View style={{flexDirection: 'row'}}>
-            <Text
+            <TextV
               style={{
                 color: '#000',
                 fontFamily: 'PoppinsRegular',
                 marginRight: 5,
               }}>
               280 Coins
-            </Text>
+            </TextV>
           </View>
         </ImageBackground>
         <View style={{flex: 1, backgroundColor: '#fff', paddingTop: 10}}>
@@ -60,27 +61,27 @@ const descriptors = props.descriptors;
         <TouchableOpacity onPress={() => {}} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="share-social-outline" size={22} />
-            <Text
+            <TextV
               style={{
                 fontSize: 15,
                 fontFamily: 'PoppinsRegular',
                 marginLeft: 5,
               }}>
               Tell a Friend
-            </Text>
+            </TextV>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={props.handleSignOut}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="exit-outline" size={22} />
-            <Text
+            <TextV
               style={{
                 fontSize: 15,
                 fontFamily: 'PoppinsRegular',
                 marginLeft: 5,
               }}>
               Sign Out
-            </Text>
+            </TextV>
           </View>
         </TouchableOpacity>
       </View>
