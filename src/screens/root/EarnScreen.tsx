@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList, EarnStackParamList } from "../../types";
-import { SafeAreaView, ScrollView, Text, View, StyleSheet, Image } from "react-native";
+import { SafeAreaView, ScrollView, View, StyleSheet, Image } from "react-native";
 import Spacing from "../../constants/Spacing";
 import FontSize from "../../constants/FontSize";
 import EarnButton from "../../components/EarnButton";
@@ -8,6 +8,7 @@ import Colors from "../../constants/Colors";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GamesScreen from "../earn/GamesScreen";
 import HomeScreen from "./HomeScreen";
+import TextV from "../../components/global/Text";
 
 type Props = NativeStackScreenProps<EarnStackParamList, "Earn">;
 interface EarnScreenProps {
@@ -22,42 +23,42 @@ const EarnScreen: React.FC<EarnScreenProps> = ({ navigation, route, handleMove }
     <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerStyleContainer}>Choose your earning method</Text>
-          <Text style={styles.subHeaderContainer}>100 Points ~ $1.00</Text>
+          <TextV style={styles.headerStyleContainer}>Choose your earning method</TextV>
+          <TextV style={styles.subHeaderContainer}>100 Points ~ $1.00</TextV>
         </View>
         <View style={styles.taskContainer}>
           <Image 
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/PlayGames.jpg')}/>
-          <Text style={styles.taskLabelContainer}>Play games</Text>
+          <TextV style={styles.taskLabelContainer}>Play games</TextV>
           <EarnButton navigation={navigation} route={route}/>
         </View>
         <View style={styles.taskContainer}>
           <Image 
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/WatchMovie.jpg')}/>
-          <Text style={styles.taskLabelContainer}>Watch movies</Text>
+          <TextV style={styles.taskLabelContainer}>Watch movies</TextV>
           <EarnButton navigation={navigation} route={route}/>
         </View>
         <View style={styles.taskContainer}>
           <Image 
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/CompleteSurvey.jpg')}/>
-          <Text style={styles.taskLabelContainer}>Complete the survey</Text>
+          <TextV style={styles.taskLabelContainer}>Complete the survey</TextV>
           <EarnButton navigation={navigation} route={route}/>
         </View>
         <View style={styles.taskContainer}>
           <Image 
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/OnlineShopping.jpg')}/>
-          <Text style={styles.taskLabelContainer}>Online shopping</Text>
+          <TextV style={styles.taskLabelContainer}>Online shopping</TextV>
           <EarnButton navigation={navigation} route={route}/>
         </View>
         <View style={styles.taskContainer}>
           <Image 
           style={{width: '100%', height: 100}}
           source={require('../../../assets/images/MicroTasks.jpg')}/>
-          <Text style={styles.taskLabelContainer}>Microtasks</Text>
+          <TextV style={styles.taskLabelContainer}>Microtasks</TextV>
           <EarnButton navigation={navigation} route={route}/>
         </View>
       </ScrollView>
