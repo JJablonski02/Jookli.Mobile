@@ -21,7 +21,7 @@ import {
   RegularButtonBig,
   RegularButtonSmall,
 } from "../../components/RegularButton";
-import { SafeView } from "../../components/SafeView";
+import { SafeView } from "../../components/global/SafeView";
 
 const { height } = Dimensions.get("window");
 
