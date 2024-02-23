@@ -11,8 +11,7 @@ import SettingsDatePicker  from "./nestedComponents/SettingsDatePicker";
 import CountryPhoneCodes from "../../../locales/options/countryPhoneCodes.json";
 import { moderateScale } from "../../constants/FontSize";
 import { SettingsSafeView } from "./nestedComponents/SettingsSafeView";
-
-
+import SettingsModalView from "./nestedComponents/SettingsModalView";
 
 const DATASOURCE = [
   { label: 'Other', value: '0' },
@@ -20,13 +19,13 @@ const DATASOURCE = [
   { label: 'Female', value: '2' },
 ];
 
-interface CountryData{
+interface Props{
   label: string;
   value: string;
 }
 
-const fetchData = () => {
-  const data: CountryData[] = CountryPhoneCodes.map((item: any) => {
+const fetchCountryData = () => {
+  const data: Props[] = CountryPhoneCodes.map((item: any) => {
     return {
       label: item.country,
       value: item.country,
@@ -36,6 +35,7 @@ const fetchData = () => {
 }
 
 
+
 const SettingsInfoComponent: React.FC = () => {
   return (
     <SettingsSafeView>
@@ -43,7 +43,7 @@ const SettingsInfoComponent: React.FC = () => {
       <TextV style={styles.title}>Basic informations</TextV>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <SettingsDropdown label="Gender" dataSource={DATASOURCE} placeholder="Select gender..."/>
-        <SettingsDropdown label="Country" dataSource={fetchData()} placeholder="Select country..."/>
+        <SettingsDropdown label="Country" dataSource={fetchCountryData()} placeholder="Select country..."/>
       </View>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <SettingsDatePicker/>
@@ -51,7 +51,7 @@ const SettingsInfoComponent: React.FC = () => {
       <SettingsButtonSave/>
       <View style={{marginTop: Spacing * 2}}>
         <TextV style={styles.title}>Experience</TextV>
-        <SettingsDropdown/>
+        <SettingsModalView label="Nothing selected"/>
         <SettingsDropdown/>
         <SettingsButtonSave/>
       </View>
