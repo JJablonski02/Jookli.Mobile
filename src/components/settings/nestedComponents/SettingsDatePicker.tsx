@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: moderateScale(10),    
-        paddingHorizontal: moderateScale(10),  
+        paddingHorizontal: moderateScale(10),
+        paddingVertical: moderateScale(6),  
     },
     inputIOS2:{
         marginLeft: scale(20),
@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
         fontFamily: "PoppinsRegular",
         alignItems: 'center',
         flexDirection: 'row',
-        paddingVertical: moderateScale(10),
         paddingHorizontal: moderateScale(10),
+        paddingVertical: moderateScale(6),
     },
     inputAndroid2:{
         marginLeft: scale(20),
