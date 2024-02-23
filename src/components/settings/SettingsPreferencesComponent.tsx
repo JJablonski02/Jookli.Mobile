@@ -13,6 +13,35 @@ import SettingsButtonSave from "./nestedComponents/SettingsButtonSave";
 import { moderateScale } from "../../constants/FontSize";
 import TextV from "../global/Text";
 import { SettingsSafeView } from "./nestedComponents/SettingsSafeView";
+import Languages from "../../../locales/options/languages.json";
+import TimeZones from "../../../locales/options/timezones.json";
+
+interface Props {
+  label: string;
+  value: string;
+};
+
+const fetchLanguageData = () => {
+  
+  const data : Props[] = Object.keys(Languages).map((key: string) => {
+    const language = Languages[key as keyof typeof Languages];
+    return {
+      label: language.name,
+      value: key,
+    };
+  });
+  return data;
+};
+
+const fetchTimezoneData = () => {
+  const data : Props[] = TimeZones.map((item: any) => {
+    return {
+      label: item.text,
+      value: item.text,
+    };
+  });
+  return data;
+};
 
 const SettingsPreferencesComponent: React.FC = () => {
   const [Email, setEmail] = React.useState<string>("");
@@ -30,12 +59,12 @@ const SettingsPreferencesComponent: React.FC = () => {
           <SettingsDropdown
             label="Language"
             placeholder="Select language..."
-            dataSource={[]}
+            dataSource={fetchLanguageData()}
           />
           <SettingsDropdown
             label="Time zone"
             placeholder="Select time zone..."
-            dataSource={[]}
+            dataSource={fetchTimezoneData()}
           />
           <SettingsButtonSave onPress={() => "Email has been changed"} />
         </View>
