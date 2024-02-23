@@ -25,11 +25,10 @@ const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource, sel
                 items={dataSource ? dataSource : []}
                 style={{
                     ...pickerSelectStyles,
-                    iconContainer: {top: 10, right: 15},
                 }}
                 useNativeAndroidPickerStyle={false}
                 Icon={() => {
-                    return <Ionicons name="chevron-down" size={24} />;
+                    return <Ionicons name="chevron-down" size={24} style={{top: 10, right: 20}}/>;
                 }}
                 />
         </View>
@@ -59,20 +58,18 @@ const pickerSelectStyles = StyleSheet.create({
         borderColor: '#E0E0E0',
         borderRadius: 4,
         color: 'black',
-        paddingRight: 30,
-        height: 40,
-        paddingLeft: 10,
         fontFamily: "PoppinsRegular",
+        paddingHorizontal: moderateScale(20),
+        paddingVertical: moderateScale(6),
     },
     inputAndroid: {
         fontSize: moderateScale(14),
-        paddingHorizontal: 10,
+        paddingHorizontal: moderateScale(20),
+        paddingVertical: moderateScale(6),
         borderWidth: 1,
         borderColor: '#E0E0E0',
         borderRadius: 30,
         color: 'black',
-        paddingRight: 30,
-        height: 40,
         fontFamily: "PoppinsRegular",
     },
     placeholder:{
