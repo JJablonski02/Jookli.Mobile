@@ -1,0 +1,25 @@
+
+{
+    "FinishedSchools": {
+        "in_college": "In college",
+        "in_graduate_school": "In graduate school",
+        "in_high_school": "In high school",
+        "in_technical_school": "In technical school",
+        "in_a_vocational_school": "In a vocational school",
+        "college_grad" : "College grad",
+        "graduated_college": "Graduated college",
+        "vocational_school_graduate": "Vocational school graduate",
+        "technical_grad" : "Technical graduate",
+        "high_school_graduate": "High School graduate",
+        "without_school" : "Without School"
+    },
+    "EducationLevel": {
+        "undergrad_years": "Undergraduate Years",
+        "associate_degree": "Associate Degree",
+        "bachelor_degree": "Bachelor Degree",
+        "master_degree": "Master Degree",
+        "doctorate_degree": "Doctorate Degree",
+        "prosefional_degree": "Prosefional Degree",
+        "without_school_degree" : "Without School Degree"
+    }
+}
