@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { Modal, Text, TouchableOpacity, View, StyleSheet, Platform, FlatList, TouchableHighlight } from "react-native";
+import { Modal, TouchableOpacity, View, StyleSheet, Platform, FlatList } from "react-native";
 import { moderateScale } from "../../../constants/FontSize";
 import TextV from "../../global/Text";
 import Education from "../../../../locales/options/education.json";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Colors from "../../../constants/Colors";
 
-interface Props {
-    label?: string;
+interface DeserializationProps {
+    label: string;
+    value: string;
 };
 
 const fetchFinishedSchools = () => {
-    const data: Props[] =  Object.keys(Education.FinishedSchools).map((key: string) => {
+    const data: DeserializationProps[] =  Object.keys(Education.FinishedSchools).map((key: string) => {
       return {
         label: Education.FinishedSchools[key as keyof typeof Education.FinishedSchools],
         value: key,
@@ -20,20 +22,34 @@ const fetchFinishedSchools = () => {
     return data;
   };
 
-  
+  interface Props{
+    label: string;
+    placeholder: string;
+  };
 
 const SettingsModalView: React.FC<Props> = (props) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
+  const selectValue = (value : string | null) => {
+    if(value){
+      setSelectedValue(value);
+    }
+
+    toggleModal();
+  }
+
   return (
     <View style={styles.container}>
+    <TextV style={labelStyles.labelStyle}>
+      {props.label}
+    </TextV>
       <TouchableOpacity onPress={toggleModal} style={Platform.OS==='ios' ? styles.inputIOS : styles.inputAndroid}>
-        <TextV>{props.label}</TextV>
+        <TextV>{selectedValue != null ? selectedValue : props.placeholder}</TextV>
         <Ionicons name="chevron-down" size={24}/>
       </TouchableOpacity>
 
@@ -45,17 +61,22 @@ const SettingsModalView: React.FC<Props> = (props) => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
+          <View style={styles.modalHeaderContainer}>
             <TouchableOpacity onPress={toggleModal}>
-              <TextV>Close Modal</TextV>
+              <Ionicons name="close" style={styles.modalCloseIcon}/>
             </TouchableOpacity>
+            </View>
+            <View style={styles.modalListViewContainer}>
             <FlatList
               data={fetchFinishedSchools()}
               renderItem={({ item }) => (
-                  <TouchableOpacity onPress={toggleModal}>
-                    <TextV>{item.label}</TextV>
+                  <TouchableOpacity onPress={() => selectValue(item.label)}>
+                    <TextV style={styles.placeholderContainer}>{item.label}</TextV>
                   </TouchableOpacity>
               )}
+              scrollEnabled={false}
             />
+            </View>
           </View>
         </View>
       </Modal>
@@ -71,9 +92,8 @@ const styles = StyleSheet.create({
   },
   inputIOS: {
     fontSize: moderateScale(14),
-    paddingHorizontal: moderateScale(20),
+    paddingHorizontal: moderateScale(10),
     paddingVertical: moderateScale(6),
-    marginTop: moderateScale(10),
     borderWidth: 1,
     borderColor: '#E0E0E0',
     borderRadius: 4,
@@ -107,11 +127,38 @@ inputAndroid: {
   },
   modalContent: {
     backgroundColor: "white",
-    padding: 20,
     borderRadius: 10,
     elevation: 5,
-    width: "80%",
+    width: "96%",
+    height: "60%"
     },
+    modalCloseIcon: {
+      fontSize: 32,
+      color: Colors.gray
+    },
+    modalHeaderContainer: {
+      padding: 5,
+      borderBottomColor: Colors.gray,
+      borderBottomWidth: 0.5
+    },
+    modalListViewContainer: {
+      paddingHorizontal: 10,
+      paddingVertical: 10,
+    },
+    placeholderContainer: {
+      marginBottom: moderateScale(15),
+      fontSize: moderateScale(13)
+    },
+});
+
+const labelStyles = StyleSheet.create({
+  labelStyle:{
+      fontSize: moderateScale(14),
+      fontFamily: "PoppinsRegular",
+      marginBottom: 5,
+      marginTop:20,  
+      alignSelf: 'flex-start'  
+  },
 });
 
 export default SettingsModalView;
