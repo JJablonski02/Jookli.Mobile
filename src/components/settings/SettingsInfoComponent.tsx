@@ -51,7 +51,7 @@ const SettingsInfoComponent: React.FC = () => {
       <SettingsButtonSave/>
       <View style={{marginTop: Spacing * 2}}>
         <TextV style={styles.title}>Experience</TextV>
-        <SettingsModalView label="Nothing selected"/>
+        <SettingsModalView label="Education" placeholder="Select degree..."/>
         <SettingsDropdown/>
         <SettingsButtonSave/>
       </View>
