@@ -11,7 +11,7 @@ import { EarnStackParamList, RootStackParamList } from "../types";
 import { AuthContext, AuthContextProps } from "../context/AuthContext";
 import WelcomeScreen from "../screens/auth/WelcomeScreen";
 import SettingsScreen from "../screens/root/SettingsScreen";
-import EarnScreen from "../screens/root/EarnScreen";
+import EarnScreen from "../screens/earn/EarnScreen";
 import AnalyticsScreen from "../screens/root/AnalyticsScreen";
 import PaymentsScreen from "../screens/root/PaymentsScreen";
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -19,6 +19,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import CustomDrawer from "../components/CustomDrawer";
 import GamesScreen from "../screens/earn/GamesScreen";
 import SplashLoadingScreen from "../screens/root/SplashLoadingScreen";
+import {Header} from '@react-navigation/elements'
+
 
 
 const Drawer = createDrawerNavigator<RootStackParamList>(); 
@@ -108,7 +110,7 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
         ),
         title: 'Main Page',
       }}/>
-      <Drawer.Screen name="Earn" component={EarnScreen}
+      <Drawer.Screen name='EarnNavigator' component={EarnNavigator}
       options={{
         drawerIcon: ({color}) => (
           <Ionicons name="cash-outline" size={24} color={color}/>
@@ -127,7 +129,7 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
         drawerIcon: ({color}) => (
           <Ionicons name="wallet-outline" size={24} color={color}/>
         ),
-        title: 'Payments'
+        title: 'Payments',
       }}/>
       <Drawer.Screen name="Settings" component={SettingsScreen} 
       options={{
@@ -143,6 +145,7 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
 const EarnNavigator : React.FC = () => {
   return(
       <EarnStack.Navigator screenOptions={{headerShown: false}}>
+        <EarnStack.Screen name="Earn" component={EarnScreen}/>
         <EarnStack.Screen name="Games" component={GamesScreen}/>
         <EarnStack.Screen name="Surveys" component={HomeScreen}/>
         <EarnStack.Screen name="Movies" component={HomeScreen}/>
