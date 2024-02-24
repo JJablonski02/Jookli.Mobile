@@ -15,9 +15,9 @@ export type RootStackParamList = {
     RecoverPassword: undefined;
     Home: undefined;
     Navigate: undefined;
+    EarnNavigator: undefined;
     ConfirmAccount: undefined;
     SplashLoading: undefined;
-    Earn: undefined;
     Analytics: undefined;
     Payments: undefined;
     ReferralProgram: undefined;
