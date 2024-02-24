@@ -1,14 +1,27 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../types";
+import { EarnStackParamList, RootStackParamList } from "../../types";
 import { SafeAreaView, View } from "react-native";
 import TextV from "../../components/global/Text";
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
+type EarnStackScreenProps = NativeStackScreenProps<EarnStackParamList, 'Games'>;
 
-const GamesScreen: React.FC = () => {
+const GamesScreen: React.FC<EarnStackScreenProps> = () => {
+    const navigation = useNavigation().getParent();
+
+    const handleOnPress = () => {
+         navigation?.setOptions({
+            headerShown: true
+         })
+    }
+
     return (
         <SafeAreaView>
             <View>
-                <TextV>Games Screen</TextV>
+            <TouchableOpacity onPress={handleOnPress}>
+                <TextV style={{justifyContent: 'center', alignSelf: 'center', }}>Games Ten</TextV>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
