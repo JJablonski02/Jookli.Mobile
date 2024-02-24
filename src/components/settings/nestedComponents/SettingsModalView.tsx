@@ -6,25 +6,16 @@ import Education from "../../../../locales/options/education.json";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from "../../../constants/Colors";
 
-interface DeserializationProps {
-    label: string;
-    value: string;
-};
 
-const fetchFinishedSchools = () => {
-    const data: DeserializationProps[] =  Object.keys(Education.FinishedSchools).map((key: string) => {
-      return {
-        label: Education.FinishedSchools[key as keyof typeof Education.FinishedSchools],
-        value: key,
-      };
-    });
-  
-    return data;
-  };
+interface DeserializationProps {
+  label: string;
+  value: string;
+}
 
   interface Props{
     label: string;
     placeholder: string;
+    dataSource: DeserializationProps[];
   };
 
 const SettingsModalView: React.FC<Props> = (props) => {
@@ -68,7 +59,7 @@ const SettingsModalView: React.FC<Props> = (props) => {
             </View>
             <View style={styles.modalListViewContainer}>
             <FlatList
-              data={fetchFinishedSchools()}
+              data={props.dataSource}
               renderItem={({ item }) => (
                   <TouchableOpacity onPress={() => selectValue(item.label)}>
                     <TextV style={styles.placeholderContainer}>{item.label}</TextV>
