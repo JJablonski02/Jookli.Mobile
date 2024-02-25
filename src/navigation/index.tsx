@@ -24,7 +24,8 @@ import SurveyScreen from "../screens/earn/SurveyScreen";
 import MoviesScreen from "../screens/earn/MoviesScreen";
 import ShoppingScreen from "../screens/earn/ShoppingScreen";
 import MicroTasksScreen from "../screens/earn/MicroTasksScreen";
-import { black } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+import AyetOfferwallScreen from "../screens/earn/offerwalls/AyeTOfferwallScreen";
+import FyberOfferwallScreen from "../screens/earn/offerwalls/FyberOfferwallScreen";
 
 
 
@@ -94,6 +95,7 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
       drawerIcon: ({ focused, color, size }) => (
         <Ionicons name='cash' size={24} color={'black'} />
       ),
+      headerTintColor: Colors.primary,
       headerShown: true,
       headerStyle:{
         borderRadius: 20,
@@ -161,6 +163,8 @@ const EarnNavigator : React.FC = () => {
         <EarnStack.Screen name="Movies" component={MoviesScreen}/>
         <EarnStack.Screen name="Shopping" component={ShoppingScreen}/>
         <EarnStack.Screen name="MicroTasks" component={MicroTasksScreen}/>
+        <EarnStack.Screen name="AyeT" component={AyetOfferwallScreen}/>
+        <EarnStack.Screen name="Fyber" component={FyberOfferwallScreen}/>
       </EarnStack.Navigator>
   )
 };
