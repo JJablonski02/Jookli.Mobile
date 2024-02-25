@@ -7,6 +7,7 @@ import EarnButton from "../../components/EarnButton";
 import Colors from "../../constants/Colors";
 import TextV from "../../components/global/Text";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { DrawerActions } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<EarnStackParamList, "Earn">;
 interface EarnScreenProps {
@@ -20,11 +21,35 @@ interface EarnScreenProps {
 
 const EarnScreen: React.FC<EarnScreenProps> = ({ navigation, handleMove }) => {
   const parentNavigator = navigation.getParent();
-  
+
+  const defaultHeaderLeft = () => (
+    <Ionicons
+      name="cash"
+      size={30}
+      color="black"
+      onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+      style={{ marginLeft: 10 }}
+    />
+  );
+
   const navigateToScreen = (text: keyof EarnStackParamList) => {
     if(parentNavigator){
       console.log(text)
       navigation.navigate(text)
+      parentNavigator.setOptions({
+        headerLeft: () => (
+          <Ionicons name="arrow-back" size={30}
+          color="black"
+          onPress={() => {
+            parentNavigator.goBack();
+            parentNavigator.setOptions({
+              headerLeft: defaultHeaderLeft
+            })
+          }}
+          style={{ marginLeft: 10 }}
+          />
+        ),
+      })
     }
   };
   
