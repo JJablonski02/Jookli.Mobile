@@ -31,6 +31,8 @@ export type EarnStackParamList = {
     Movies: undefined;
     Shopping: undefined;
     MicroTasks: undefined;
+    AyeT: undefined;
+    Fyber: undefined;
 };
 
 export type EarnStackScreenProps<Screen extends keyof EarnStackParamList> =
