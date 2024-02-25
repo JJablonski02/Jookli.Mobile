@@ -20,6 +20,11 @@ import CustomDrawer from "../components/CustomDrawer";
 import GamesScreen from "../screens/earn/GamesScreen";
 import SplashLoadingScreen from "../screens/root/SplashLoadingScreen";
 import {Header} from '@react-navigation/elements'
+import SurveyScreen from "../screens/earn/SurveyScreen";
+import MoviesScreen from "../screens/earn/MoviesScreen";
+import ShoppingScreen from "../screens/earn/ShoppingScreen";
+import MicroTasksScreen from "../screens/earn/MicroTasksScreen";
+import { black } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
 
 
@@ -86,6 +91,9 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
     <Drawer.Navigator
     drawerContent={(props) => <CustomDrawer {...props} handleSignOut={handleSignOut}/> }
      screenOptions={{
+      drawerIcon: ({ focused, color, size }) => (
+        <Ionicons name='cash' size={24} color={'black'} />
+      ),
       headerShown: true,
       headerStyle:{
         borderRadius: 20,
@@ -144,13 +152,15 @@ const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
 
 const EarnNavigator : React.FC = () => {
   return(
-      <EarnStack.Navigator screenOptions={{headerShown: false}}>
+      <EarnStack.Navigator
+       initialRouteName="Earn"
+        screenOptions={{headerShown: false}}>
         <EarnStack.Screen name="Earn" component={EarnScreen}/>
         <EarnStack.Screen name="Games" component={GamesScreen}/>
-        <EarnStack.Screen name="Surveys" component={HomeScreen}/>
-        <EarnStack.Screen name="Movies" component={HomeScreen}/>
-        <EarnStack.Screen name="Shopping" component={HomeScreen}/>
-        <EarnStack.Screen name="MicroTasks" component={HomeScreen}/>
+        <EarnStack.Screen name="Surveys" component={SurveyScreen}/>
+        <EarnStack.Screen name="Movies" component={MoviesScreen}/>
+        <EarnStack.Screen name="Shopping" component={ShoppingScreen}/>
+        <EarnStack.Screen name="MicroTasks" component={MicroTasksScreen}/>
       </EarnStack.Navigator>
   )
 };
