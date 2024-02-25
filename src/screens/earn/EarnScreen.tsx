@@ -22,16 +22,6 @@ interface EarnScreenProps {
 const EarnScreen: React.FC<EarnScreenProps> = ({ navigation, handleMove }) => {
   const parentNavigator = navigation.getParent();
 
-  const defaultHeaderLeft = () => (
-    <Ionicons
-      name="cash"
-      size={30}
-      color="black"
-      onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-      style={{ marginLeft: 10 }}
-    />
-  );
-
   const navigateToScreen = (text: keyof EarnStackParamList) => {
     if(parentNavigator){
       console.log(text)
@@ -39,13 +29,15 @@ const EarnScreen: React.FC<EarnScreenProps> = ({ navigation, handleMove }) => {
       parentNavigator.setOptions({
         headerLeft: () => (
           <Ionicons name="arrow-back" size={30}
-          color="black"
+          color={Colors.primary}
           onPress={() => {
-            parentNavigator.goBack();
+            navigation.goBack();
             parentNavigator.setOptions({
-              headerLeft: defaultHeaderLeft
+              headerLeft: undefined,
+              headerTintColor: Colors.primary,
             })
           }}
+          underlayColor='transparent'
           style={{ marginLeft: 10 }}
           />
         ),
