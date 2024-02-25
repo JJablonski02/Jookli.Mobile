@@ -25,7 +25,7 @@ const SettingsModalView: React.FC<Props> = (props) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
+   
   const selectValue = (value : string | null) => {
     if(value){
       setSelectedValue(value);
