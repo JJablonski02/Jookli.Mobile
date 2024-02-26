@@ -26,6 +26,7 @@ import ShoppingScreen from "../screens/earn/ShoppingScreen";
 import MicroTasksScreen from "../screens/earn/MicroTasksScreen";
 import AyetOfferwallScreen from "../screens/earn/offerwalls/AyeTOfferwallScreen";
 import FyberOfferwallScreen from "../screens/earn/offerwalls/FyberOfferwallScreen";
+import TapjoyOfferwallScreen from "../screens/earn/offerwalls/TapJoyOfferwallScreen";
 
 
 
@@ -165,6 +166,7 @@ const EarnNavigator : React.FC = () => {
         <EarnStack.Screen name="MicroTasks" component={MicroTasksScreen}/>
         <EarnStack.Screen name="AyeT" component={AyetOfferwallScreen}/>
         <EarnStack.Screen name="Fyber" component={FyberOfferwallScreen}/>
+        <EarnStack.Screen name="Tapjoy" component={TapjoyOfferwallScreen}/>
       </EarnStack.Navigator>
   )
 };

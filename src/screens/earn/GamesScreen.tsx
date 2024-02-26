@@ -14,31 +14,32 @@ type EarnStackScreenProps = NativeStackScreenProps<EarnStackParamList, 'Games'>;
 const GamesScreen: React.FC<EarnStackScreenProps> = () => {
     const navigation = useNavigation().getParent();
 
-    const handleOnPress = () => {
+    const handleOnPress = (screenName: keyof EarnStackParamList) => {
         if(navigation){
-            console.log("Navigating to AyeT")
+            console.log("Navigating to {screenName}")
             navigation.getParent()?.setOptions({
                 headerShown: false
             })
             navigation.setOptions({headerShown: false})
-            navigation.navigate('AyeT');
+            navigation.navigate(screenName);
         }
     }
+    
 
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView>
             <View style={styles.viewContainer}>
             <Image source={require('../../../assets/images/Tapjoy_Logo.png')} style={styles.logo}/>
-            <PlayGamesButton onPress={handleOnPress}/>
+            <PlayGamesButton onPress={() => handleOnPress('Tapjoy')}/>
             </View>
             <View style={styles.viewContainer}>
             <Image source={require('../../../assets/images/AyeT_Dark_Logo.png')} style={styles.logo}/>
-            <PlayGamesButton onPress={handleOnPress}/>
+            <PlayGamesButton onPress={() => handleOnPress('AyeT')}/>
             </View>
             <View style={styles.viewContainer}>
             <Image source={require('../../../assets/images/Fyber_Logo.png')} style={styles.logo}/>
-            <PlayGamesButton onPress={handleOnPress}/>
+            <PlayGamesButton onPress={() => handleOnPress('Fyber')}/>
             </View>
             </ScrollView>
         </SafeAreaView>

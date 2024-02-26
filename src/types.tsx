@@ -33,6 +33,7 @@ export type EarnStackParamList = {
     MicroTasks: undefined;
     AyeT: undefined;
     Fyber: undefined;
+    Tapjoy: undefined;
 };
 
 export type EarnStackScreenProps<Screen extends keyof EarnStackParamList> =
