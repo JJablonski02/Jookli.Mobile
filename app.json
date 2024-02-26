@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Jookli.Mobile",
-    "slug": "Jookli.Mobile",
+    "slug": "joyprofits",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/JoyProfits_Register.png",
@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.JoyProfits.application"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,6 +27,12 @@
     },
     "web": {
       "favicon": "./assets/images/JoyProfits_Register.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7dce1cdf-0327-42dc-887b-7fba3bb3dcfc"
+      }
+    },
+    "owner": "jjablonski02"
   }
 }
