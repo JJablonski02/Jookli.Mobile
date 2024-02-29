@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Tapjoy, { TJOfferwallDiscoverView } from "tapjoy-react-native-sdk";
 import { View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { EarnStackParamList } from "../../../types";

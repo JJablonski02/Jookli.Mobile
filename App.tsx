@@ -14,8 +14,8 @@ import { NotifierWrapper } from "react-native-notifier";
 import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
 import { SetDefaultAppLanguage } from "./services/i18nextDetector";
 import CustomSafeAreaView from "./src/components/SafeViewAndroid";
-import { Provider } from "react-redux";
-import { store } from "./src/redux/store/store";
+import { Provider, useSelector } from "react-redux";
+import { store, saveCurrentDeviceInfo } from "./src/redux/store/store";
 
 export default function App() {
   
@@ -23,12 +23,14 @@ export default function App() {
   useEffect(() => {
     const setDefaultLanguage = async () => {
       try{
-        await SetDefaultAppLanguage(); //Detects and sets the language of the app
+       SetDefaultAppLanguage(); //Detects and sets the language of the app
       }catch(e){
-        console.log("Tak" + e);
+        console.log(e);
       }
     };
+    
     setDefaultLanguage();
+    saveCurrentDeviceInfo();
 
     if (error) throw error;
   }, [error]);

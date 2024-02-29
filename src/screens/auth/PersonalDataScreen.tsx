@@ -17,8 +17,18 @@ import AppTextInputHorizontal from "../../components/AppTextInputHorizontal";
 import RadioButtonSex from "../../components/RadioButtonSex";
 import { SafeView } from "../../components/global/SafeView";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import axios from "axios";
+import Constants from "expo-constants";
+
 
 type Props = NativeStackScreenProps<RootStackParamList, "PersonalData">;
+
+const makeRequest = async () => {
+  const response = await axios.get("http://192.168.1.2:7133/api/useraccess/test")
+  .then((response) => response.data)
+  .catch((error) => console.error(error));
+  console.log("Request made: ", response);
+}
 
 const PersonalDataScreen: React.FC<Props> = ({
   route,
@@ -104,7 +114,7 @@ const PersonalDataScreen: React.FC<Props> = ({
           </View>
           <View>
             <TouchableOpacity
-              onPress={() => navigate("ConfirmAccount")}
+              onPress={() => makeRequest()}
               style={{
                 padding: Spacing,
                 backgroundColor: Colors.primary,

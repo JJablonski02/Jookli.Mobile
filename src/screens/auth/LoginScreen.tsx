@@ -16,18 +16,17 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import AppTextInput from "../../components/AppTextInput";
 import { AuthContext } from "../../context/AuthContext";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
 import SmallCornerButton from "../../components/SmallCornerButton";
 import { RegularButtonBig, RegularLabelButton } from "../../components/RegularButton";
 import { SafeView } from "../../components/global/SafeView";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import KeyBoardAwareScrollViewOnVisible from "../../components/KeyboardScrollView";
 import GoogleButton from "../../components/GoogleButton";
 import AppleButton from "../../components/AppleButton.android";
 import MicrosoftButton from "../../components/MicrosoftButton.android";
 import { NotifyError } from "../../components/notifications/Notify";
 import { ValidateLoginScreen } from "../../common/FieldValidatorProvider";
-
+import * as Device from 'expo-device';
+import NetInfo from "@react-native-community/netinfo";
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 interface ILoginScreenProps {
   username: string;
