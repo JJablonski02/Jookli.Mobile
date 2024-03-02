@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { AppRegistry, StyleSheet, Text, View } from "react-native";
 import { Navigation } from "./src/navigation";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -16,25 +15,28 @@ import { SetDefaultAppLanguage } from "./services/i18nextDetector";
 import CustomSafeAreaView from "./src/components/SafeViewAndroid";
 import { Provider, useSelector } from "react-redux";
 import { store, saveCurrentDeviceInfo } from "./src/redux/store/store";
+import i18next from './services/i18next'
+import { useTranslation } from "react-i18next";
+import TextV from "./src/components/global/Text";
 
 export default function App() {
+
+  const {t} = useTranslation();
   
   const [loaded, error] = useFonts(fonts);
   useEffect(() => {
-    const setDefaultLanguage = async () => {
-      try{
-       SetDefaultAppLanguage(); //Detects and sets the language of the app
-      }catch(e){
-        console.log(e);
-      }
-    };
     
-    setDefaultLanguage();
     saveCurrentDeviceInfo();
 
     if (error) throw error;
   }, [error]);
 
+  //Main enter to entire application
+  //SafeAreaProvider detects safe area to display
+  //GestureHandler
+  //NotifierWrapper provides access to InApp Notifications
+  //Provider is a redux provider
+  //Navigation is a main navigation
   return (
     loaded && (
       <SafeAreaProvider>
