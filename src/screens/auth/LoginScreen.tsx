@@ -1,12 +1,9 @@
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
-  KeyboardAvoidingView,
   ImageBackground,
   Dimensions,
-  Platform,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import Spacing from "../../constants/Spacing";
