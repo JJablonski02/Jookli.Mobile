@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { EarnStackParamList, RootStackParamList } from "../../types";
-import { SafeAreaView, View, StyleSheet, Image } from "react-native";
+import { SafeAreaView, View, StyleSheet, Image, BackHandler } from "react-native";
 import TextV from "../../components/global/Text";
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -8,6 +8,7 @@ import Spacing from "../../constants/Spacing";
 import Colors from "../../constants/Colors";
 import PlayGamesButton from "../../components/games/PlayGamesButton";
 import { moderateScale } from "../../constants/FontSize";
+import { useEffect } from "react";
 
 type EarnStackScreenProps = NativeStackScreenProps<EarnStackParamList, 'Games'>;
 
