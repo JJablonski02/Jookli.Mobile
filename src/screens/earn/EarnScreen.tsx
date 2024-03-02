@@ -8,6 +8,7 @@ import Colors from "../../constants/Colors";
 import TextV from "../../components/global/Text";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { DrawerActions } from '@react-navigation/native';
+import { useEffect } from "react";
 
 type Props = NativeStackScreenProps<EarnStackParamList, "Earn">;
 interface EarnScreenProps {
@@ -24,9 +25,10 @@ const EarnScreen: React.FC<EarnScreenProps> = ({ navigation, handleMove }) => {
 
   const navigateToScreen = (text: keyof EarnStackParamList) => {
     if(parentNavigator){
-      console.log(text)
-      navigation.navigate(text)
+       console.log('parent')
       parentNavigator.setOptions({
+        headerShown: true,
+
         headerLeft: () => (
           <Ionicons name="arrow-back" size={30}
           color={Colors.primary}
@@ -35,15 +37,17 @@ const EarnScreen: React.FC<EarnScreenProps> = ({ navigation, handleMove }) => {
             parentNavigator.setOptions({
               headerLeft: undefined,
               headerTintColor: Colors.primary,
-            })
+            });
           }}
           underlayColor='transparent'
           style={{ marginLeft: 10 }}
           />
         ),
       })
+      navigation.navigate(text)
     }
   };
+
   
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
