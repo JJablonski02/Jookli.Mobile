@@ -1,5 +1,6 @@
-import i18n from "i18next";
+import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
+import { Localization } from "expo-localization";
 
 import en from "../locales/en.json";
 import sv from "../locales/sv.json";
@@ -18,13 +19,17 @@ export const languageResources = {
 }
 
 
-i18n.use(initReactI18next).init({
-    resources: languageResources,
+i18next.use(initReactI18next).init({
+    compatibilityJSON: 'v3',
     lng: 'en',
     fallbackLng: 'en',
-    compatibilityJSON: 'v3',
-    defaultNS: 'translation',
-    react: {useSuspense: false}
+    resources: languageResources,
+    react: {useSuspense: false},
 });
 
-export default i18n;
+export default i18next;
+
+// lng: 'en',
+// compatibilityJSON: 'v3',
+// defaultNS: 'translation',
+// react: {useSuspense: false}
