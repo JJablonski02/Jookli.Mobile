@@ -158,7 +158,7 @@ const EarnNavigator : React.FC = () => {
       <EarnStack.Navigator
        initialRouteName="Earn"
         screenOptions={{headerShown: false}}>
-        <EarnStack.Screen name="Earn" component={EarnScreen}/>
+        <EarnStack.Screen name="Earn" component={EarnScreen} />
         <EarnStack.Screen name="Games" component={GamesScreen}/>
         <EarnStack.Screen name="Surveys" component={SurveyScreen}/>
         <EarnStack.Screen name="Movies" component={MoviesScreen}/>
