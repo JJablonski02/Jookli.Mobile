@@ -1,17 +1,9 @@
 import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Button,
-  View,
-  SafeAreaView,
-} from 'react-native';
 import {AyetOfferwall} from 'ayetsdk';
-import {NavigationContainer} from '@react-navigation/native';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { EarnStackParamList } from '../../../types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { BackHandler } from 'react-native';
 
 type EarnStackScreenProps = NativeStackScreenProps<EarnStackParamList, 'AyeT'>;
 
@@ -23,6 +15,22 @@ const AyetOfferwallScreen : React.FC<EarnStackScreenProps> = ({navigation}) => {
       parentNavigator.setOptions({headerShown: true})
     };
   };
+
+
+
+  useEffect(() => {
+    const handleBackGesture = () => {
+      onClose();
+      return true; // Return true to indicate that the gesture has been handled
+    };
+
+    const backHandler = navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+      handleBackGesture();
+    });
+
+    return () => backHandler(); // Cleanup the event listener when the component unmounts
+  }, [navigation, onClose]);
 
   return <AyetOfferwall userId="12345" adslotId="15982" onClose={onClose} />
       
