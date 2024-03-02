@@ -1,34 +1,31 @@
 import {
   Dimensions,
   ImageBackground,
-  SafeAreaView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import Spacing from "../../constants/Spacing";
 import FontSize from "../../constants/FontSize";
 import Colors from "../../constants/Colors";
-import Font from "../../constants/Font";
-import GoogleButton from "../../components/GoogleButton";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
-import AppleButton from "../../components/AppleButton.android";
-import MicrosoftButton from "../../components/MicrosoftButton.android";
 import {
   RegularButtonBig,
   RegularButtonSmall,
 } from "../../components/RegularButton";
 import { SafeView } from "../../components/global/SafeView";
+import { useTranslation } from "react-i18next";
+import { withTranslation } from 'react-i18next';
+import i18next from '../../../services/i18next'
 
 const { height } = Dimensions.get("window");
 
 type Props = NativeStackScreenProps<RootStackParamList, "Welcome">;
-const signIns = () => {};
 
 const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
+  
   return (
     <SafeView>
       <ImageBackground
@@ -53,7 +50,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
   );
 };
 
-export default WelcomeScreen;
+export default withTranslation()(WelcomeScreen);
 
 const styles = StyleSheet.create({
   image: {
