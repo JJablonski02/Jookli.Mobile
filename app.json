@@ -33,6 +33,9 @@
         "projectId": "7dce1cdf-0327-42dc-887b-7fba3bb3dcfc"
       }
     },
-    "owner": "jjablonski02"
+    "owner": "jjablonski02",
+    "plugins": [
+      "expo-localization"
+    ]
   }
 }
