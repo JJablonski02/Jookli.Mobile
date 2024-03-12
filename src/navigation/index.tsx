@@ -27,6 +27,8 @@ import MicroTasksScreen from "../screens/earn/MicroTasksScreen";
 import AyetOfferwallScreen from "../screens/earn/offerwalls/AyeTOfferwallScreen";
 import FyberOfferwallScreen from "../screens/earn/offerwalls/FyberOfferwallScreen";
 import TapjoyOfferwallScreen from "../screens/earn/offerwalls/TapJoyOfferwallScreen";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store/store";
 
 
 
@@ -40,7 +42,8 @@ interface InnerNavigationProps {
 
 export const Navigation = () => {
   const contextValue: AuthContextProps | undefined = useContext(AuthContext);
-  
+  const splashLoading : boolean = useSelector((state: RootState) => state.appState.splashLoading);
+
   if(contextValue == undefined){
     console.log("Undefinied context value from index.tsx");
   } 

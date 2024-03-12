@@ -18,7 +18,6 @@ import {
 import { SafeView } from "../../components/global/SafeView";
 import { useTranslation } from "react-i18next";
 import { withTranslation } from 'react-i18next';
-import i18next from '../../../services/i18next'
 
 const { height } = Dimensions.get("window");
 

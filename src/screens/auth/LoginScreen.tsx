@@ -110,7 +110,7 @@ const LoginScreen: React.FC<Props> = ({ navigation: { navigate }}) => {
               const message = ValidateLoginScreen(loginProps);
               if (!message) 
               {
-                context?.login(email, password);
+                context?.login(loginProps.username, loginProps.password);
               } else {
                 NotifyError("Sign in error occured", message);
               }

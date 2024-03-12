@@ -4,7 +4,8 @@ import axios from 'axios';
 //import { REACT_APP_API_URL } from '@env';
 import {RegisterUserDTO} from '@api'
 import { ValidateLoginScreen } from '../common/FieldValidatorProvider';
-const REACT_APP_API_URL = "https://localhost:7133/api";
+import { REACT_APP_API_URL } from '@env';
+import { NotifyError } from '../components/notifications/Notify';
 
 interface UserInfo {
   access_token: string;
@@ -18,15 +19,7 @@ export interface AuthContextProps {
   userInfo: UserInfo;
   splashLoading: boolean;
   register: (
-    email: string, 
-    password: string, 
-    confirmPassword: string, 
-    firstName: string,
-    lastName: string,
-    gender: number,
-    registrationSource: number,
-    pushNotifications: boolean,
-    isLocationAllowed: boolean) => void;
+    user: RegisterUserDTO) => Promise<any>;
   login: (email: string, password: string) => void;
   logout: () => void;
 }
@@ -35,7 +28,7 @@ export const AuthContext = createContext<AuthContextProps>({
   userInfo: {} as UserInfo,
   isLoading: false,
   splashLoading: false,
-  register: () => {},
+  register: async () => Promise.resolve(),
   login: (email, password) => {},
   logout: () => {},
 });
@@ -47,84 +40,47 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
 
   ///Register sending all details like email, password, first name, 
   ///last name, gender, registration source, push notifications and is location allowed
-  const register = (
-    email: string, 
-    password: string, 
-    confirmPassword: string, 
-    firstName: string,
-    lastName: string,
-    gender: number,
-    registrationSource: number,
-    pushNotifications: boolean,
-    isLocationAllowed: boolean) => {
-    setIsLoading(true);
+  const register = async (
+    user: RegisterUserDTO): Promise<any> => {
+    setSplashLoading(true);
+    try{
+      const res = await axios.post(`${REACT_APP_API_URL}/api/useraccess/registeruser`, user);
 
-    axios
-      .post(`${REACT_APP_API_URL}/api/useraccess/registeruser`, {
-        email,
-        password,
-        confirmPassword,
-        firstName,
-        lastName,
-        gender,
-        registrationSource,
-        pushNotifications,
-        isLocationAllowed,
-      })
-      .then((res) => {
-        let userInfo = res.data as UserInfo;
-        setUserInfo(userInfo);
-        AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-        setIsLoading(false);
-        console.log(userInfo);
-      })
-      .catch((e) => {
-        console.log(`register error ${e}`);
-        setIsLoading(false);
-      });
+      let userInfo = res.data as UserInfo;
+      setUserInfo(userInfo);
+      await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+      return res;
+    }
+    catch(e){
+      setIsLoading(false);
+      return e;
+    }
   };
 
   ///Login with email and password
   const login = async (email: string, password: string) => {
-    setIsLoading(true);
     setSplashLoading(true);
-    await new Promise((resole) => setTimeout(resole, 3000));
-    setUserInfo({
-      access_token: "TEST",
-      expires_in: 1,
-      token_type: "TEST",
-      scope: "TEST",
-    } as UserInfo);
-    
-    await axios.post(`https://localhost:7133/api/useraccess/test`)
-    .then((res) => console.log(res.data))
-    .catch((e) => console.log(`login error ${e}`));
-    setSplashLoading(false);
-    //console.log(`login ${email} ${password}`);
-    // axios
-    //   .post(`https://localhost:7133/connect/token`, {
-    //     client_id: 'ro.client',
-    //     client_secret: 'secret',
-    //     scope: 'jookliApi.read jookliApi.write',
-    //     grant_type: 'password',
-    //     username: email,
-    //     password: password,
-    //   }).then((res) => {
-    //     console.log(res.data);
-    //   }).catch((e) => {
-    //     console.log(`login error ${e}`);
-    //   });
-      // .then((res) => {
-      //   let userInfo = res.data as UserInfo;
-      //   console.log(userInfo);
-      //   setUserInfo(userInfo);
-      //   AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-      //   setIsLoading(false);
-      // })
-      // .catch((e) => {
-      //   console.log(`login error ${e}`);
-      //   setIsLoading(false);
-      // });
+
+    const params = new URLSearchParams();
+      params.append('client_id', 'ro.client');
+      params.append('client_secret', 'secret');
+      params.append('scope', 'jookliApi.read jookliApi.write');
+      params.append('grant_type', 'password');
+      params.append('username', email);
+      params.append('password', password);
+
+await axios.post('/connect/token', params)
+    .then((res) => {
+      let userInfo = res.data as UserInfo;
+      setUserInfo(userInfo);
+      AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+      setSplashLoading(false);
+    })
+    .catch((e) => {
+      NotifyError('Login failed', `${e.response.data['error_description']}`);
+    });
   };
 
   ///This function provides logout user

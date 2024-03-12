@@ -4,7 +4,12 @@ import NetInfo, { NetInfoState, NetInfoStateType } from "@react-native-community
 
 const initialState = {
     isLoading: false,
+    splashLoading: false,
+    deviceInfo: {},
+    connectionInfo: {}
 };
+
+export type RootState = ReturnType<typeof rootReducer>;
 
 const rootReducer = combineReducers({
     appState: (state = initialState, action : any) => {
@@ -13,10 +18,24 @@ const rootReducer = combineReducers({
                 return {...state, deviceInfo: action.payload};
                 case 'CURRENT_CONNECTION_INFO':
                     return {...state, connectionInfo: action.payload};
+                    case 'SET_SPLASHLOADING':
+                        return {...state, splashLoading: action.payload};
+                        case 'SET_LOADING':
+                            return {...state, isLoading: action.payload};
             default:
                 return state;
         }
     }
+});
+
+export const setLoading = (isLoading: boolean) => ({
+    type: 'SET_LOADING',
+    payload: isLoading
+});
+
+export const setSplashLoading = (splashLoading: boolean) => ({
+    type: 'SET_SPLASH_LOADING',
+    payload: splashLoading
 });
 
 export const store = createStore(rootReducer);
@@ -36,6 +55,10 @@ export const saveCurrentDeviceInfo = async () => {
  
 const getConnectionInfo = async (): Promise<NetInfoState> => {
     const connectionInfo = await NetInfo.fetch();
+    connectionInfo.isInternetReachable = connectionInfo.isInternetReachable ?? false;
+    connectionInfo.isWifiEnabled = connectionInfo.isWifiEnabled ?? false;
+    connectionInfo.isConnected = connectionInfo.isConnected ?? false;
+    
     return connectionInfo;
 };
 
@@ -44,7 +67,7 @@ const deviceInfo = {
     Brand: Device.brand,
     Model: Device.modelName,
     ModelId: Device.modelId,
-    Year: Device.deviceYearClass,
+    Year: Device.deviceYearClass?.toString() || null,
     Type: Device.deviceType,
     OS: Device.osName,
     OSVersion: Device.osVersion,
@@ -55,8 +78,8 @@ const deviceInfo = {
     DesignName: Device.designName,
     OsBuildFingerprint: Device.osBuildFingerprint,
     ProductName: Device.productName,
-    PlatformApiLevel: Device.platformApiLevel,
-    TotalMemory: Device.totalMemory,
+    PlatformApiLevel: Device.platformApiLevel?.toString() || null,
+    TotalMemory: Device.totalMemory?.toString() || null,
     SupportedCpuArchitectures: Device.supportedCpuArchitectures,
 }
 

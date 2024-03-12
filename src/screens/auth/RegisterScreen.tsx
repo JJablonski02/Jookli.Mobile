@@ -10,7 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import Spacing from "../../constants/Spacing";
 import FontSize from "../../constants/FontSize";
 import Colors from "../../constants/Colors";
@@ -29,22 +29,29 @@ import { RegularButtonBig } from "../../components/RegularButton";
 import SmallCornerButton from "../../components/SmallCornerButton";
 import { SafeView } from "../../components/global/SafeView";
 import KeyBoardAwareScrollViewOnVisible from "../../components/KeyboardScrollView";
+import { AuthContext } from "../../context/AuthContext";
+import { ValidateRegisterScreen } from "../../common/FieldValidatorProvider";
+import { NotifyError } from "../../components/notifications/Notify";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store/store";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
 const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
   const { height } = Dimensions.get("window");
   const signIns = () => {};
+  const context = useContext(AuthContext);
+
+  const deviceInfo = useSelector((state : RootState) => state.appState['deviceInfo']);
+  const connectionInfo = useSelector((state : RootState) => state.appState['connectionInfo'])
+
   const [user, setUser] = React.useState<RegisterUserDTO>({
-    email: "TEST",
-    password: "TEST",
-    confirmPassword: "TEST",
-    firstName: "TEST",
-    lastName: "TEST",
-    gender: 1,
+    email: "",
+    password: "",
+    confirmPassword: "",
     registrationSource: 1,
-    pushNotificationToken: true,
-    isLocationAllowed: true,
+    deviceInfo: deviceInfo,
+    connectionInfo: connectionInfo
   });
 
   return (
@@ -133,7 +140,23 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           />
           <RegularButtonBig
             label="Move on"
-            onPress={() => navigate("PersonalData", { user: user })}
+            onPress={async () => {
+              const message = ValidateRegisterScreen(user);
+
+              if (!message) {
+                await context?.register(user).then(async (res) => {
+                  if(res.status === 200){
+                    console.log(res.status);
+                    await context?.login(user.email, user.password);
+                  }
+                }).catch((e) => {
+                  console.log(e); 
+                });
+              } 
+              else {
+                NotifyError("Registration error occured", message);
+              }
+            }}
           />
         </View>
       </SafeView>

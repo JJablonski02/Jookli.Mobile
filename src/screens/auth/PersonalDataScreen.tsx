@@ -19,22 +19,19 @@ import { SafeView } from "../../components/global/SafeView";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 import Constants from "expo-constants";
+import { RegisterUserDTO } from "@api";
 
 
 type Props = NativeStackScreenProps<RootStackParamList, "PersonalData">;
-
-const makeRequest = async () => {
-  const response = await axios.get("http://192.168.1.2:7133/api/useraccess/test")
-  .then((response) => response.data)
-  .catch((error) => console.error(error));
-  console.log("Request made: ", response);
-}
 
 const PersonalDataScreen: React.FC<Props> = ({
   route,
   navigation: { navigate },
 }) => {
-  console.log(route.params.user);
+
+  const user : RegisterUserDTO = route.params.user;
+  const [userState, setUserState] = React.useState<RegisterUserDTO>(user);
+
   return (
     <SafeView>
     <View
@@ -114,7 +111,7 @@ const PersonalDataScreen: React.FC<Props> = ({
           </View>
           <View>
             <TouchableOpacity
-              onPress={() => makeRequest()}
+              onPress={() => navigate("Register")}
               style={{
                 padding: Spacing,
                 backgroundColor: Colors.primary,

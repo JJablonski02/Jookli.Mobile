@@ -12,21 +12,20 @@ import { useFonts } from "expo-font";
 import { NotifierWrapper } from "react-native-notifier";
 import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
 import { SetDefaultAppLanguage } from "./services/i18nextDetector";
-import CustomSafeAreaView from "./src/components/SafeViewAndroid";
 import { Provider, useSelector } from "react-redux";
 import { store, saveCurrentDeviceInfo } from "./src/redux/store/store";
-import i18next from './services/i18next'
 import { useTranslation } from "react-i18next";
-import TextV from "./src/components/global/Text";
+import axios from "axios";
+import { REACT_APP_API_URL } from "@env";
 
 export default function App() {
 
   const {t} = useTranslation();
-  
+
   const [loaded, error] = useFonts(fonts);
   useEffect(() => {
-    
     saveCurrentDeviceInfo();
+    axios.defaults.baseURL = REACT_APP_API_URL;
 
     if (error) throw error;
   }, [error]);

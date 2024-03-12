@@ -204,4 +204,23 @@ interface PaymentDetails {
         return null;
     }
   }
+
+  interface RegisterProps{
+    email: string;
+    password: string;
+    confirmPassword: string;
+  };
+
+  export const ValidateRegisterScreen: (user : RegisterProps) => string | null = (user) =>{
+    switch(true){
+      case !isUserNameValid(user.email):
+        return "Email is not valid";
+      case !isPasswordValid(user.password):
+        return "Password is not valid";
+      case user.password !== user.confirmPassword:
+        return "Passwords do not match";
+      default:
+        return null;
+    }
+  };
   
