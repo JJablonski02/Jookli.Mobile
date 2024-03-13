@@ -20,7 +20,7 @@ export interface AuthContextProps {
   splashLoading: boolean;
   register: (
     user: RegisterUserDTO) => Promise<any>;
-  login: (email: string, password: string) => void;
+  login: (email: string, password: string) => Promise<UserInfo>;
   logout: () => void;
 }
 
@@ -29,7 +29,7 @@ export const AuthContext = createContext<AuthContextProps>({
   isLoading: false,
   splashLoading: false,
   register: async () => Promise.resolve(),
-  login: (email, password) => {},
+  login: async (email, password) => Promise.resolve({} as UserInfo),
   logout: () => {},
 });
 
@@ -59,8 +59,9 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
   };
 
   ///Login with email and password
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string) : Promise<any> => {
     setSplashLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const params = new URLSearchParams();
       params.append('client_id', 'ro.client');
@@ -80,6 +81,7 @@ await axios.post('/connect/token', params)
     })
     .catch((e) => {
       NotifyError('Login failed', `${e.response.data['error_description']}`);
+      setSplashLoading(false);
     });
   };
 
