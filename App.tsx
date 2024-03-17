@@ -26,6 +26,7 @@ export default function App() {
   useEffect(() => {
     saveCurrentDeviceInfo();
     axios.defaults.baseURL = REACT_APP_API_URL;
+    axios.defaults.timeout = 5000;
 
     if (error) throw error;
   }, [error]);

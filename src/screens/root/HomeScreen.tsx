@@ -34,8 +34,14 @@ interface EstimatedEarningsDTO {
   accountStatus: number;
   todayEarnings: number;
   yesterdayEarnings: number;
+  sameDayLastWeekEarnings: number;
+  sameDayLastWeekEarningsPercentage: number;
   last7DaysEarnings: number;
+  previous7DaysEarnings: number;
+  previous7DaysEarningsPercentage: number;
   thisMonthEarnings: number;
+  previousMonthEarnings: number;
+  previousMonthEarningsPercentage: number;
   balance: number;
 };
 
@@ -51,11 +57,6 @@ const HomeScreen: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      if(!refreshing){
-        dispatch(setLoading(true));
-        console.log(refreshing);
-      }
-
       const userInfoString = await AsyncStorage.getItem('userInfo');
       const userInfo = JSON.parse(userInfoString || '{}');
       const token = userInfo.access_token;
@@ -71,23 +72,19 @@ const HomeScreen: React.FC = () => {
 
     } catch (error) {
       console.error('Błąd pobierania danych z API', error);
-    } finally {
-      setTimeout(() => {
-        dispatch(setLoading(false));
-      }, 2000)
     }
   };
  
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
     await fetchData();
-    setTimeout(() => {
-    }, 2000);
     setRefreshing(false);
   }, []);
 
   useEffect(() => {
+    dispatch(setLoading(true));
     fetchData();
+    setTimeout(() => {dispatch(setLoading(false))}, 1500);
   }, []);
 
     return (
@@ -113,7 +110,7 @@ const HomeScreen: React.FC = () => {
         </TextV>
         <TextV style={styles.compareContainer}>
           <Ionicons name='caret-forward' size={10} color="black" />
-          $0.00 (+0.00%)
+          ${apiResponse?.sameDayLastWeekEarnings} {apiResponse?.sameDayLastWeekEarningsPercentage && apiResponse?.sameDayLastWeekEarningsPercentage > 0 ? "+" + apiResponse?.sameDayLastWeekEarningsPercentage : apiResponse?.sameDayLastWeekEarningsPercentage}%
         </TextV>
         <TextV style={styles.compareContainer}>
           and the same day last week
@@ -168,6 +165,7 @@ const HomeScreen: React.FC = () => {
       </SafeAreaView>
     );
   }
+
 
 const styles = StyleSheet.create({
   viewContainer:{
