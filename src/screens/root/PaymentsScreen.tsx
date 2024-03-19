@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Image,
+  RefreshControl,
 } from "react-native";
 import Colors from "../../constants/Colors";
 import FontSize from "../../constants/FontSize";
@@ -14,13 +15,66 @@ import Spacing from "../../constants/Spacing";
 import { ProgressBar } from "react-native-paper";
 import Paymentsbutton from "../../components/payments/PaymentsButton";
 import TextV from "../../components/global/Text";
+import { useCallback, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setLoading } from "../../redux/store/store";
+import { Loader } from "../../components/global/Loader";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Payments">;
 
+interface PaymentsScreenDTO {
+  total : number;
+  threshold : number;
+  thresholdPercentage : number;
+  ispaymentmethodadded : boolean;
+  arepaymentsettingscomplete : boolean;
+  transactions : [];
+};
+
 const PaymentsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
+  const {isLoading} = useSelector((state : RootState) => state.appState);
+  const dispatch = useDispatch();
+  const [apiResponse, setApiResponse] = useState<PaymentsScreenDTO>();
+  const [refreshing, setRefreshing] = useState(false);
+
+
+  const fetchData = async () => {
+    try {
+      const userInfoString = await AsyncStorage.getItem('userInfo');
+      const userInfo = JSON.parse(userInfoString || '{}');
+      const token = userInfo.access_token;
+
+      const response = await axios.get<PaymentsScreenDTO>('/api/payments/paymentScreen', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setApiResponse(response.data); 
+
+    } catch (error) {
+      console.error('Błąd pobierania danych z API', error);
+    }
+  };
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  }, []);
+  
+  useEffect(() => {
+    dispatch(setLoading(true)); 
+    fetchData();
+    setTimeout(() => {dispatch(setLoading(false))}, 1500);
+  }, []);
+
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
         <View style={styles.container}>
           <TextV style={styles.headerStyleContainer}>Your earnings</TextV>
           <TextV style={styles.subHeaderContainer}>$0.00</TextV>
@@ -29,8 +83,8 @@ const PaymentsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             progress={1}
             theme={{ colors: { primary: "blue" } }}
           />
-          <TextV>You've reached 0% of payment threshold</TextV>
-          <TextV>Payment threshold: $10.00</TextV>
+          <TextV>You've reached {apiResponse?.thresholdPercentage}% of payment threshold</TextV>
+          <TextV>Payment threshold: ${apiResponse?.threshold}</TextV>
         </View>
         <View style={styles.container}>
           <TextV style={styles.taskLabelContainer}>Transactions</TextV>
@@ -47,7 +101,7 @@ const PaymentsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
               style={styles.paymentImageContainer}
               source={require("../../../assets/images/Payment.jpg")}
             />
-            <TextV
+              <TextV
               style={styles.paymentDescriptionContainer}>
               You don't need to add a payment method until you reach your
               payment threshold
@@ -63,6 +117,9 @@ const PaymentsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           <Paymentsbutton label="Manage payment settings"/>
         </View>
       </ScrollView>
+      {(isLoading || !apiResponse) ?  
+            <Loader/>
+             : null}
     </SafeAreaView>
   );
 };

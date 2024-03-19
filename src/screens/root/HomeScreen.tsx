@@ -30,7 +30,7 @@ import { Loader } from "../../components/global/Loader";
 
 type AuthProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
-interface EstimatedEarningsDTO {
+interface MainPageDTO {
   accountStatus: number;
   todayEarnings: number;
   yesterdayEarnings: number;
@@ -43,6 +43,7 @@ interface EstimatedEarningsDTO {
   previousMonthEarnings: number;
   previousMonthEarningsPercentage: number;
   balance: number;
+  lastPayment: number;
 };
 
 const HomeScreen: React.FC = () => {
@@ -50,7 +51,7 @@ const HomeScreen: React.FC = () => {
   const dispatch = useDispatch();
   const [setToday, today] = useState<string>("");
 
-  const [apiResponse, setApiResponse] = useState<EstimatedEarningsDTO>();
+  const [apiResponse, setApiResponse] = useState<MainPageDTO>();
 
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -61,7 +62,7 @@ const HomeScreen: React.FC = () => {
       const userInfo = JSON.parse(userInfoString || '{}');
       const token = userInfo.access_token;
 
-      const response = await axios.get<EstimatedEarningsDTO>('/api/details/mainPage', {
+      const response = await axios.get<MainPageDTO>('/api/details/mainPage', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -110,7 +111,7 @@ const HomeScreen: React.FC = () => {
         </TextV>
         <TextV style={styles.compareContainer}>
           <Ionicons name='caret-forward' size={10} color="black" />
-          ${apiResponse?.sameDayLastWeekEarnings} {apiResponse?.sameDayLastWeekEarningsPercentage && apiResponse?.sameDayLastWeekEarningsPercentage > 0 ? "+" + apiResponse?.sameDayLastWeekEarningsPercentage : apiResponse?.sameDayLastWeekEarningsPercentage}%
+          ${apiResponse?.sameDayLastWeekEarnings} ({apiResponse?.sameDayLastWeekEarningsPercentage})%
         </TextV>
         <TextV style={styles.compareContainer}>
           and the same day last week
@@ -123,7 +124,7 @@ const HomeScreen: React.FC = () => {
         </TextV>
         <TextV style={styles.compareContainer}>
           <Ionicons name='caret-forward' size={10} color="black" />
-          $0.00 (+0.00%)
+          ${apiResponse?.previous7DaysEarnings} ({apiResponse?.previous7DaysEarningsPercentage}%)
         </TextV>
         <TextV style={styles.compareContainer}>
             compared to the previous 7 days
@@ -136,7 +137,7 @@ const HomeScreen: React.FC = () => {
         </TextV>
         <TextV style={styles.compareContainer}>
           <Ionicons name='caret-forward' size={10} color="black" />
-          $0.00 (+0.00%)
+          ${apiResponse?.previousMonthEarnings} ({apiResponse?.previousMonthEarningsPercentage}%)
         </TextV>
         <TextV style={styles.compareContainer}>
             compared to the same period last year
@@ -153,7 +154,7 @@ const HomeScreen: React.FC = () => {
           Last payment
         </TextV>
         <TextV style={styles.compareContainer}>
-          $0.00
+          ${apiResponse?.lastPayment}
         </TextV>
       </View>
       <VerifyEmail/>
