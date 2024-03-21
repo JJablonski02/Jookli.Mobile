@@ -52,7 +52,7 @@ const PaymentsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
         },
       });
       setApiResponse(response.data); 
-
+      console.log(response.data);
     } catch (error) {
       console.error('Błąd pobierania danych z API', error);
     }
@@ -77,7 +77,7 @@ const PaymentsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
         <View style={styles.container}>
           <TextV style={styles.headerStyleContainer}>Your earnings</TextV>
-          <TextV style={styles.subHeaderContainer}>$0.00</TextV>
+          <TextV style={styles.subHeaderContainer}>${apiResponse?.total}</TextV>
           <ProgressBar
             color={Colors.active}
             progress={1}
