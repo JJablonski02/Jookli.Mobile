@@ -110,32 +110,32 @@ const isFirstNameValid = (text: string) => {
 
   
 interface PaymentDetails {
-    FirstName: string;
-    LastName: string;
-    Street: string;
-    HouseNumber: string;
-    ZipCode: string;
-    City: string;
-    StateRegion: string;
-    Currency: string;
-    Country: string;
+    firstName: string;
+    lastName: string;
+    street: string;
+    houseNumber: string;
+    zipCode: string;
+    city: string;
+    stateRegion: string;
+    currency: string;
+    country: string;
   }
 
   export const ValidatePaymentsComponent : (paymentDetails : PaymentDetails) => string | null = (paymentDetails) =>{
     switch (true) {
-      case !isFirstNameValid(paymentDetails.FirstName):
+      case !isFirstNameValid(paymentDetails.firstName):
         return "First name is not valid";
-      case !isLastNameValid(paymentDetails.LastName):
+      case !isLastNameValid(paymentDetails.lastName):
         return "Last name is not valid";
-      case !isStreetValid(paymentDetails.Street):
+      case !isStreetValid(paymentDetails.street):
         return "Street is not valid";
-      case !isHouseNumberValid(paymentDetails.HouseNumber):
+      case !isHouseNumberValid(paymentDetails.houseNumber):
         return "House number is not valid";
-      case !isZipCodeValid(paymentDetails.ZipCode):
+      case !isZipCodeValid(paymentDetails.zipCode):
         return "Zip code is not valid";
-      case !isCityValid(paymentDetails.City):
+      case !isCityValid(paymentDetails.city):
         return "City is not valid";
-      case !isStateRegionValid(paymentDetails.StateRegion):
+      case !isStateRegionValid(paymentDetails.stateRegion):
         return "State or region is not valid";
       default:
         return null;

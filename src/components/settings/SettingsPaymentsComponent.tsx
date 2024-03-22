@@ -13,21 +13,28 @@ import CommonCurrencies from "../../../locales/options/commonCurrencies.json";
 import { ValidatePaymentsComponent } from "../../common/FieldValidatorProvider";
 import TextV from "../global/Text";
 import { SettingsSafeView } from "./nestedComponents/SettingsSafeView";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../redux/store/store";
+import { postPaymentReceiver } from "../../api/endpoints/api-useraccess-service";
+import { NotifyError, NotifySuccess } from "../notifications/Notify";
+import { Loader } from "../global/Loader";
+import * as SecureStore from 'expo-secure-store';
 
 interface CommonData {
   label: string;
   value: string;
-};
+}
 interface paymentDetails {
-  FirstName: string;
-  LastName: string;
-  Street: string;
-  HouseNumber: string;
-  ZipCode: string;
-  City: string;
-  StateRegion: string;
-  Currency: string;
-  Country: string;
+  firstName: string;
+  lastName: string;
+  street: string;
+  houseNumber: string;
+  zipCode: string;
+  city: string;
+  stateOrRegion: string;
+  currency: string;
+  country: string;
 }
 
 //Fetching data from json file
@@ -36,85 +43,164 @@ const fetchCountryData = () => {
     return {
       label: item.country,
       value: item.country,
-    }
+    };
   });
   return data;
 };
 
 const fetchCurrencyData = () => {
-  const currencyNames: CommonData[] = Object.values(CommonCurrencies).map((item: any) => {
-    return{
-      label: item.name,
-      value: item.name,
+  const currencyNames: CommonData[] = Object.values(CommonCurrencies).map(
+    (item: any) => {
+      return {
+        label: item.name,
+        value: item.name,
+      };
     }
-  });
+  );
   return currencyNames;
 };
-  
-
 
 const SettingsPaymentsComponent: React.FC = () => {
-const [countryData, setCountryData] = React.useState<CommonData[]>([]);
-const [currencyData, setCurrencyData] = React.useState<CommonData[]>([]);
+  const [countryData, setCountryData] = React.useState<CommonData[]>([]);
+  const [currencyData, setCurrencyData] = React.useState<CommonData[]>([]);
+  const dispatch = useDispatch();
+  const {isLoading} = useSelector((state: any) => state.appState);
+
+  const [paymentDetails, setPaymentDetails] = React.useState<paymentDetails>({
+    firstName: "",
+    lastName: "",
+    street: "",
+    houseNumber: "",
+    zipCode: "",
+    city: "",
+    stateOrRegion: "",
+    currency: "",
+    country: "",
+  });
 
   useEffect(() => {
     const data = fetchCountryData();
     setCountryData(data);
     const currency = fetchCurrencyData();
     setCurrencyData(currency);
+
+    const fetchData = async () => {
+      dispatch(setLoading(true));
+      const token = await SecureStore.getItemAsync('accessToken')
+
+      try {
+        const response = await axios.get<paymentDetails>("/api/userSettings/paymentReceiver", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if(response.data !== null){
+          setPaymentDetails(response.data);
+          console.log(paymentDetails.city)
+        }
+        dispatch(setLoading(false));  
+      } catch (exception) {
+        console.log(exception);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const [paymentDetails, setPaymentDetails] = React.useState<paymentDetails>({
-    FirstName: "",
-    LastName: "",
-    Street: "",
-    HouseNumber: "",
-    ZipCode: "",
-    City: "",
-    StateRegion: "",
-    Currency: "",
-    Country: "",
-  });
+  const handleOnPress= async () => {
+    var message = ValidatePaymentsComponent(paymentDetails);
+    console.log('hello')
+    if(!message){
+      await postPaymentReceiver(paymentDetails);
+      NotifySuccess("Operation succeeded", "Payment receiver details saved successfully");
+    }else{
+      NotifyError("Operation failed", message);
+    }
+  }
 
   return (
     <SettingsSafeView>
       <View style={styles.container}>
-      <TextV style={styles.title}>Payment receiver</TextV>
-      <TextV style={styles.description}>
-        Add your billing details to receive payments
-      </TextV>
-      <SettingsTextInput
-      placeholder="First Name"
-      maxLength={50}
-      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, FirstName: text})}/>
-      <SettingsTextInput
-      placeholder="Last Name"
-      maxLength={50}
-      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, LastName: text})}/>
-      <SettingsTextInput
-      placeholder="Street"
-      maxLength={50}
-      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, Street: text})}/>
-      <SettingsTextInput
-      placeholder="House number"
-      maxLength={50}
-      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, HouseNumber: text})}/>
-      <SettingsTextInput
-      placeholder="Zip Code"
-      maxLength={16}
-      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, ZipCode: text})}/>
-      <SettingsTextInput
-      placeholder="City"
-      maxLength={50}
-      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, City: text})}/>
-      <SettingsTextInput
-      placeholder="State or region"
-      maxLength={50}
-      onChangeText={(text: string) => setPaymentDetails({...paymentDetails, StateRegion: text})}/>
-      <SettingsDropdown placeholder="Select country" label="Country" dataSource={countryData}/>
-      <SettingsDropdown placeholder="Select currency" label="Currency" dataSource={currencyData}/>
-      <SettingsButtonSave onPress={() => ValidatePaymentsComponent(paymentDetails)} />
+        <TextV style={styles.title}>Payment receiver</TextV>
+        <TextV style={styles.description}>
+          Add your billing details to receive payments
+        </TextV>
+        <SettingsTextInput
+          placeholder="First Name"
+          maxLength={50}
+          onChangeText={(text: string) =>
+            setPaymentDetails({ ...paymentDetails, firstName: text })
+          }
+          defaultText={paymentDetails.firstName}
+        />
+        <SettingsTextInput
+          placeholder="Last Name"
+          maxLength={50}
+          onChangeText={(text: string) =>
+            setPaymentDetails({ ...paymentDetails, lastName: text })
+          }
+          defaultText={paymentDetails.lastName}
+        />
+        <SettingsTextInput
+          placeholder="Street"
+          maxLength={50}
+          onChangeText={(text: string) =>
+            setPaymentDetails({ ...paymentDetails, street: text })
+          }
+          defaultText={paymentDetails.street}
+        />
+        <SettingsTextInput
+          placeholder="House number"
+          maxLength={50}
+          onChangeText={(text: string) =>
+            setPaymentDetails({ ...paymentDetails, houseNumber: text })
+          }
+          defaultText={paymentDetails.houseNumber}
+        />
+        <SettingsTextInput
+          placeholder="Zip Code"
+          maxLength={16}
+          onChangeText={(text: string) =>
+            setPaymentDetails({ ...paymentDetails, zipCode: text })
+          }
+          defaultText={paymentDetails.zipCode}
+        />
+        <SettingsTextInput
+          placeholder="City"
+          maxLength={50}
+          onChangeText={(text: string) =>
+            setPaymentDetails({ ...paymentDetails, city: text })
+          }
+          defaultText={paymentDetails.city}
+        />
+        <SettingsTextInput
+          placeholder="State or region"
+          maxLength={50}
+          onChangeText={(text: string) =>
+            setPaymentDetails({ ...paymentDetails, stateOrRegion: text })
+          }
+          defaultText={paymentDetails.stateOrRegion}
+        />
+        <SettingsDropdown
+          placeholder="Select country"
+          label="Country"
+          dataSource={countryData}
+          selectedValue={(text: string) =>setPaymentDetails({...paymentDetails, country: text})}
+        />
+        <SettingsDropdown
+          placeholder="Select currency"
+          label="Currency"
+          dataSource={currencyData}
+          selectedValue={(text: string) =>setPaymentDetails({...paymentDetails, currency: text})}
+        />
+        <SettingsButtonSave
+          onPress={() => handleOnPress()}
+            
+        />
       </View>
+      {(isLoading) ?  
+            <Loader/>
+             : null}
     </SettingsSafeView>
   );
 };

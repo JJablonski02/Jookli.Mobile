@@ -6,28 +6,18 @@ import FontSize from "../../../constants/FontSize";
 import {NotifyError} from "../../notifications/Notify";
 import TextV from "../../global/Text";
 interface Props {
-    onPress?: () => string | null;
+    onPress?: () => void;
 };
 
 const SettingsButtonSave : React.FC<Props> = ({onPress}) => {
     const [message, setMessage] = React.useState<string | null>();
 
-    const handleOnPress = async () => {
-        if(onPress){
-            const result = onPress();
-            setMessage(result);
-            
-            if(result !== null){
-                NotifyError("Error", result);
-            }
-        }
-    };
+
 
     return (
     <View style={styles.container}>
         <TouchableOpacity 
-        style={Platform.OS === "ios" ? styles.buttonIos : styles.buttonAndroid}
-        onPress={handleOnPress}>
+        style={Platform.OS === "ios" ? styles.buttonIos : styles.buttonAndroid} onPress={onPress}>
             <TextV style={styles.textContainer}>Save</TextV>
         </TouchableOpacity>
     </View>

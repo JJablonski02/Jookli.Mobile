@@ -7,10 +7,11 @@ interface SettingsTextInputVProps extends TextInputProps {
   containerStyle?: StyleProp<ViewStyle>;
   placeholder: string;
   onChangeText: (text: string) => void;
+  defaultText?: string;
   error?: boolean;
 }
 
-const SettingsTextInput : React.FC<SettingsTextInputVProps> = ({ containerStyle, placeholder, onChangeText, error, ...props }) => {
+const SettingsTextInput : React.FC<SettingsTextInputVProps> = ({ containerStyle, placeholder, onChangeText, defaultText, error, ...props }) => {
     const [isFocued, setIsFocused] = useState(false);
     const [text, setText] = useState<string>('');
     const [showPassword, setShowPassword] = useState(props.secureTextEntry);
@@ -37,12 +38,28 @@ const SettingsTextInput : React.FC<SettingsTextInputVProps> = ({ containerStyle,
         }
     };
 
+    useEffect(() => {
+      if(defaultText){
+        handleOnChangeText(defaultText);
+        console.log(defaultText);
+        defaultLabel(1);
+      }
+    }, [defaultText]);
+
     const animatedLabel = (toValue : number) => {
         Animated.timing(labelPosition, {
             toValue,
             duration: 400,
             useNativeDriver: false,
         }).start();
+    }
+
+    const defaultLabel = (toValue : number) => {
+      Animated.timing(labelPosition,{
+        toValue,
+        useNativeDriver: false,
+        duration: 0,
+      }).start();
     }
 
     const labelStyle = {

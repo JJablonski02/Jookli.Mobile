@@ -6,6 +6,7 @@ import {RegisterUserDTO} from '@api'
 import { ValidateLoginScreen } from '../common/FieldValidatorProvider';
 import { REACT_APP_API_URL } from '@env';
 import { NotifyError } from '../components/notifications/Notify';
+import * as SecureStore from 'expo-secure-store';
 
 interface UserInfo {
   access_token: string;
@@ -49,7 +50,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
       let userInfo = res.data as UserInfo;
       setUserInfo(userInfo);
       await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-
+    
       return res;
     }
     catch(e){
@@ -61,7 +62,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
   ///Login with email and password
   const login = async (email: string, password: string) : Promise<any> => {
     setSplashLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    //await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const params = new URLSearchParams();
       params.append('client_id', 'ro.client');
@@ -72,10 +73,10 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
       params.append('password', password);
 
 await axios.post('/connect/token', params)
-    .then((res) => {
+    .then(async (res) => {
       let userInfo = res.data as UserInfo;
       setUserInfo(userInfo);
-      AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+      await SecureStore.setItemAsync('accessToken', userInfo.access_token);
 
       setSplashLoading(false);
     })

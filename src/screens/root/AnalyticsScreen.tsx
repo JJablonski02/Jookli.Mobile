@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import { SafeAreaView, View, StyleSheet } from "react-native";
 import TextV from "../../components/global/Text";
+
 import {BarChart, LineChart, PieChart} from 'react-native-gifted-charts';
 import Colors from "../../constants/Colors";
 import Spacing from "../../constants/Spacing";

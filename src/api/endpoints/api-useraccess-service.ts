@@ -2,7 +2,12 @@ import { API } from "../core/api-connection";
 import axios from "axios";
 import {RegisterUserDTO} from '@api';
 import { REACT_APP_API_URL } from "@env";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from 'expo-secure-store';
 
+async function getAccessToken(){
+    return await SecureStore.getItemAsync('accessToken');
+}
 
 //Sends request on user register
 export const registerUser = async (userModel: RegisterUserDTO) => {
@@ -32,5 +37,19 @@ export const getSettingsOnLogin = async () => {
     }
     catch(error){
         console.error('Get settings on login failed', error);
+    }
+}
+
+export const postPaymentReceiver: (paymentReceiver: any) => Promise<void> = async (paymentReceiver: any) =>{
+    try{
+        const token = await getAccessToken();
+        const response = await axios.post(`api/userSettings/paymentReceiver`, paymentReceiver, {
+            headers:{
+                Authorization: `Bearer ${token}`,
+            }
+        });
+        return response.data;
+    }catch(error){
+        console.error('Post payment receiver failed', error);
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
     View, 
     StyleSheet, 
@@ -11,7 +11,10 @@ import TextV from '../global/Text';
 
 
 const SettingsProfileComponent : React.FC = () => {
-    return(
+
+
+
+  return(
         <View style={styles.profile}>
           <View style={styles.profileHeader}>
             <Image

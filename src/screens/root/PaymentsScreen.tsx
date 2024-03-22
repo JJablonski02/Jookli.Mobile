@@ -21,6 +21,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, setLoading } from "../../redux/store/store";
 import { Loader } from "../../components/global/Loader";
+import * as SecureStore from 'expo-secure-store';
 
 type Props = NativeStackScreenProps<RootStackParamList, "Payments">;
 
@@ -42,10 +43,7 @@ const PaymentsScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
 
   const fetchData = async () => {
     try {
-      const userInfoString = await AsyncStorage.getItem('userInfo');
-      const userInfo = JSON.parse(userInfoString || '{}');
-      const token = userInfo.access_token;
-
+      const token = await SecureStore.getItemAsync('accessToken')
       const response = await axios.get<PaymentsScreenDTO>('/api/payments/paymentScreen', {
         headers: {
           Authorization: `Bearer ${token}`,

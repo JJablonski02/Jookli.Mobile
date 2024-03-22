@@ -17,7 +17,6 @@ import {
   import { NativeStackScreenProps } from "@react-navigation/native-stack";
   import { RootStackParamList } from "../../types";
   import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import VerifyEmail from "../../components/VerifyEmail";
 import SelfAdditionalInformations from "../../components/SelfAdditionalInformations";
 import { useNavigation } from "@react-navigation/native";
@@ -27,6 +26,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, setLoading } from "../../redux/store/store";
 import { ActivityIndicator } from "react-native";
 import { Loader } from "../../components/global/Loader";
+import * as SecureStore from 'expo-secure-store';
 
 type AuthProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -40,27 +40,25 @@ interface MainPageDTO {
   previous7DaysEarnings: number;
   previous7DaysEarningsPercentage: number;
   thisMonthEarnings: number;
-  previousMonthEarnings: number;
-  previousMonthEarningsPercentage: number;
+  lastMonthEarnings: number;
+  lastMonthEarningsPercentage: number;
   balance: number;
   lastPayment: number;
 };
 
 const HomeScreen: React.FC = () => {
-  const {isLoading} = useSelector((state : RootState) => state.appState);
   const dispatch = useDispatch();
   const [setToday, today] = useState<string>("");
 
   const [apiResponse, setApiResponse] = useState<MainPageDTO>();
+  const {isLoading} = useSelector((state : RootState) => state.appState);
 
   const [refreshing, setRefreshing] = React.useState(false);
 
 
   const fetchData = async () => {
     try {
-      const userInfoString = await AsyncStorage.getItem('userInfo');
-      const userInfo = JSON.parse(userInfoString || '{}');
-      const token = userInfo.access_token;
+      const token = await SecureStore.getItemAsync('accessToken')
 
       const response = await axios.get<MainPageDTO>('/api/details/mainPage', {
         headers: {
@@ -137,7 +135,7 @@ const HomeScreen: React.FC = () => {
         </TextV>
         <TextV style={styles.compareContainer}>
           <Ionicons name='caret-forward' size={10} color="black" />
-          ${apiResponse?.previousMonthEarnings} ({apiResponse?.previousMonthEarningsPercentage}%)
+          ${apiResponse?.lastMonthEarnings} ({apiResponse?.lastMonthEarningsPercentage}%)
         </TextV>
         <TextV style={styles.compareContainer}>
             compared to the same period last year

@@ -35,7 +35,8 @@
     },
     "owner": "jjablonski02",
     "plugins": [
-      "expo-localization"
+      "expo-localization",
+      "expo-secure-store"
     ]
   }
 }
