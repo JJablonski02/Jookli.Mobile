@@ -13,9 +13,10 @@ interface Props {
     label?: string;
     dataSource?: DataSource[];
     selectedValue?: (text: string) => void;
+    defaultValue?: string;
 }
 
-const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource, selectedValue}) => {    
+const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource, selectedValue, defaultValue}) => {    
     return (
         <View>
             <TextV style={labelStyles.labelStyle}>{label}</TextV>
@@ -26,6 +27,7 @@ const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource, sel
                 style={{
                     ...pickerSelectStyles,
                 }}
+                value={defaultValue}
                 useNativeAndroidPickerStyle={false}
                 Icon={() => {
                     return <Ionicons name="chevron-down" size={24}/>;

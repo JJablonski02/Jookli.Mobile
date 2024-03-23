@@ -41,7 +41,6 @@ const SettingsTextInput : React.FC<SettingsTextInputVProps> = ({ containerStyle,
     useEffect(() => {
       if(defaultText){
         handleOnChangeText(defaultText);
-        console.log(defaultText);
         defaultLabel(1);
       }
     }, [defaultText]);

@@ -29,8 +29,8 @@ export const loginUser = async (email: string, password: string) => {
     }
 }
 
-//Downloads settings when user sings in
-export const getSettingsOnLogin = async () => {
+//Downloads settings when user signs in
+export const getSettingsOnLogin:  () => Promise<any> = async () => {
     try{
         const response = await axios.get(`${REACT_APP_API_URL}/api/useraccess/userSettings`);
         return response.data;
@@ -40,16 +40,21 @@ export const getSettingsOnLogin = async () => {
     }
 }
 
-export const postPaymentReceiver: (paymentReceiver: any) => Promise<void> = async (paymentReceiver: any) =>{
+export const getAnalyticsData: (dateFilter : string) => Promise<any> = async (dateFilter) => {
     try{
         const token = await getAccessToken();
-        const response = await axios.post(`api/userSettings/paymentReceiver`, paymentReceiver, {
+        const response = await axios.get(`api/useraccess/analytics`, {
+            params:{
+                dateFilter: dateFilter
+            },
             headers:{
                 Authorization: `Bearer ${token}`,
             }
         });
         return response.data;
     }catch(error){
-        console.error('Post payment receiver failed', error);
+        console.error('Get analytics data failed', error);
     }
 }
+
+

@@ -116,7 +116,7 @@ interface PaymentDetails {
     houseNumber: string;
     zipCode: string;
     city: string;
-    stateRegion: string;
+    stateOrRegion: string;
     currency: string;
     country: string;
   }
@@ -135,7 +135,7 @@ interface PaymentDetails {
         return "Zip code is not valid";
       case !isCityValid(paymentDetails.city):
         return "City is not valid";
-      case !isStateRegionValid(paymentDetails.stateRegion):
+      case !isStateRegionValid(paymentDetails.stateOrRegion):
         return "State or region is not valid";
       default:
         return null;
@@ -165,27 +165,25 @@ interface PaymentDetails {
   };
 
   interface NotificationProps{
-    TaskCompleted: boolean;
-    TransferConfirmation: boolean;
-    NewRegistration: boolean;
-    MoneyFromReferral: boolean;
-    OccasionalEvents: boolean;
+    taskCompleted: boolean;
+    transferConfirmation: boolean;
+    referralRegistration: boolean;
+    referralMoneyMade: boolean;
+    occasionalEvents: boolean;
   };
   
   export const ValidatePrivacyNotificationsComponent : (notificationProps : NotificationProps) => string | null = (notificationProps) =>{
-    console.log(notificationProps);
     return null;
   }
 
   interface ReceivingMessagesProps{
-    PersonalizedHelp: boolean;
-    PeriodicNewsletters: boolean;
-    OccasionalSurveys: boolean;
-    SpecialOffers: boolean;
+    personalizedHelp: boolean;
+    periodicNewsletters: boolean;
+    occasionalSurveys: boolean;
+    specialOffers: boolean;
   };
 
   export const ValidatePrivacyMessagesComponent : (receivingMessagesProps : ReceivingMessagesProps) => string | null = (receivingMessagesProps) =>{
-    console.log(receivingMessagesProps);
     return null;
   };
 

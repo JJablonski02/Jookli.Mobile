@@ -16,10 +16,10 @@ import { SettingsSafeView } from "./nestedComponents/SettingsSafeView";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../redux/store/store";
-import { postPaymentReceiver } from "../../api/endpoints/api-useraccess-service";
 import { NotifyError, NotifySuccess } from "../notifications/Notify";
 import { Loader } from "../global/Loader";
 import * as SecureStore from 'expo-secure-store';
+import { getPaymentReceiver, postPaymentReceiver } from "../../api/endpoints/apu-usersettings-service";
 
 interface CommonData {
   label: string;
@@ -85,21 +85,15 @@ const SettingsPaymentsComponent: React.FC = () => {
     setCurrencyData(currency);
 
     const fetchData = async () => {
-      dispatch(setLoading(true));
-      const token = await SecureStore.getItemAsync('accessToken')
-
       try {
-        const response = await axios.get<paymentDetails>("/api/userSettings/paymentReceiver", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if(response.data !== null){
-          setPaymentDetails(response.data);
-          console.log(paymentDetails.city)
-        }
+        dispatch(setLoading(true));
+
+        const response = await getPaymentReceiver();
+        setPaymentDetails(response);
+
         dispatch(setLoading(false));  
       } catch (exception) {
+        
         console.log(exception);
       }
     };
@@ -109,7 +103,6 @@ const SettingsPaymentsComponent: React.FC = () => {
 
   const handleOnPress= async () => {
     var message = ValidatePaymentsComponent(paymentDetails);
-    console.log('hello')
     if(!message){
       await postPaymentReceiver(paymentDetails);
       NotifySuccess("Operation succeeded", "Payment receiver details saved successfully");
@@ -186,12 +179,14 @@ const SettingsPaymentsComponent: React.FC = () => {
           label="Country"
           dataSource={countryData}
           selectedValue={(text: string) =>setPaymentDetails({...paymentDetails, country: text})}
+          defaultValue={paymentDetails.country}
         />
         <SettingsDropdown
           placeholder="Select currency"
           label="Currency"
           dataSource={currencyData}
           selectedValue={(text: string) =>setPaymentDetails({...paymentDetails, currency: text})}
+          defaultValue={paymentDetails.currency}
         />
         <SettingsButtonSave
           onPress={() => handleOnPress()}
