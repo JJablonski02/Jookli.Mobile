@@ -27,6 +27,7 @@ import { RootState, setLoading } from "../../redux/store/store";
 import { ActivityIndicator } from "react-native";
 import { Loader } from "../../components/global/Loader";
 import * as SecureStore from 'expo-secure-store';
+import { getMainPageData } from "../../api/endpoints/api-useraccess-service";
 
 type AuthProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -57,21 +58,8 @@ const HomeScreen: React.FC = () => {
 
 
   const fetchData = async () => {
-    try {
-      const token = await SecureStore.getItemAsync('accessToken')
-
-      const response = await axios.get<MainPageDTO>('/api/details/mainPage', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setApiResponse(response.data);
-      const todayEarnings = response.data.todayEarnings;
-
-    } catch (error) {
-      console.error('Błąd pobierania danych z API', error);
-    }
+    var response = await getMainPageData();
+    setApiResponse(response);
   };
  
   const onRefresh = React.useCallback(async () => {
