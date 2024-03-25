@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
       marginRight: Spacing / 2,
       marginTop: Spacing,
       paddingBottom: Spacing * 2,
-      backgroundColor: 'white',
+      backgroundColor: Colors.background,
       borderRadius: 5,
       paddingLeft: Spacing,
       paddingTop: Spacing,
