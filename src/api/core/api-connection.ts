@@ -11,3 +11,8 @@ const requestOptions = readonly({
 })
 
 export const API = axios.create(requestOptions);
+
+export const configureAxios = () => {
+    axios.defaults.baseURL = baseUrl;
+    axios.defaults.timeout = 5000;
+}
