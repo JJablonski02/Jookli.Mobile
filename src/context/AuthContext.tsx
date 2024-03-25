@@ -77,7 +77,8 @@ await axios.post('/connect/token', params)
       let userInfo = res.data as UserInfo;
       setUserInfo(userInfo);
       await SecureStore.setItemAsync('accessToken', userInfo.access_token);
-
+      await SecureStore.setItemAsync('email', email);
+      
       setSplashLoading(false);
     })
     .catch((e) => {
