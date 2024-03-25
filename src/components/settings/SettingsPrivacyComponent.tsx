@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Settings,
+  Appearance,
 } from "react-native";
 import SettingsVerifyEmail from "./nestedComponents/SettingsVerifyEmail";
 import Spacing from "../../constants/Spacing";
@@ -23,7 +24,7 @@ import { isEnabled } from "react-native/Libraries/Performance/Systrace";
 import TextV from "../global/Text";
 import { SettingsSafeView } from "./nestedComponents/SettingsSafeView";
 import { NotifyError, NotifySuccess } from "../notifications/Notify";
-import { getPrivacySettings, postContactDataSettings, postNotificationsSettings, postReceivingMessagesSettings } from "../../api/endpoints/apu-usersettings-service";
+import { getPrivacySettings, postContactDataSettings, postNotificationsSettings, postReceivingMessagesSettings } from "../../api/endpoints/api-usersettings-service";
 import { Loader } from "../global/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../redux/store/store";
