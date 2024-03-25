@@ -2,7 +2,7 @@ import { DefaultTheme, NavigationContainer, useNavigation } from "@react-navigat
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import react, {useEffect, useContext} from "react";
 import Colors from "../constants/Colors";
-import LoginScreen from "../screens/auth/LoginScreen";
+import SignInScreen from "../screens/auth/SignInScreen";
 import RegisterScreen from "../screens/auth/RegisterScreen";
 import RecoverPasswordScreen from "../screens/auth/RecoverPasswordScreen";
 import HomeScreen from "../screens/root/HomeScreen";
@@ -75,7 +75,7 @@ return (
           headerShown: false,
         }}>
           <Stack.Screen name="Welcome" component={WelcomeScreen}/>
-          <Stack.Screen name='Login' component={LoginScreen}/>
+          <Stack.Screen name='SignIn' component={SignInScreen}/>
           <Stack.Screen name="Register"component={RegisterScreen}/>
           <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
           <Stack.Screen name="PersonalData" component={PersonalDataScreen}/>
@@ -88,9 +88,6 @@ return (
 
 
 const InnerNavigation : React.FC<InnerNavigationProps> = ({handleSignOut}) => {
-  const handleHeader = () => {
-
-  };
 
   return (
     <Drawer.Navigator
