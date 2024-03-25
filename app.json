@@ -12,11 +12,12 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/images/*"
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.JoyProfits.application"
+      "bundleIdentifier": "com.JoyProfits.application",
+      "softwareKeyboardLayoutMode": "pan"
     },
     "android": {
       "adaptiveIcon": {
