@@ -86,15 +86,15 @@ const isFirstNameValid = (text: string) => {
     return onlyLetters.test(phoneNumber);
   };
 
-  const isUserNameValid = (text: string) => {
-    const userName = text;
+  const isEmailAddressValid = (text: string) => {
+    const emailAddress = text;
 
-    if(!userName){
+    if(!emailAddress){
       return false;
     }
 
     const emailFormat = /\S+@\S+\.\S+/;
-    return emailFormat.test(userName);
+    return emailFormat.test(emailAddress);
   };
 
   const isPasswordValid = (text: string) => {
@@ -194,7 +194,7 @@ interface PaymentDetails {
 
   export const ValidateLoginScreen: (loginProps : LoginProps) => string | null = (loginProps) =>{
     switch(true){
-      case !isUserNameValid(loginProps.username):
+      case !isEmailAddressValid(loginProps.username):
         return "Email is not valid";
       case !isPasswordValid(loginProps.password):
         return "Password is not valid";
@@ -211,7 +211,7 @@ interface PaymentDetails {
 
   export const ValidateRegisterScreen: (user : RegisterProps) => string | null = (user) =>{
     switch(true){
-      case !isUserNameValid(user.email):
+      case !isEmailAddressValid(user.email):
         return "Email is not valid";
       case !isPasswordValid(user.password):
         return "Password is not valid";
@@ -221,4 +221,22 @@ interface PaymentDetails {
         return null;
     }
   };
+
+  export const ValidateChangeEmailAddress: (email: string) => string | null = (email) =>{
+    switch(true){
+      case !isEmailAddressValid(email):
+        return "Email is not valid";
+      default:
+        return null;
+    }
+  };
+
+  export const ValidateRecoverEmailAddress: (email: string) => string | null = (email) =>{
+    switch(true){
+      case !isEmailAddressValid(email):
+        return "Email is not valid";
+      default:
+        return null;
+    }
+  }
   
