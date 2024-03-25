@@ -16,8 +16,7 @@ import {
   RegularButtonSmall,
 } from "../../components/RegularButton";
 import { SafeView } from "../../components/global/SafeView";
-import { useTranslation } from "react-i18next";
-import { withTranslation } from 'react-i18next';
+import AppTextInput from "../../components/AppTextInput";
 
 const { height } = Dimensions.get("window");
 
@@ -37,19 +36,16 @@ const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
       </View>
       <View style={{flex: 1, justifyContent: 'flex-end'}}>
         <View style={styles.twoButtonsContainer}>
-          <RegularButtonBig label="Sign In" onPress={() => navigate("Login")} />
+          <RegularButtonBig label="Sign In" onPress={() => navigate("SignIn")} />
           <Text>Do not have an account ?</Text>
-          <RegularButtonBig
-            label="Register"
-            onPress={() => navigate("Register")}
-          />
+          <RegularButtonBig label="Register"onPress={() => navigate("Register")} />
         </View>
         </View>
     </SafeView>
   );
 };
 
-export default withTranslation()(WelcomeScreen);
+export default WelcomeScreen;
 
 const styles = StyleSheet.create({
   image: {
