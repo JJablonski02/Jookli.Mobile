@@ -20,7 +20,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import AppTextInput from "../../components/AppTextInput";
 import { RegisterUserDTO } from "@api";
-import LoginScreen from "./LoginScreen";
+import LoginScreen from "./SignInScreen";
 import GoogleButton from "../../components/GoogleButton";
 import AppleButton from "../../components/AppleButton.android";
 import MicrosoftButton from "../../components/MicrosoftButton.android";
@@ -65,7 +65,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           }}
         >
           <SmallCornerButton
-            navigation={() => navigate("Login")}
+            navigation={() => navigate("SignIn")}
             label="Login"
           />
         </View>
@@ -130,6 +130,8 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             onChangeText={(text) =>
               setUser((prevUser) => ({ ...prevUser, password: text }))
             }
+            textContentType="oneTimeCode"
+            autoComplete="off"
           />
           <AppTextInput
             placeholder="Confirm Password"
@@ -137,6 +139,8 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             onChangeText={(text) =>
               setUser((prevUser) => ({ ...prevUser, confirmPassword: text }))
             }
+            textContentType="oneTimeCode"
+            autoComplete="off"
           />
           <RegularButtonBig
             label="Move on"
