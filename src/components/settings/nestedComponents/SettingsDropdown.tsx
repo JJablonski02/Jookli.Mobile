@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import {View, StyleSheet, Platform} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import TextV from '../../global/Text';
 import { moderateScale } from '../../../constants/FontSize';
 import Picker from 'react-native-picker-select';
+import { use } from 'i18next';
 
 type DataSource = { label: string, value: string};
 
@@ -17,17 +18,33 @@ interface Props {
 }
 
 const SettingsDropdown : React.FC<Props> = ({placeholder, label, dataSource, selectedValue, defaultValue}) => {    
+const [defaultVal, setDefaultValue] = useState<string | null>();
+
+useEffect(() => {
+    if(defaultValue){
+        setDefaultValue(defaultValue);
+    
+    }
+}, [defaultValue]);
+
+const handleOnChange = (text: string) => {
+    if(selectedValue){
+        selectedValue(text);
+        setDefaultValue(text);
+    }    
+}
+
     return (
         <View>
             <TextV style={labelStyles.labelStyle}>{label}</TextV>
             <RNPickerSelect
                 placeholder={{label: placeholder ? placeholder : null, value: null, textStyle: {allowFontScaling: false}}}
-                onValueChange={(value : string) => selectedValue && selectedValue(value)}
+                onValueChange={(value : string) => handleOnChange(value)}
                 items={dataSource ? dataSource : []}
                 style={{
                     ...pickerSelectStyles,
                 }}
-                value={defaultValue}
+                value={defaultVal}
                 useNativeAndroidPickerStyle={false}
                 Icon={() => {
                     return <Ionicons name="chevron-down" size={24}/>;
