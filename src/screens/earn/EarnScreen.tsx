@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { EarnStackParamList } from "../../types";
-import { SafeAreaView, ScrollView, View, StyleSheet, Image } from "react-native";
+import { SafeAreaView, ScrollView, View, StyleSheet } from "react-native";
 import Spacing from "../../constants/Spacing";
 import FontSize from "../../constants/FontSize";
 import EarnButton from "../../components/EarnButton";
@@ -9,6 +9,7 @@ import TextV from "../../components/global/Text";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { DrawerActions } from '@react-navigation/native';
 import { useEffect } from "react";
+import { Image } from "expo-image";
 
 type Props = NativeStackScreenProps<EarnStackParamList, "Earn">;
 interface EarnScreenProps {
