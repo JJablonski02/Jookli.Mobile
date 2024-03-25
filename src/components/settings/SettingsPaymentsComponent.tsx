@@ -19,7 +19,7 @@ import { setLoading } from "../../redux/store/store";
 import { NotifyError, NotifySuccess } from "../notifications/Notify";
 import { Loader } from "../global/Loader";
 import * as SecureStore from 'expo-secure-store';
-import { getPaymentReceiver, postPaymentReceiver } from "../../api/endpoints/apu-usersettings-service";
+import { getPaymentReceiver, postPaymentReceiver } from "../../api/endpoints/api-usersettings-service";
 
 interface CommonData {
   label: string;
